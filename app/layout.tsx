@@ -102,16 +102,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className="dark" style={{ colorScheme: 'dark' }}>
       <head>
         <link rel="icon" href="/logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/logo.png" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} antialiased overflow-x-hidden`}>
+      <body
+        className={`${inter.variable} ${playfair.variable} antialiased overflow-x-hidden`}
+        style={{ backgroundColor: '#09090b', color: '#FAFAFA' }}
+      >
         <Header />
         <main>{children}</main>
         <Footer />
       </body>
-    </html >
+    </html>
   );
 }
