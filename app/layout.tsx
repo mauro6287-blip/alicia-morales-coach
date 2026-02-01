@@ -104,14 +104,14 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/logo.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <Header />
         <main>{children}</main>
         <Footer />
       </body>
-    </html>
+    </html >
   );
 }

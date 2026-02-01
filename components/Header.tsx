@@ -25,16 +25,23 @@ export default function Header() {
     return (
         <header
             className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isScrolled
-                    ? "bg-surface/95 shadow-md backdrop-blur-md"
-                    : "bg-transparent"
+                ? "bg-surface/95 shadow-md backdrop-blur-md"
+                : "bg-transparent"
                 }`}
         >
             <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
                 {/* Logo */}
                 <a
                     href="#hero"
-                    className="text-xl font-bold text-foreground transition-colors hover:text-primary"
+                    className="flex items-center gap-3 text-xl font-bold text-foreground transition-colors hover:text-primary"
                 >
+                    <div className="relative h-10 w-10 overflow-hidden rounded-full border border-primary/20">
+                        <img
+                            src="/logo.png"
+                            alt="Alicia Morales Logo"
+                            className="h-full w-full object-cover"
+                        />
+                    </div>
                     <span className="font-[family-name:var(--font-playfair)]">
                         Alicia Morales
                     </span>
