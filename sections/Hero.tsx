@@ -65,7 +65,8 @@ export default function Hero() {
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
                 <svg
-                    className="h-10 w-10 text-muted md:h-16 md:w-16"
+                    className="h-8 w-8 text-muted"
+                    style={{ width: '32px', height: '32px', maxWidth: '32px', maxHeight: '32px' }}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
