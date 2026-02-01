@@ -1,47 +1,52 @@
 @import "tailwindcss";
 
 /* ============================================
-   Alicia Morales Coach - Design Tokens
+   Alicia Morales Coach - Design Tokens (Dark & Gold)
    ============================================ */
 
 :root {
-  /* Primary Colors - Warm & Elegant */
-  --color-primary: #8B5A3C;
-  /* Warm brown */
-  --color-primary-light: #A67C5B;
-  --color-primary-dark: #6D4730;
+  /* Fondo Oscuro Profundo */
+  --color-background: #09090b;
+  /* Zinc 950 - Casi negro */
 
-  /* Accent Colors */
+  /* Texto Claro */
+  --color-foreground: #FAFAFA;
+  /* Zinc 50 - Blanco */
+  --color-muted: #A1A1AA;
+  /* Zinc 400 - Gris claro */
+
+  /* Acento Dorado */
+  --color-primary: #F59E0B;
+  /* Amber 500 - Dorado vibrante */
+  --color-primary-light: #FCD34D;
+  /* Amber 300 */
+  --color-primary-dark: #B45309;
+  /* Amber 700 */
+
+  /* Acento Secundario */
   --color-accent: #D4A574;
-  /* Gold/bronze */
   --color-accent-light: #E8C9A0;
   --color-accent-dark: #B88B5A;
 
-  /* Neutral Colors */
-  --color-background: #FDFBF9;
-  /* Warm white */
-  --color-foreground: #2C2420;
-  /* Dark brown */
-  --color-muted: #6B6259;
-  /* Muted text - more contrast */
-  --color-border: #E0D8D0;
-  /* Subtle borders */
+  /* Superficies (Tarjetas) */
+  --color-surface: #18181B;
+  /* Zinc 900 */
+  --color-surface-elevated: #27272A;
+  /* Zinc 800 */
 
-  /* Surface Colors */
-  --color-surface: #FFFFFF;
-  --color-surface-elevated: #FAF7F4;
-}
+  /* Bordes */
+  --color-border: #3F3F46;
+  /* Zinc 700 - Sutil */
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #1A1614;
-    --color-foreground: #F5F0EB;
-    --color-muted: #A09890;
-    --color-border: #3D3530;
-    --color-surface: #252220;
-    --color-surface-elevated: #2E2926;
-  }
+  /* Typography */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-playfair);
+
+  /* Fluid Typography (SKILL.md) */
+  --font-size-base: clamp(1rem, 2.5vw, 1.125rem);
+  --h1-size: clamp(2.5rem, 5vw, 4.5rem);
+  --h2-size: clamp(2rem, 4vw, 3rem);
+  --h3-size: clamp(1.5rem, 3vw, 2.25rem);
 }
 
 /* Tailwind v4 Theme Configuration */
@@ -77,6 +82,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Force dark styling on basic elements since we are "always dark" now */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-foreground);
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -92,8 +107,9 @@ html {
 
 /* Selection color */
 ::selection {
-  background-color: var(--color-accent-light);
-  color: var(--color-foreground);
+  background-color: var(--color-primary);
+  color: #000;
+  /* Black text on gold selection */
 }
 
 /* ============================================
@@ -110,6 +126,18 @@ h6 {
   letter-spacing: -0.02em;
 }
 
+h1 {
+  font-size: var(--h1-size) !important;
+}
+
+h2 {
+  font-size: var(--h2-size) !important;
+}
+
+h3 {
+  font-size: var(--h3-size) !important;
+}
+
 p {
   line-height: 1.75;
 }
@@ -119,7 +147,8 @@ p {
    ============================================ */
 
 .shadow-3xl {
-  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.5);
+  /* Darker shadow */
 }
 
 /* Pulse animation for CTAs */

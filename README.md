@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alicia Morales Coach 🌟
 
-## Getting Started
+Landing page profesional para servicios de coaching de desarrollo personal.
 
-First, run the development server:
+## Stack Tecnológico
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4
+- **Tipografías**: Inter + Playfair Display
+- **Deploy**: Export estático (Hostinger compatible)
+
+## Estructura del Proyecto
+
+```
+├── app/
+│   ├── layout.tsx        # Layout con SEO + Header/Footer
+│   ├── page.tsx          # Página principal
+│   └── globals.css       # Design tokens
+├── components/
+│   ├── Header.tsx        # Navegación sticky
+│   ├── Footer.tsx        # Footer con contacto
+│   └── ui/               # Componentes reutilizables
+├── sections/             # 10 secciones de landing
+│   ├── Hero.tsx
+│   ├── Problemas.tsx
+│   ├── PropuestaValor.tsx
+│   ├── Servicios.tsx
+│   ├── ComoTrabajo.tsx
+│   ├── ParaQuienEs.tsx
+│   ├── Resultados.tsx
+│   ├── SobreMi.tsx
+│   ├── Contacto.tsx
+│   └── CTAFinal.tsx
+└── public/
+    ├── robots.txt
+    └── sitemap.xml
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Comandos
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Desarrollo
+npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Build para producción
+npm run build
 
-## Learn More
+# Los archivos estáticos se generan en /out
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy en Hostinger
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Ejecutar `npm run build`
+2. Subir contenido de `/out` a `public_html`
+3. Configurar dominio y SSL
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Características
 
-## Deploy on Vercel
+- ✅ Diseño responsive
+- ✅ SEO optimizado
+- ✅ Formulario de contacto (mailto)
+- ✅ Animaciones suaves
+- ✅ Dark mode ready
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Versión**: 1.0.0  
+**Fecha**: Febrero 2026
