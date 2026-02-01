@@ -15,7 +15,7 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const siteUrl = "https://aliciamorales.com";
+const siteUrl = "https://aliciamoralescoach.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

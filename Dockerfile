@@ -4,5 +4,5 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-CMD [\
-npm\, \run\, \dev\]
+# Eliminamos las barras invertidas y usamos comillas dobles estándar
+CMD ["npm", "run", "dev"]
