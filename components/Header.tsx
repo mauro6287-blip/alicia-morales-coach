@@ -109,7 +109,7 @@ export default function Header() {
                 className={`overflow-hidden transition-all duration-300 md:hidden ${isMobileMenuOpen ? "max-h-96" : "max-h-0"
                     }`}
             >
-                <nav className="flex flex-col gap-2 bg-surface/95 px-6 pb-6 backdrop-blur-md">
+                <nav className="flex flex-col gap-4 bg-surface/95 px-6 pb-6 backdrop-blur-md">
                     {navLinks.map((link) => (
                         <a
                             key={link.href}
