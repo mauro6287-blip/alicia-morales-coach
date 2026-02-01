@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
 
 
-  // Trailing slash for better static hosting compatibility
-  trailingSlash: true,
+
 };
 
 export default nextConfig;
