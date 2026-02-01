@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alicia Morales | Coach Profesional",
+    title: "Alicia Morales Coach | Coach Profesional",
     description:
       "Transforma tu vida con acompañamiento experto. Coach certificada ICF.",
     images: ["/og-image.jpg"],
