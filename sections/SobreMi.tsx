@@ -6,15 +6,11 @@ export default function SobreMi() {
                     {/* Image placeholder */}
                     <div className="order-2 lg:order-1">
                         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20">
-                            {/* Placeholder for photo */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-center">
-                                    <div className="mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-primary/20 text-6xl">
-                                        👩‍💼
-                                    </div>
-                                    <p className="text-sm text-muted">Foto de Alicia</p>
-                                </div>
-                            </div>
+                            <img
+                                src="/images/alicia.png"
+                                alt="Alicia Morales - Coach"
+                                className="h-full w-full object-cover"
+                            />
 
                             {/* Decorative element */}
                             <div className="absolute -bottom-6 -right-6 h-48 w-48 rounded-2xl border-4 border-accent/30" />
