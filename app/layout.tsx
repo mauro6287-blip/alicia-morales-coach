@@ -107,7 +107,7 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/logo.png" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} antialiased overflow-x-hidden`}>
         <Header />
         <main>{children}</main>
         <Footer />

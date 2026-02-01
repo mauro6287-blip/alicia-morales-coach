@@ -29,13 +29,13 @@ export default function Header() {
                 : "bg-transparent"
                 }`}
         >
-            <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 md:px-6">
                 {/* Logo */}
                 <a
                     href="#hero"
-                    className="flex items-center gap-3 text-xl font-bold text-foreground transition-colors hover:text-primary"
+                    className="flex flex-shrink-0 items-center gap-2 text-lg font-bold text-foreground transition-colors hover:text-primary md:gap-3 md:text-xl"
                 >
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full border border-primary/20">
+                    <div className="relative h-8 w-8 overflow-hidden rounded-full border border-primary/20 md:h-10 md:w-10">
                         <img
                             src="/logo.png"
                             alt="Alicia Morales Logo"

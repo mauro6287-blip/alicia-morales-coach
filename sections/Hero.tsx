@@ -14,7 +14,8 @@ export default function Hero() {
                 </span>
 
                 {/* Main heading */}
-                <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+                {/* Main heading */}
+                <h1 className="mb-6 text-3xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
                     <span className="font-[family-name:var(--font-playfair)]">
                         Transforma tu vida
                     </span>
