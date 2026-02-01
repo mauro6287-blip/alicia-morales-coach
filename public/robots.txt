@@ -1,0 +1,8 @@
+# Robots.txt for Alicia Morales Coach
+# https://aliciamorales.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aliciamorales.com/sitemap.xml
