@@ -9,3 +9,4 @@ export { default as Resultados } from "./Resultados";
 export { default as SobreMi } from "./SobreMi";
 export { default as CTAFinal } from "./CTAFinal";
 export { default as Contacto } from "./Contacto";
+export { default as Valores } from "./Valores";

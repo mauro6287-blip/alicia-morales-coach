@@ -9,6 +9,7 @@ import {
   SobreMi,
   Contacto,
   CTAFinal,
+  Valores,
 } from "@/sections";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero />
       <Problemas />
       <PropuestaValor />
+      <Valores />
       <Servicios />
       <ComoTrabajo />
       <ParaQuienEs />
