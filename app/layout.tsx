@@ -83,6 +83,15 @@ export const metadata: Metadata = {
     // google: "your-google-verification-code",
   },
   category: "Coaching",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+    other: {
+      rel: "apple-touch-icon-precomposed",
+      url: "/logo.png",
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -103,10 +112,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark" style={{ colorScheme: 'dark' }}>
-      <head>
-        <link rel="icon" href="/logo.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/logo.png" />
-      </head>
       <body
         className={`${inter.variable} ${playfair.variable} antialiased overflow-x-hidden`}
         style={{ backgroundColor: '#09090b', color: '#FAFAFA' }}
