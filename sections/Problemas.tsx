@@ -32,16 +32,17 @@ export default function Problemas() {
                 {/* Header */}
                 <div className="mb-16 text-center">
                     <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-                        ¿Te suena familiar?
+                        NUESTRAS SOLUCIONES
                     </span>
                     <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
                         <span className="font-[family-name:var(--font-playfair)]">
-                            Esto no tiene que seguir así
+                            Programas de Transformación B2B
                         </span>
                     </h2>
                     <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted">
-                        Si alguno de estos puntos resuena contigo, no estás solo/a. Y lo más
-                        importante: <strong className="text-foreground">tiene solución</strong>.
+                        Soluciones personalizadas para organizaciones que buscan potenciar a
+                        sus profesionales a través del desarrollo de competencias clave y el
+                        coaching ontológico.
                     </p>
                 </div>
 
