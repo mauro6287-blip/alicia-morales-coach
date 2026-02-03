@@ -1,6 +1,6 @@
 const soluciones = [
     {
-        icon: "🎯",
+        icon: "🚀",
         titulo: "Habilidades Clave para el Futuro Laboral",
         descripcion:
             "Formación orientada al desarrollo de competencias transversales esenciales como adaptabilidad, flexibilidad y liderazgo.",
@@ -24,7 +24,7 @@ const soluciones = [
         ],
     },
     {
-        icon: "🔄",
+        icon: "🤝",
         titulo: "Outplacement Grupal y Re-inserción",
         descripcion:
             "Diseñado para empresas que buscan un proceso de transición laboral eficiente y digno para sus colaboradores.",
@@ -36,7 +36,7 @@ const soluciones = [
         ],
     },
     {
-        icon: "💼",
+        icon: "👔",
         titulo: "Coaching y Formación Ejecutiva",
         descripcion:
             "Asesoría y consultoría personalizada para empresas y organismos educacionales enfocada en el desarrollo de competencias profesionales.",
@@ -48,7 +48,7 @@ const soluciones = [
         ],
     },
     {
-        icon: "🎤",
+        icon: "🌟",
         titulo: "Mentorías y Charlas Motivacionales",
         descripcion:
             "Sesiones inspiradoras que impulsan la acción profesional y el desarrollo de habilidades clave para el mercado laboral.",
@@ -60,7 +60,7 @@ const soluciones = [
         ],
     },
     {
-        icon: "🌱",
+        icon: "🛠️",
         titulo: "Facilitación de Talleres",
         descripcion:
             "Espacios de aprendizaje activo que generan impacto inmediato en los participantes y sus organizaciones.",
@@ -99,21 +99,21 @@ export default function Problemas() {
                     {soluciones.map((solucion, index) => (
                         <div
                             key={index}
-                            className="group flex flex-col rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                            className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
                         >
-                            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-2xl text-primary">
+                            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-transparent text-4xl">
                                 {solucion.icon}
                             </div>
-                            <h3 className="mb-4 text-xl font-bold text-foreground">
+                            <h3 className="mb-4 text-xl font-bold text-white">
                                 {solucion.titulo}
                             </h3>
-                            <p className="mb-6 flex-grow text-sm leading-relaxed text-muted">
+                            <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-400">
                                 {solucion.descripcion}
                             </p>
 
                             <ul className="mb-8 space-y-3">
                                 {solucion.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-xs text-muted">
+                                    <li key={idx} className="flex items-start gap-2 text-xs text-gray-400">
                                         <span className="mt-0.5 text-primary">→</span>
                                         <span>{feature}</span>
                                     </li>
@@ -122,7 +122,7 @@ export default function Problemas() {
 
                             <a
                                 href="#contacto"
-                                className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+                                className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-light"
                             >
                                 Conocer más
                                 <span className="transition-transform group-hover:translate-x-1">→</span>
