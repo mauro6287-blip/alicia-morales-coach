@@ -44,7 +44,7 @@ export default function Hero() {
                             href="#contacto"
                             className="group rounded-full bg-primary px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl"
                         >
-                            Agenda tu Sesión Gratuita
+                            Agendar Consultoría
                             <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
                                 →
                             </span>
