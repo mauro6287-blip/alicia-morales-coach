@@ -33,9 +33,9 @@ export default function Hero() {
 
                     {/* Description */}
                     <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted lg:mx-0">
-                        Te acompaño a descubrir tu potencial, superar bloqueos y construir la
-                        vida que realmente deseas. Con claridad, acción y resultados
-                        concretos.
+                        Creamos espacios de transformación donde las organizaciones
+                        potencian a sus equipos a través del coaching ontológico y el
+                        desarrollo de competencias clave, con las personas en el centro de la acción.
                     </p>
 
                     {/* CTA Buttons */}
