@@ -53,14 +53,32 @@ export default function Hero() {
                             href="#servicios"
                             className="rounded-full border-2 border-border px-8 py-4 text-lg font-medium text-foreground transition-all duration-300 hover:border-primary hover:text-primary"
                         >
-                            Ver Servicios
+                            Ver Programas
                         </a>
                     </div>
 
                     {/* Trust indicator */}
-                    <p className="mt-8 text-sm text-muted">
-                        🎯 +100 personas ya transformaron su vida
-                    </p>
+                    {/* Stats Grid */}
+                    <div className="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
+                        <div>
+                            <h3 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-primary md:text-4xl">
+                                23+
+                            </h3>
+                            <p className="mt-1 text-sm text-muted">Años de Experiencia</p>
+                        </div>
+                        <div>
+                            <h3 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-primary md:text-4xl">
+                                14+
+                            </h3>
+                            <p className="mt-1 text-sm text-muted">Años Liderando Equipos</p>
+                        </div>
+                        <div>
+                            <h3 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-primary md:text-4xl">
+                                B2B
+                            </h3>
+                            <p className="mt-1 text-sm text-muted">Enfoque Corporativo</p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Image Content */}
