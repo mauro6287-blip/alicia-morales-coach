@@ -29,10 +29,7 @@ export default function Hero() {
                         </span>
                     </h1>
 
-                    {/* Tagline */}
-                    <p className="mb-4 text-xl font-medium text-foreground/80 md:text-2xl">
-                        Deja de postergar lo que mereces
-                    </p>
+
 
                     {/* Description */}
                     <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted lg:mx-0">
