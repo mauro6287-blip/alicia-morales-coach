@@ -1,34 +1,82 @@
-const problemas = [
+const soluciones = [
     {
-        icon: "😔",
-        titulo: "Sientes que la vida te pasa",
+        icon: "🎯",
+        titulo: "Habilidades Clave para el Futuro Laboral",
         descripcion:
-            "Los días se repiten, las metas se postergan. Hay algo más, pero no sabes cómo alcanzarlo.",
+            "Formación orientada al desarrollo de competencias transversales esenciales como adaptabilidad, flexibilidad y liderazgo.",
+        features: [
+            "Preparación para desafíos actuales y futuros",
+            "Metodología de acción inmediata",
+            "Formato: Workshops y talleres",
+            "Enfoque en resultados tangibles",
+        ],
+    },
+    {
+        icon: "🎓",
+        titulo: "Programa de Inserción Laboral",
+        descripcion:
+            "Programa especializado para CFT e Institutos Profesionales que equipa a estudiantes con herramientas para destacar en el mercado.",
+        features: [
+            "Formación en Portafolio Digital",
+            "Optimización de LinkedIn",
+            "Presencia digital profesional",
+            "Preparación para el mercado laboral",
+        ],
     },
     {
         icon: "🔄",
-        titulo: "Atrapado/a en el mismo ciclo",
+        titulo: "Outplacement Grupal y Re-inserción",
         descripcion:
-            "Intentas cambiar, empiezas con fuerza, pero siempre vuelves al punto de partida. Es frustrante.",
+            "Diseñado para empresas que buscan un proceso de transición laboral eficiente y digno para sus colaboradores.",
+        features: [
+            "Búsqueda estratégica de empleo",
+            "Networking y habilidades clave",
+            "Acompañamiento integral",
+            "Perspectiva colectiva y estratégica",
+        ],
     },
     {
-        icon: "🎭",
-        titulo: "Desconectado/a de ti mismo/a",
+        icon: "💼",
+        titulo: "Coaching y Formación Ejecutiva",
         descripcion:
-            "Cumples con todos menos contigo. Tu voz interior se perdió entre las expectativas de otros.",
+            "Asesoría y consultoría personalizada para empresas y organismos educacionales enfocada en el desarrollo de competencias profesionales.",
+        features: [
+            "Coaching ontológico profundo",
+            "Soluciones a medida B2B",
+            "14 años liderando equipos",
+            "Experiencias vivenciales",
+        ],
     },
     {
-        icon: "⏰",
-        titulo: "El tiempo se escapa",
+        icon: "🎤",
+        titulo: "Mentorías y Charlas Motivacionales",
         descripcion:
-            "Cada año que pasa sientes que la vida que sueñas está más lejos. La urgencia crece.",
+            "Sesiones inspiradoras que impulsan la acción profesional y el desarrollo de habilidades clave para el mercado laboral.",
+        features: [
+            "Relatorías personalizadas",
+            "Conferencias sobre competencias",
+            "Inspiración para la acción",
+            "Bienestar profesional",
+        ],
+    },
+    {
+        icon: "🌱",
+        titulo: "Facilitación de Talleres",
+        descripcion:
+            "Espacios de aprendizaje activo que generan impacto inmediato en los participantes y sus organizaciones.",
+        features: [
+            "Metodología de acción inmediata",
+            "Formatos flexibles y adaptables",
+            "Modalidad online y presencial",
+            "Enfoque práctico y vivencial",
+        ],
     },
 ];
 
 export default function Problemas() {
     return (
-        <section id="problemas" className="bg-surface-elevated px-6 py-24">
-            <div className="mx-auto max-w-6xl">
+        <section id="soluciones" className="bg-surface-elevated px-6 py-24">
+            <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <div className="mb-16 text-center">
                     <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
@@ -46,32 +94,51 @@ export default function Problemas() {
                     </p>
                 </div>
 
-                {/* Grid de problemas */}
-                <div className="grid gap-6 md:grid-cols-2">
-                    {problemas.map((problema, index) => (
+                {/* Grid de soluciones */}
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {soluciones.map((solucion, index) => (
                         <div
                             key={index}
-                            className="group rounded-2xl border border-border bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
+                            className="group flex flex-col rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                         >
-                            <div className="mb-4 text-4xl">{problema.icon}</div>
-                            <h3 className="mb-3 text-xl font-semibold text-foreground">
-                                {problema.titulo}
+                            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-2xl text-primary">
+                                {solucion.icon}
+                            </div>
+                            <h3 className="mb-4 text-xl font-bold text-foreground">
+                                {solucion.titulo}
                             </h3>
-                            <p className="leading-relaxed text-muted">
-                                {problema.descripcion}
+                            <p className="mb-6 flex-grow text-sm leading-relaxed text-muted">
+                                {solucion.descripcion}
                             </p>
+
+                            <ul className="mb-8 space-y-3">
+                                {solucion.features.map((feature, idx) => (
+                                    <li key={idx} className="flex items-start gap-2 text-xs text-muted">
+                                        <span className="mt-0.5 text-primary">→</span>
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <a
+                                href="#contacto"
+                                className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+                            >
+                                Conocer más
+                                <span className="transition-transform group-hover:translate-x-1">→</span>
+                            </a>
                         </div>
                     ))}
                 </div>
 
                 {/* Transition CTA */}
-                <div className="mt-12 text-center">
-                    <p className="mb-6 text-lg font-medium text-primary">
+                <div className="mt-16 text-center">
+                    <p className="mb-6 text-lg font-medium text-foreground">
                         ¿Y si hoy fuera el día en que todo empieza a cambiar?
                     </p>
                     <a
-                        href="#propuesta"
-                        className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-primary"
+                        href="#contacto"
+                        className="inline-flex items-center gap-2 font-medium text-primary transition-colors hover:text-primary-dark"
                     >
                         Descubre cómo
                         <svg
