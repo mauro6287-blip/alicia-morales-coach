@@ -18,7 +18,7 @@ export default function Hero() {
                     {/* Main heading */}
                     <h1 className="mb-6 text-3xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
                         <span className="font-[family-name:var(--font-playfair)]">
-                            organizaciones para el desarrollo del
+                            Acompañando a organizaciones para el desarrollo del
                         </span>
                         <br />
                         <span className="font-[family-name:var(--font-playfair)] text-primary">
