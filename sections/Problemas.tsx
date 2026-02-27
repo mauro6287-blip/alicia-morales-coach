@@ -35,19 +35,7 @@ const soluciones = [
             "Perspectiva colectiva y estratégica",
         ],
     },
-    {
-        icon: "👔",
-        titulo: "Coaching y Formación Ejecutiva",
-        descripcion:
-            "Asesoría y consultoría personalizada para empresas y organismos educacionales enfocada en el desarrollo de competencias profesionales.",
-        features: [
-            "Coaching ontológico profundo",
-            "Soluciones a medida B2B",
-            "14 años liderando equipos",
-            "Experiencias vivenciales",
-        ],
-    },
-    {
+{
         icon: "🌟",
         titulo: "Mentorías y Charlas Motivacionales",
         descripcion:
