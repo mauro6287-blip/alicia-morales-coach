@@ -47,7 +47,7 @@ export default function Header() {
                         />
                     </div>
                     <span className="font-[family-name:var(--font-playfair)]">
-                        Alicia Morales
+                        Escuela de Competencias Aplicadas
                     </span>
                 </a>
 
