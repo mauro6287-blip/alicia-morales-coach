@@ -73,7 +73,7 @@ export default function Contacto() {
         );
 
         // Open mailto
-        window.location.href = `mailto:hola@aliciamorales.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:coaching@aliciamorales.cl?subject=${subject}&body=${body}`;
 
         // Show success after brief delay
         setTimeout(() => {
@@ -155,10 +155,10 @@ export default function Contacto() {
                                 <div>
                                     <p className="font-medium text-foreground">Email</p>
                                     <a
-                                        href="mailto:hola@aliciamorales.com"
+                                        href="mailto:coaching@aliciamorales.cl"
                                         className="text-muted hover:text-primary"
                                     >
-                                        hola@aliciamorales.com
+                                        coaching@aliciamorales.cl
                                     </a>
                                 </div>
                             </div>
@@ -168,25 +168,32 @@ export default function Contacto() {
                                     📱
                                 </div>
                                 <div>
-                                    <p className="font-medium text-foreground">WhatsApp</p>
+                                    <p className="font-medium text-foreground">Teléfono</p>
                                     <a
-                                        href="https://wa.me/56912345678"
+                                        href="https://wa.me/56977096530"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-muted hover:text-primary"
                                     >
-                                        +56 9 1234 5678
+                                        +56 9 7709 6530
                                     </a>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-4">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-xl">
-                                    ⏰
+                                    💼
                                 </div>
                                 <div>
-                                    <p className="font-medium text-foreground">Horario</p>
-                                    <p className="text-muted">Lunes a Viernes, 9:00 - 18:00</p>
+                                    <p className="font-medium text-foreground">LinkedIn</p>
+                                    <a
+                                        href="https://www.linkedin.com/in/alicia-morales-formacion-consultoria-coaching-habilidades-transversales-empleabilidad/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-muted hover:text-primary"
+                                    >
+                                        Alicia Morales Coach
+                                    </a>
                                 </div>
                             </div>
                         </div>
