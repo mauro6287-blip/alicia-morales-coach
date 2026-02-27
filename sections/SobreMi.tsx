@@ -19,14 +19,14 @@ export default function SobreMi() {
 
                     {/* Content */}
                     <div className="order-1 lg:order-2">
-                        <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-                            Sobre Mí
-                        </span>
-                        <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-                            <span className="font-[family-name:var(--font-playfair)]">
-                                Hola, soy Alicia
+                        <h2 className="mb-2 text-3xl font-bold text-foreground md:text-4xl">
+                            <span className="font-[family-name:var(--font-playfair)] italic">
+                                Alicia Morales
                             </span>
                         </h2>
+                        <span className="mb-6 inline-block text-sm font-medium uppercase tracking-wider text-primary">
+                            Fundadora & Directora · Escuela de Competencias Aplicadas
+                        </span>
 
                         <div className="space-y-4 text-muted">
                             <p className="text-lg leading-relaxed">
