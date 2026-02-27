@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 const soluciones = [
     {
         icon: "🚀",
@@ -35,7 +39,7 @@ const soluciones = [
             "Perspectiva colectiva y estratégica",
         ],
     },
-{
+    {
         icon: "🌟",
         titulo: "Mentorías y Charlas Motivacionales",
         descripcion:
@@ -61,10 +65,68 @@ const soluciones = [
     },
 ];
 
-export default function Problemas() {
+function SolucionCard({ solucion }: { solucion: typeof soluciones[number] }) {
     return (
-        <section id="soluciones" className="bg-surface-elevated px-6 py-24">
-            <div className="mx-auto max-w-7xl">
+        <div className="group flex w-[350px] flex-shrink-0 flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
+            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-transparent text-4xl">
+                {solucion.icon}
+            </div>
+            <h3 className="mb-4 text-xl font-bold text-white">
+                {solucion.titulo}
+            </h3>
+            <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-400">
+                {solucion.descripcion}
+            </p>
+            <ul className="mb-8 space-y-3">
+                {solucion.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-xs text-gray-400">
+                        <span className="mt-0.5 text-primary">→</span>
+                        <span>{feature}</span>
+                    </li>
+                ))}
+            </ul>
+            <a
+                href="#contacto"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-light"
+            >
+                Conocer más
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+            </a>
+        </div>
+    );
+}
+
+export default function Problemas() {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [isPaused, setIsPaused] = useState(false);
+
+    useEffect(() => {
+        const container = scrollRef.current;
+        if (!container) return;
+
+        let animationId: number;
+        let scrollPos = 0;
+        const speed = 0.5;
+
+        const animate = () => {
+            if (!isPaused && container) {
+                scrollPos += speed;
+                const halfWidth = container.scrollWidth / 2;
+                if (scrollPos >= halfWidth) {
+                    scrollPos = 0;
+                }
+                container.scrollLeft = scrollPos;
+            }
+            animationId = requestAnimationFrame(animate);
+        };
+
+        animationId = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(animationId);
+    }, [isPaused]);
+
+    return (
+        <section id="soluciones" className="bg-surface-elevated py-24">
+            <div className="mx-auto max-w-7xl px-6">
                 {/* Header */}
                 <div className="mb-16 text-center">
                     <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
@@ -81,45 +143,22 @@ export default function Problemas() {
                         coaching ontológico.
                     </p>
                 </div>
+            </div>
 
-                {/* Grid de soluciones */}
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {soluciones.map((solucion, index) => (
-                        <div
-                            key={index}
-                            className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
-                        >
-                            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-transparent text-4xl">
-                                {solucion.icon}
-                            </div>
-                            <h3 className="mb-4 text-xl font-bold text-white">
-                                {solucion.titulo}
-                            </h3>
-                            <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-400">
-                                {solucion.descripcion}
-                            </p>
+            {/* Carousel */}
+            <div
+                ref={scrollRef}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                className="flex gap-6 overflow-hidden px-6"
+            >
+                {[...soluciones, ...soluciones].map((solucion, index) => (
+                    <SolucionCard key={index} solucion={solucion} />
+                ))}
+            </div>
 
-                            <ul className="mb-8 space-y-3">
-                                {solucion.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-xs text-gray-400">
-                                        <span className="mt-0.5 text-primary">→</span>
-                                        <span>{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <a
-                                href="#contacto"
-                                className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-light"
-                            >
-                                Conocer más
-                                <span className="transition-transform group-hover:translate-x-1">→</span>
-                            </a>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Transition CTA */}
+            {/* Transition CTA */}
+            <div className="mx-auto max-w-7xl px-6">
                 <div className="mt-16 text-center">
                     <p className="mb-6 text-lg font-medium text-foreground">
                         ¿Y si hoy fuera el día en que todo empieza a cambiar?
