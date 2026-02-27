@@ -62,7 +62,7 @@ export default function Header() {
                         </a>
                     ))}
                     <a
-                        href="#contacto"
+                        href="#formulario"
                         className="rounded-full bg-[#F59E0B] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#B45309]"
                     >
                         Contacto
@@ -124,7 +124,7 @@ export default function Header() {
                         </a>
                     ))}
                     <a
-                        href="#contacto"
+                        href="#formulario"
                         onClick={() => setIsMobileMenuOpen(false)}
                         className="mt-2 w-full rounded-full bg-[#F59E0B] py-3 text-center font-medium text-white transition-colors hover:bg-[#B45309]"
                     >
