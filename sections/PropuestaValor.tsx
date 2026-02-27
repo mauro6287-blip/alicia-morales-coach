@@ -50,19 +50,22 @@ export default function PropuestaValor() {
                     <div className="flex flex-col justify-center lg:col-span-2">
                         <h3 className="mb-8 text-3xl font-bold text-primary">
                             <span className="font-[family-name:var(--font-playfair)]">
-                                Propuesta de Valor Única
+                                Propuesta de valor
                             </span>
                         </h3>
                         <div className="space-y-6 text-lg leading-relaxed text-gray-300">
                             <p>
-                                Acompaño a empresas en potenciar a sus profesionales a través de
-                                entrenamiento con resultados excepcionales. Mi metodología integra tres
-                                pilares distintivos que generan transformación real y sostenible.
+                                Somos una empresa especializada en el desarrollo de competencias
+                                transversales para organizaciones. Acompañamos a empresas, instituciones
+                                educativas y organismos públicos a fortalecer el capital humano de sus
+                                equipos a través de metodologías vivenciales que integran consciencia,
+                                acción y resultados.
                             </p>
                             <p>
-                                Donde las personas son el centro, entrego experiencias vivenciales que dotan al
-                                líder de competencias humanas y herramientas prácticas para que el cambio
-                                suceda de manera inmediata y efectiva.
+                                Nuestro enfoque nace de una convicción: la acción profesional efectiva no
+                                se entrena solo desde lo técnico. Cuando las personas desarrollan
+                                consciencia sobre su identidad profesional, activan competencias que
+                                generan impacto real y sostenible en la organización.
                             </p>
                         </div>
                     </div>
