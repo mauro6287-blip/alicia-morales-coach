@@ -13,9 +13,9 @@ const pilares = [
     },
     {
         numero: "03",
-        titulo: "Acción Inmediata",
+        titulo: "Impulso hacia la acción inmediata",
         descripcion:
-            "Capacidad única para provocar la acción profesional desde la primera sesión.",
+            "Cada programa está diseñado para provocar la acción profesional inmediata. Entregamos herramientas prácticas y experiencias vivenciales que activan competencias desde el primer momento.",
     },
     {
         numero: "04",
