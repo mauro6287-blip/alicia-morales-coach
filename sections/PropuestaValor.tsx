@@ -19,9 +19,9 @@ const pilares = [
     },
     {
         numero: "04",
-        titulo: "Entornos Saludables",
+        titulo: "Orientación a resultados organizacionales",
         descripcion:
-            "Impulsando entornos de trabajo saludables y altamente efectivos.",
+            "Medimos el impacto. Nuestras intervenciones se diseñan con indicadores claros para que la organización vea el retorno en el desempeño de sus equipos.",
     },
 ];
 
