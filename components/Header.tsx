@@ -8,7 +8,6 @@ const navLinks = [
     { label: "Soluciones", href: "#soluciones" },
     { label: "Proceso", href: "#como-trabajo" },
     { label: "Sobre Mí", href: "#sobre-mi" },
-    { label: "Contacto", href: "#contacto" },
 ];
 
 export default function Header() {
@@ -66,7 +65,7 @@ export default function Header() {
                         href="#contacto"
                         className="rounded-full bg-[#F59E0B] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#B45309]"
                     >
-                        Agendar Sesión
+                        Contacto
                     </a>
                 </nav>
 
@@ -129,7 +128,7 @@ export default function Header() {
                         onClick={() => setIsMobileMenuOpen(false)}
                         className="mt-2 w-full rounded-full bg-[#F59E0B] py-3 text-center font-medium text-white transition-colors hover:bg-[#B45309]"
                     >
-                        Agendar Sesión
+                        Contacto
                     </a>
                 </nav>
             </div>
