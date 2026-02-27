@@ -7,7 +7,7 @@ export default function Hero() {
             {/* Background decoration */}
             <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent-light/10 to-transparent" />
 
-            <div className="mx-auto max-w-4xl text-center">
+            <div className="mx-auto w-full max-w-6xl text-center">
                 {/* Badge */}
                 <span className="mb-6 inline-block rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-primary">
                     ✨ Coach Profesional Certificada ICF
@@ -28,7 +28,7 @@ export default function Hero() {
                 </h1>
 
                 {/* Description */}
-                <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted">
+                <p className="mx-auto mb-10 max-w-3xl text-lg leading-relaxed text-muted">
                     Creamos espacios de transformación donde las organizaciones
                     potencian a sus equipos a través del coaching ontológico y el
                     desarrollo de competencias clave, con las personas en el centro de la acción.
@@ -54,7 +54,7 @@ export default function Hero() {
                 </div>
 
                 {/* Stats Grid */}
-                <div className="mx-auto mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
+                <div className="mx-auto mt-12 grid max-w-xl grid-cols-3 gap-8 border-t border-white/10 pt-8">
                     <div>
                         <h3 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-primary md:text-4xl">
                             23+
