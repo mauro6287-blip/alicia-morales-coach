@@ -1,9 +1,9 @@
 const pilares = [
     {
         numero: "01",
-        titulo: "Experiencia Real",
+        titulo: "Experiencia en primera línea",
         descripcion:
-            "14 años liderando equipos de alto rendimiento en entornos corporativos exigentes.",
+            "Nuestra metodología nace de 23 años en entornos organizacionales de alta exigencia, liderando equipos y desarrollando personas. Esa trayectoria nos da una comprensión directa de las competencias que hoy demanda el mercado laboral.",
     },
     {
         numero: "02",
