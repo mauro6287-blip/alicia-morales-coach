@@ -124,6 +124,17 @@ export default function Servicios() {
                         </div>
                     ))}
                 </div>
+
+                {/* Nota destacada */}
+                <div className="mt-12 rounded-2xl border border-primary/30 bg-[#18181b] px-8 py-6 text-center">
+                    <p className="text-base leading-relaxed text-muted">
+                        Todos nuestros programas incluyen{" "}
+                        <strong className="text-primary">diagnóstico previo</strong>,{" "}
+                        <strong className="text-primary">adaptación a la realidad de su organización</strong>{" "}
+                        y <strong className="text-primary">seguimiento post-intervención</strong>.
+                        Conversemos sobre lo que su equipo necesita.
+                    </p>
+                </div>
             </div>
         </section>
     );
