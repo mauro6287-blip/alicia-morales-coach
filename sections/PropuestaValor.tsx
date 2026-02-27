@@ -36,7 +36,7 @@ export default function PropuestaValor() {
                     </span>
                     <h2 className="mb-6 text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
                         <span className="font-[family-name:var(--font-playfair)]">
-                            Tres Pilares Distintivos
+                            Los 4 pilares que nos distinguen
                         </span>
                     </h2>
                     <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted">
