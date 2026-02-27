@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { Header, Footer } from "@/components";
+import { Header, Footer, WhatsAppButton } from "@/components";
 import "./globals.css";
 
 const inter = Inter({
@@ -119,6 +119,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );
