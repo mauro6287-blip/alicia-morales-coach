@@ -2,7 +2,7 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-6 py-20"
+            className="relative flex min-h-screen items-end justify-center overflow-hidden bg-background px-6 pb-12 pt-32"
         >
             {/* Background decoration */}
             <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent-light/10 to-transparent" />
