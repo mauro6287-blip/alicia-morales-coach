@@ -7,9 +7,9 @@ const pilares = [
     },
     {
         numero: "02",
-        titulo: "Coaching Ontológico",
+        titulo: "Coaching para cambios sostenibles",
         descripcion:
-            "Profundidad del coaching ontológico para transformar el Ser antes que el Hacer.",
+            "Nuestro enfoque integra el desarrollo de la consciencia profesional, conectando el Ser con el Hacer para obtener resultados. No buscamos cambios superficiales: trabajamos en la raíz para que la transformación perdure.",
     },
     {
         numero: "03",
