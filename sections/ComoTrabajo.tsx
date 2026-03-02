@@ -1,3 +1,7 @@
+"use client";
+
+import ScrollReveal from "@/components/ScrollReveal";
+
 const pasos = [
     {
         numero: "01",
@@ -30,20 +34,22 @@ export default function ComoTrabajo() {
         <section id="como-trabajo" className="bg-background px-6 py-20">
             <div className="mx-auto max-w-6xl">
                 {/* Header */}
-                <div className="mb-16 text-center">
-                    <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-                        El Proceso
-                    </span>
-                    <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-                        <span className="font-[family-name:var(--font-playfair)]">
-                            ¿Cómo funciona el coaching?
+                <ScrollReveal>
+                    <div className="mb-16 text-center">
+                        <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
+                            El Proceso
                         </span>
-                    </h2>
-                    <p className="mx-auto max-w-2xl text-lg text-muted">
-                        Un proceso claro y estructurado que te guía paso a paso hacia tus
-                        objetivos.
-                    </p>
-                </div>
+                        <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
+                            <span className="font-[family-name:var(--font-playfair)]">
+                                ¿Cómo funciona el coaching?
+                            </span>
+                        </h2>
+                        <p className="mx-auto max-w-2xl text-lg text-muted">
+                            Un proceso claro y estructurado que te guía paso a paso hacia tus
+                            objetivos.
+                        </p>
+                    </div>
+                </ScrollReveal>
 
                 {/* Timeline */}
                 <div className="relative">
@@ -52,27 +58,28 @@ export default function ComoTrabajo() {
 
                     <div className="space-y-12">
                         {pasos.map((paso, index) => (
-                            <div
-                                key={index}
-                                className={`relative flex flex-col gap-6 md:flex-row ${index % 2 === 1 ? "md:flex-row-reverse" : ""
-                                    }`}
-                            >
-                                {/* Number badge */}
-                                <div className="absolute left-0 top-0 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-white shadow-lg md:left-1/2 md:-translate-x-1/2">
-                                    {paso.numero}
-                                </div>
-
-                                {/* Content */}
+                            <ScrollReveal key={index} delay={index * 150}>
                                 <div
-                                    className={`ml-24 rounded-2xl border border-border bg-surface p-6 md:ml-0 md:w-[calc(50%-4rem)] ${index % 2 === 1 ? "md:mr-auto" : "md:ml-auto"
+                                    className={`relative flex flex-col gap-6 md:flex-row ${index % 2 === 1 ? "md:flex-row-reverse" : ""
                                         }`}
                                 >
-                                    <h3 className="mb-3 text-xl font-semibold text-foreground">
-                                        {paso.titulo}
-                                    </h3>
-                                    <p className="text-muted">{paso.descripcion}</p>
+                                    {/* Number badge */}
+                                    <div className="absolute left-0 top-0 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-white shadow-lg md:left-1/2 md:-translate-x-1/2">
+                                        {paso.numero}
+                                    </div>
+
+                                    {/* Content */}
+                                    <div
+                                        className={`ml-24 rounded-2xl border border-border bg-surface p-6 md:ml-0 md:w-[calc(50%-4rem)] ${index % 2 === 1 ? "md:mr-auto" : "md:ml-auto"
+                                            }`}
+                                    >
+                                        <h3 className="mb-3 text-xl font-semibold text-foreground">
+                                            {paso.titulo}
+                                        </h3>
+                                        <p className="text-muted">{paso.descripcion}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </ScrollReveal>
                         ))}
                     </div>
                 </div>
