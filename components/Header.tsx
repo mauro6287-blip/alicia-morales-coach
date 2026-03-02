@@ -45,7 +45,7 @@ export default function Header() {
                             priority
                         />
                     </div>
-                    <span className="font-[family-name:var(--font-playfair)]">
+                    <span className="font-[family-name:var(--font-montserrat)]">
                         Escuela de Competencias Aplicadas
                     </span>
                 </a>

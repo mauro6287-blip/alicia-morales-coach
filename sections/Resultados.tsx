@@ -37,11 +37,11 @@ export default function Resultados() {
                             Testimonios
                         </span>
                         <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
-                            <span className="font-[family-name:var(--font-playfair)]">
+                            <span className="font-[family-name:var(--font-montserrat)]">
                                 Lo que dicen mis clientes
                             </span>
                         </h2>
-                        <p className="mx-auto max-w-2xl text-lg text-gray-600">
+                        <p className="mx-auto max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light text-gray-600">
                             Historias reales de personas que decidieron invertir en su
                             crecimiento.
                         </p>

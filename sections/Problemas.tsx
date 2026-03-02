@@ -1,3 +1,5 @@
+import ScrollReveal from "@/components/ScrollReveal";
+
 const soluciones = [
     {
         categoria: "EMPRESAS Y CORPORATIVOS",
@@ -42,28 +44,30 @@ export default function Problemas() {
         <section id="soluciones" className="bg-white px-6 py-24">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <div className="mb-16 text-center">
-                    <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-                        ESCUELA DE COMPETENCIAS APLICADAS
-                    </span>
-                    <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-                        <span className="font-[family-name:var(--font-playfair)]">
-                            Nuestras Soluciones
+                <ScrollReveal>
+                    <div className="mb-16 text-center">
+                        <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
+                            ESCUELA DE COMPETENCIAS APLICADAS
                         </span>
-                    </h2>
-                    <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600">
-                        Programas diseñados para organizaciones que buscan desarrollar
-                        competencias clave, con metodología de acción inmediata y resultados
-                        medibles.
-                    </p>
-                </div>
+                        <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
+                            <span className="font-[family-name:var(--font-montserrat)]">
+                                Nuestras Soluciones
+                            </span>
+                        </h2>
+                        <p className="mx-auto max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-gray-600">
+                            Programas diseñados para organizaciones que buscan desarrollar
+                            competencias clave, con metodología de acción inmediata y resultados
+                            medibles.
+                        </p>
+                    </div>
+                </ScrollReveal>
 
                 {/* Grid de soluciones */}
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {soluciones.map((solucion, index) => (
+                        <ScrollReveal key={index} delay={index * 100}>
                         <div
-                            key={index}
-                            className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
+                            className="group flex h-full flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
                         >
                             <span className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
                                 {solucion.categoria}
@@ -94,20 +98,23 @@ export default function Problemas() {
                                 <span className="transition-transform group-hover:translate-x-1">→</span>
                             </a>
                         </div>
+                        </ScrollReveal>
                     ))}
                 </div>
 
                 {/* Soluciones Complementarias */}
+                <ScrollReveal>
                 <div className="mt-20 text-center">
                     <h3 className="mb-4 text-2xl font-bold text-gray-900 md:text-3xl lg:text-4xl">
-                        <span className="font-[family-name:var(--font-playfair)]">
+                        <span className="font-[family-name:var(--font-montserrat)]">
                             Soluciones Complementarias
                         </span>
                     </h3>
-                    <p className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-gray-600">
+                    <p className="mx-auto mb-12 max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-gray-600">
                         Servicios puntuales y flexibles para necesidades específicas de tu organización.
                     </p>
                 </div>
+                </ScrollReveal>
 
                 <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
                     <div className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">

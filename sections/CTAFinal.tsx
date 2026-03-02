@@ -22,14 +22,14 @@ export default function CTAFinal() {
                     </span>
 
                     <h2 className="mb-6 text-3xl font-bold md:text-4xl lg:text-5xl">
-                        <span className="font-[family-name:var(--font-playfair)]">
+                        <span className="font-[family-name:var(--font-montserrat)]">
                             Tu nueva vida está a una
                             <br />
                             conversación de distancia
                         </span>
                     </h2>
 
-                    <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed opacity-90">
+                    <p className="mx-auto mb-10 max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed opacity-90">
                         Agenda una sesión de claridad <strong>100% gratuita</strong>. En 30
                         minutos tendrás más claridad que en meses de dar vueltas solo/a.
                     </p>

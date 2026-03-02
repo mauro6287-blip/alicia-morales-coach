@@ -35,8 +35,8 @@ module.exports = {
                 border: '#3F3F46',
             },
             fontFamily: {
-                sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-                display: ['var(--font-playfair)', 'serif'],
+                sans: ['var(--font-roboto)', 'system-ui', 'sans-serif'],
+                display: ['var(--font-montserrat)', 'sans-serif'],
             },
         },
     },

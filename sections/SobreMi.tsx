@@ -25,7 +25,7 @@ export default function SobreMi() {
                     <ScrollReveal className="order-1 lg:order-2" delay={150}>
                         <div>
                             <h2 className="mb-2 text-3xl font-bold text-foreground md:text-4xl">
-                                <span className="font-[family-name:var(--font-playfair)] italic">
+                                <span className="font-[family-name:var(--font-montserrat)] italic">
                                     Escuela de Competencias Aplicadas
                                 </span>
                             </h2>

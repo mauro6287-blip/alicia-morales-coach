@@ -40,11 +40,11 @@ export default function ComoTrabajo() {
                             El Proceso
                         </span>
                         <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-                            <span className="font-[family-name:var(--font-playfair)]">
+                            <span className="font-[family-name:var(--font-montserrat)]">
                                 ¿Cómo funciona el coaching?
                             </span>
                         </h2>
-                        <p className="mx-auto max-w-2xl text-lg text-muted">
+                        <p className="mx-auto max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light text-muted">
                             Un proceso claro y estructurado que te guía paso a paso hacia tus
                             objetivos.
                         </p>

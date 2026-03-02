@@ -42,7 +42,7 @@ export default function Footer() {
                     {/* Brand */}
                     <div className="md:col-span-2">
                         <h3 className="mb-4 text-xl font-bold text-white">
-                            <span className="font-[family-name:var(--font-playfair)]">
+                            <span className="font-[family-name:var(--font-montserrat)]">
                                 Alicia Morales
                             </span>
                         </h3>

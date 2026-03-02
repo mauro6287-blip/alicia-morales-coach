@@ -106,7 +106,7 @@ export default function Contacto() {
                     <ScrollReveal>
                         <div className="mb-6 text-6xl">✉️</div>
                         <h2 className="mb-4 text-3xl font-bold text-foreground">
-                            <span className="font-[family-name:var(--font-playfair)]">
+                            <span className="font-[family-name:var(--font-montserrat)]">
                                 ¡Mensaje enviado!
                             </span>
                         </h2>
@@ -146,11 +146,11 @@ export default function Contacto() {
                                 Contacto
                             </span>
                             <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-                                <span className="font-[family-name:var(--font-playfair)]">
+                                <span className="font-[family-name:var(--font-montserrat)]">
                                     Escríbeme directamente
                                 </span>
                             </h2>
-                            <p className="mb-8 text-lg leading-relaxed text-muted">
+                            <p className="mb-8 font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-muted">
                                 ¿Tienes preguntas? ¿No estás seguro/a de qué servicio es el
                                 adecuado? Cuéntame tu situación y te respondo personalmente.
                             </p>

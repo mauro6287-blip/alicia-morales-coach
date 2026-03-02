@@ -27,11 +27,11 @@ export default function SectionHeader({
                 className={`mb-6 text-3xl font-bold md:text-4xl ${light ? "text-white" : "text-foreground"
                     }`}
             >
-                <span className="font-[family-name:var(--font-playfair)]">{title}</span>
+                <span className="font-[family-name:var(--font-montserrat)]">{title}</span>
             </h2>
             {description && (
                 <p
-                    className={`mx-auto max-w-2xl text-lg ${light ? "text-white/80" : "text-muted"
+                    className={`mx-auto max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light ${light ? "text-white/80" : "text-muted"
                         }`}
                 >
                     {description}

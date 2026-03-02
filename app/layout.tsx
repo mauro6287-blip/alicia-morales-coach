@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Montserrat, Roboto } from "next/font/google";
 import { Header, Footer, WhatsAppButton } from "@/components";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto",
   subsets: ["latin"],
   display: "swap",
 });
@@ -113,7 +114,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark" style={{ colorScheme: 'dark' }}>
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased overflow-x-hidden`}
+        className={`${roboto.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
         style={{ backgroundColor: '#09090b', color: '#FAFAFA' }}
       >
         <Header />
