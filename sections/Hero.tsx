@@ -36,7 +36,7 @@ export default function Hero() {
                         desarrollo de competencias clave, con las personas en el centro de la acción.
                     </p>
 
-                    {/* CTA Buttons */}
+                    {/* CTA Buttons with scroll indicator centered */}
                     <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <a
                             href="#formulario"
@@ -47,6 +47,25 @@ export default function Hero() {
                                 →
                             </span>
                         </a>
+
+                        {/* Scroll indicator between buttons */}
+                        <div className="animate-bounce">
+                            <svg
+                                className="h-8 w-8 text-muted"
+                                style={{ width: '32px', height: '32px', maxWidth: '32px', maxHeight: '32px' }}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                                />
+                            </svg>
+                        </div>
+
                         <a
                             href="#servicios"
                             className="rounded-full border-2 border-border px-8 py-4 text-lg font-medium text-foreground transition-all duration-300 hover:border-primary hover:text-primary"
@@ -55,24 +74,6 @@ export default function Hero() {
                         </a>
                     </div>
                 </ScrollReveal>
-            </div>
-
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                <svg
-                    className="h-8 w-8 text-muted"
-                    style={{ width: '32px', height: '32px', maxWidth: '32px', maxHeight: '32px' }}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                    />
-                </svg>
             </div>
         </section>
     );
