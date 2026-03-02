@@ -15,14 +15,14 @@ const noEsPara = [
 
 export default function ParaQuienEs() {
     return (
-        <section id="para-quien" className="bg-surface-elevated px-6 py-20">
+        <section id="para-quien" className="bg-white px-6 py-20">
             <div className="mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="mb-16 text-center">
                     <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
                         ¿Es para ti?
                     </span>
-                    <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
+                    <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
                         <span className="font-[family-name:var(--font-playfair)]">
                             El coaching es para ti si...
                         </span>
@@ -31,9 +31,9 @@ export default function ParaQuienEs() {
 
                 <div className="grid gap-12 lg:grid-cols-2">
                     {/* Para quién SÍ es */}
-                    <div className="rounded-2xl border border-primary/20 bg-surface p-8">
+                    <div className="rounded-2xl border border-white/5 bg-[#18181b] p-8">
                         <div className="mb-6 flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-900/30 text-green-400">
                                 <svg
                                     className="h-6 w-6"
                                     fill="none"
@@ -48,7 +48,7 @@ export default function ParaQuienEs() {
                                     />
                                 </svg>
                             </div>
-                            <h3 className="text-xl font-semibold text-foreground">
+                            <h3 className="text-xl font-semibold text-white">
                                 Esto es para ti si:
                             </h3>
                         </div>
@@ -57,16 +57,16 @@ export default function ParaQuienEs() {
                             {perfilIdeal.map((item, index) => (
                                 <li key={index} className="flex items-start gap-3">
                                     <span className="mt-1 text-primary">•</span>
-                                    <span className="text-muted">{item}</span>
+                                    <span className="text-gray-400">{item}</span>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
                     {/* Para quién NO es */}
-                    <div className="rounded-2xl border border-border bg-surface p-8">
+                    <div className="rounded-2xl border border-white/5 bg-[#18181b] p-8">
                         <div className="mb-6 flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-red-600">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-900/30 text-red-400">
                                 <svg
                                     className="h-6 w-6"
                                     fill="none"
@@ -81,7 +81,7 @@ export default function ParaQuienEs() {
                                     />
                                 </svg>
                             </div>
-                            <h3 className="text-xl font-semibold text-foreground">
+                            <h3 className="text-xl font-semibold text-white">
                                 No es para ti si:
                             </h3>
                         </div>
@@ -89,13 +89,13 @@ export default function ParaQuienEs() {
                         <ul className="space-y-4">
                             {noEsPara.map((item, index) => (
                                 <li key={index} className="flex items-start gap-3">
-                                    <span className="mt-1 text-muted">•</span>
-                                    <span className="text-muted">{item}</span>
+                                    <span className="mt-1 text-gray-500">•</span>
+                                    <span className="text-gray-400">{item}</span>
                                 </li>
                             ))}
                         </ul>
 
-                        <p className="mt-6 text-sm italic text-muted">
+                        <p className="mt-6 text-sm italic text-gray-500">
                             El coaching requiere compromiso y disposición al cambio. Si estás
                             listo/a para eso, ¡vamos!
                         </p>
