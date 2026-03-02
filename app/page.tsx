@@ -22,8 +22,8 @@ export default function Home() {
       <Servicios />
       <ComoTrabajo />
       <ParaQuienEs />
-      <Resultados />
       <SobreMi />
+      <Resultados />
       <Contacto />
       <CTAFinal />
     </main>
