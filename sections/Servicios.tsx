@@ -48,7 +48,7 @@ const programas = [
 
 export default function Servicios() {
     return (
-        <section id="servicios" className="bg-surface-elevated px-6 py-24">
+        <section id="servicios" className="bg-white px-6 py-24">
             <div className="mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="mb-16 text-center">
@@ -57,12 +57,12 @@ export default function Servicios() {
                         PROGRAMAS DESTACADOS
                         <span className="h-px w-8 bg-primary" />
                     </span>
-                    <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+                    <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
                         <span className="font-[family-name:var(--font-playfair)]">
                             Programas diseñados para la acción
                         </span>
                     </h2>
-                    <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted">
+                    <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600">
                         Cada programa se adapta a la realidad de tu organización. Aquí, tres
                         de nuestras intervenciones más solicitadas.
                     </p>
