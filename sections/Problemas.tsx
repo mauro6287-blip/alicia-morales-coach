@@ -63,12 +63,12 @@ export default function Problemas() {
                     {soluciones.map((solucion, index) => (
                         <div
                             key={index}
-                            className="group flex flex-col rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
+                            className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
                         >
                             <span className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
                                 {solucion.categoria}
                             </span>
-                            <h3 className="mb-4 text-xl font-bold text-gray-900">
+                            <h3 className="mb-4 text-xl font-bold text-white">
                                 {solucion.titulo}
                             </h3>
                             <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-600">
@@ -77,7 +77,7 @@ export default function Problemas() {
 
                             <ul className="mb-8 space-y-3">
                                 {solucion.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-400">
                                         <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -110,30 +110,30 @@ export default function Problemas() {
                 </div>
 
                 <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
-                    <div className="group flex flex-col rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10">
+                    <div className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
                         <span className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
                             ORGANIZACIONES Y EVENTOS
                         </span>
-                        <h3 className="mb-4 text-xl font-bold text-gray-900">
+                        <h3 className="mb-4 text-xl font-bold text-white">
                             Mentorías y Charlas Corporativas
                         </h3>
                         <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-400">
                             Espacios de inspiración y aprendizaje orientados a activar la reflexión sobre competencias clave, liderazgo y desarrollo profesional en contextos organizacionales.
                         </p>
                         <ul className="mb-8 space-y-3">
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Charlas para eventos corporativos y seminarios</span>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Mentorías grupales para equipos de trabajo</span>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Temáticas personalizadas según necesidad</span>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Formato presencial y online</span>
                             </li>
@@ -144,30 +144,30 @@ export default function Problemas() {
                         </a>
                     </div>
 
-                    <div className="group flex flex-col rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10">
+                    <div className="group flex flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
                         <span className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
                             ORGANIZACIONES Y EQUIPOS
                         </span>
-                        <h3 className="mb-4 text-xl font-bold text-gray-900">
+                        <h3 className="mb-4 text-xl font-bold text-white">
                             Facilitación de Talleres
                         </h3>
                         <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-400">
                             Experiencias vivenciales diseñadas a medida para desarrollar competencias específicas en equipos de trabajo, con metodología práctica y orientada a la acción.
                         </p>
                         <ul className="mb-8 space-y-3">
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Diseño a medida según diagnóstico organizacional</span>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Dinámicas vivenciales y prácticas</span>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Desarrollo de competencias específicas</span>
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-600">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
                                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                                 <span>Modalidad presencial y online</span>
                             </li>
