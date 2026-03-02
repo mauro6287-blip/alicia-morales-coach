@@ -42,7 +42,7 @@ export default function Hero() {
                             href="#formulario"
                             className="group rounded-full bg-primary px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl"
                         >
-                            Agendar Consultoría
+                            Contactar
                             <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
                                 →
                             </span>
@@ -53,30 +53,6 @@ export default function Hero() {
                         >
                             Ver Programas
                         </a>
-                    </div>
-                </ScrollReveal>
-
-                {/* Stats Grid */}
-                <ScrollReveal delay={400}>
-                    <div className="mx-auto mt-12 grid max-w-xl grid-cols-3 gap-8 border-t border-white/10 pt-8">
-                        <div>
-                            <h3 className="font-[family-name:var(--font-montserrat)] text-3xl font-bold text-primary md:text-4xl">
-                                23+
-                            </h3>
-                            <p className="mt-1 text-sm text-muted">Años de Experiencia</p>
-                        </div>
-                        <div>
-                            <h3 className="font-[family-name:var(--font-montserrat)] text-3xl font-bold text-primary md:text-4xl">
-                                14+
-                            </h3>
-                            <p className="mt-1 text-sm text-muted">Años Liderando Equipos</p>
-                        </div>
-                        <div>
-                            <h3 className="font-[family-name:var(--font-montserrat)] text-3xl font-bold text-primary md:text-4xl">
-                                B2B
-                            </h3>
-                            <p className="mt-1 text-sm text-muted">Enfoque Corporativo</p>
-                        </div>
                     </div>
                 </ScrollReveal>
             </div>
