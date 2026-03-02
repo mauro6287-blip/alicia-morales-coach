@@ -10,15 +10,15 @@ module.exports = {
         extend: {
             colors: {
                 // Fondo Oscuro Profundo
-                background: '#09090b',
+                background: '#1A1A1A',
                 // Texto Claro
                 foreground: '#FAFAFA',
                 muted: '#A1A1AA',
                 // Acento Dorado
                 primary: {
-                    DEFAULT: '#F59E0B',
-                    light: '#FCD34D',
-                    dark: '#B45309',
+                    DEFAULT: '#FFDE59',
+                    light: '#FFF0A0',
+                    dark: '#F7B52A',
                 },
                 // Acento Secundario
                 accent: {

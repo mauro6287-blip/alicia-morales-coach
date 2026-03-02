@@ -40,7 +40,7 @@ export default function Hero() {
                     <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <a
                             href="#formulario"
-                            className="group rounded-full bg-primary px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl"
+                            className="group rounded-full bg-primary px-8 py-4 text-lg font-semibold text-gray-900 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl"
                         >
                             Contactar
                             <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">

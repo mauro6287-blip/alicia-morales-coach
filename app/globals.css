@@ -14,7 +14,7 @@ html {
 
 /* Base body styles */
 body {
-  background-color: #09090b;
+  background-color: #1A1A1A;
   color: #FAFAFA;
   font-family: var(--font-roboto), system-ui, sans-serif;
   line-height: 1.7;
@@ -36,13 +36,13 @@ h6 {
 
 /* Focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid #F59E0B;
+  outline: 2px solid #FFDE59;
   outline-offset: 2px;
 }
 
 /* Selection color */
 ::selection {
-  background-color: #F59E0B;
+  background-color: #FFDE59;
   color: #000;
 }
 

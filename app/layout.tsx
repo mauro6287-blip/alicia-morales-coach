@@ -115,7 +115,7 @@ export default function RootLayout({
     <html lang="es" className="dark" style={{ colorScheme: 'dark' }}>
       <body
         className={`${roboto.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
-        style={{ backgroundColor: '#09090b', color: '#FAFAFA' }}
+        style={{ backgroundColor: '#1A1A1A', color: '#FAFAFA' }}
       >
         <Header />
         <main>{children}</main>

@@ -33,9 +33,9 @@ export default function Header() {
                 {/* Logo */}
                 <a
                     href="#hero"
-                    className="flex flex-shrink-0 items-center gap-2 text-lg font-light text-white transition-colors hover:text-[#F59E0B] md:gap-3 md:text-xl"
+                    className="flex flex-shrink-0 items-center gap-2 text-lg font-light text-white transition-colors hover:text-[#FFDE59] md:gap-3 md:text-xl"
                 >
-                    <div className="relative h-8 w-8 overflow-hidden rounded-full border border-[#F59E0B]/20 md:h-10 md:w-10">
+                    <div className="relative h-8 w-8 overflow-hidden rounded-full border border-[#FFDE59]/20 md:h-10 md:w-10">
                         <Image
                             src="/logo.png"
                             alt="Alicia Morales Logo"
@@ -56,14 +56,14 @@ export default function Header() {
                         <a
                             key={link.href}
                             href={link.href}
-                            className="text-sm font-medium text-[#A1A1AA] transition-colors hover:text-[#F59E0B]"
+                            className="text-sm font-medium text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
                         >
                             {link.label}
                         </a>
                     ))}
                     <a
                         href="#formulario"
-                        className="rounded-full bg-[#F59E0B] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#B45309]"
+                        className="rounded-full bg-[#FFDE59] px-5 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-[#F7B52A]"
                     >
                         Contacto
                     </a>
@@ -118,7 +118,7 @@ export default function Header() {
                             key={link.href}
                             href={link.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="w-full rounded-lg py-3 text-left font-medium text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#F59E0B]"
+                            className="w-full rounded-lg py-3 text-left font-medium text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
                         >
                             {link.label}
                         </a>
@@ -126,7 +126,7 @@ export default function Header() {
                     <a
                         href="#formulario"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="mt-2 w-full rounded-full bg-[#F59E0B] py-3 text-center font-medium text-white transition-colors hover:bg-[#B45309]"
+                        className="mt-2 w-full rounded-full bg-[#FFDE59] py-3 text-center font-medium text-gray-900 transition-colors hover:bg-[#F7B52A]"
                     >
                         Contacto
                     </a>

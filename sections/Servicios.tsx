@@ -121,7 +121,7 @@ export default function Servicios() {
                                 {/* CTA */}
                                 <a
                                     href="#contacto"
-                                    className="block rounded-full border border-primary py-3 text-center text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary hover:text-white"
+                                    className="block rounded-full border border-primary py-3 text-center text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary hover:text-gray-900"
                                 >
                                     Solicitar información →
                                 </a>

@@ -30,7 +30,7 @@ export async function POST(request: Request) {
             subject: `Nuevo contacto: ${nombre}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #B45309; border-bottom: 2px solid #F59E0B; padding-bottom: 10px;">
+                    <h2 style="color: #F7B52A; border-bottom: 2px solid #FFDE59; padding-bottom: 10px;">
                         Nuevo mensaje desde el sitio web
                     </h2>
                     <table style="width: 100%; border-collapse: collapse;">

@@ -68,7 +68,7 @@ export default function Resultados() {
 
                                 {/* Author */}
                                 <div className="flex items-center gap-4">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-white">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-gray-900">
                                         {testimonio.avatar}
                                     </div>
                                     <div>

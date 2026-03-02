@@ -64,7 +64,7 @@ export default function ComoTrabajo() {
                                         }`}
                                 >
                                     {/* Number badge */}
-                                    <div className="absolute left-0 top-0 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-white shadow-lg md:left-1/2 md:-translate-x-1/2">
+                                    <div className="absolute left-0 top-0 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-gray-900 shadow-lg md:left-1/2 md:-translate-x-1/2">
                                         {paso.numero}
                                     </div>
 

@@ -125,7 +125,7 @@ export default function Contacto() {
                                     mensaje: "",
                                 });
                             }}
-                            className="rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all hover:bg-primary-dark"
+                            className="rounded-full bg-primary px-8 py-4 font-semibold text-gray-900 transition-all hover:bg-primary-dark"
                         >
                             Enviar otro mensaje
                         </button>
@@ -331,7 +331,7 @@ export default function Contacto() {
                                 <button
                                     type="submit"
                                     disabled={status === "sending"}
-                                    className="w-full rounded-full bg-primary py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="w-full rounded-full bg-primary py-4 font-semibold text-gray-900 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                     {status === "sending" ? "Enviando..." : "Enviar Mensaje"}
                                 </button>
