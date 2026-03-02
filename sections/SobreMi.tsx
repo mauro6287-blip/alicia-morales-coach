@@ -21,28 +21,32 @@ export default function SobreMi() {
                     <div className="order-1 lg:order-2">
                         <h2 className="mb-2 text-3xl font-bold text-foreground md:text-4xl">
                             <span className="font-[family-name:var(--font-playfair)] italic">
-                                Alicia Morales
+                                Escuela de Competencias Aplicadas
                             </span>
                         </h2>
                         <span className="mb-6 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-                            Fundadora & Directora · Escuela de Competencias Aplicadas
+                            Fundadora & Directora · Alicia Morales Bustamante
                         </span>
 
                         <div className="space-y-4 text-muted">
                             <p className="text-lg leading-relaxed">
-                                Soy Coach Profesional certificada con más de 5 años de
-                                experiencia acompañando a personas en su camino hacia una vida
-                                más plena y auténtica.
+                                La Escuela de Competencias Aplicadas Alicia Morales es una entidad
+                                de consultoría y formación creada con el propósito de acompañar a
+                                las organizaciones en el desarrollo de Habilidades Transversales
+                                necesarias para los entornos de alta complejidad actuales y futuros
+                                en Chile.
                             </p>
                             <p className="leading-relaxed">
-                                Mi enfoque combina técnicas de coaching ontológico, inteligencia
-                                emocional y desarrollo personal. Creo profundamente en el
-                                potencial de cada persona para crear la vida que desea.
+                                Nuestra estructura está liderada por su fundadora, Alicia Morales
+                                Bustamante, quien aporta una visión técnica y estratégica tras 23
+                                años de trayectoria en el sector financiero y 14 años en la
+                                dirección de equipos de alto desempeño.
                             </p>
                             <p className="leading-relaxed">
-                                Antes de ser coach, trabajé en el mundo corporativo durante 10
-                                años, lo que me da una perspectiva única para entender los
-                                desafíos del equilibrio vida-trabajo.
+                                Nuestra ventaja competitiva reside en nuestra metodología aplicada.
+                                Combinamos la experiencia en primera persona de nuestra Directora,
+                                en el sector banca, con distinciones de coaching y técnicas teatrales
+                                para generar espacios de aprendizaje experiencial.
                             </p>
                         </div>
 
