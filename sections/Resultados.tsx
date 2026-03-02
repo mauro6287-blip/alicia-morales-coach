@@ -24,19 +24,19 @@ const testimonios = [
 
 export default function Resultados() {
     return (
-        <section id="resultados" className="bg-background px-6 py-20">
+        <section id="resultados" className="bg-white px-6 py-20">
             <div className="mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="mb-16 text-center">
                     <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
                         Testimonios
                     </span>
-                    <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
+                    <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
                         <span className="font-[family-name:var(--font-playfair)]">
                             Lo que dicen mis clientes
                         </span>
                     </h2>
-                    <p className="mx-auto max-w-2xl text-lg text-muted">
+                    <p className="mx-auto max-w-2xl text-lg text-gray-600">
                         Historias reales de personas que decidieron invertir en su
                         crecimiento.
                     </p>
@@ -47,7 +47,7 @@ export default function Resultados() {
                     {testimonios.map((testimonio, index) => (
                         <div
                             key={index}
-                            className="rounded-2xl border border-border bg-surface p-8"
+                            className="rounded-2xl border border-white/5 bg-[#18181b] p-8"
                         >
                             {/* Quote icon */}
                             <svg
@@ -58,7 +58,7 @@ export default function Resultados() {
                                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                             </svg>
 
-                            <p className="mb-6 leading-relaxed text-muted">
+                            <p className="mb-6 leading-relaxed text-gray-400">
                                 {testimonio.texto}
                             </p>
 
@@ -68,10 +68,10 @@ export default function Resultados() {
                                     {testimonio.avatar}
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-foreground">
+                                    <p className="font-semibold text-white">
                                         {testimonio.nombre}
                                     </p>
-                                    <p className="text-sm text-muted">{testimonio.rol}</p>
+                                    <p className="text-sm text-gray-400">{testimonio.rol}</p>
                                 </div>
                             </div>
                         </div>
