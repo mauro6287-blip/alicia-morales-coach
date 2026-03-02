@@ -33,7 +33,7 @@ export default function Header() {
                 {/* Logo */}
                 <a
                     href="#hero"
-                    className="flex flex-shrink-0 items-center gap-2 text-lg font-bold text-white transition-colors hover:text-[#F59E0B] md:gap-3 md:text-xl"
+                    className="flex flex-shrink-0 items-center gap-2 text-lg font-light text-white transition-colors hover:text-[#F59E0B] md:gap-3 md:text-xl"
                 >
                     <div className="relative h-8 w-8 overflow-hidden rounded-full border border-[#F59E0B]/20 md:h-10 md:w-10">
                         <Image

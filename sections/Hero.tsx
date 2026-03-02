@@ -14,7 +14,7 @@ export default function Hero() {
             <div className="mx-auto w-full max-w-6xl text-center">
                 <ScrollReveal>
                     {/* Main heading */}
-                    <h1 className="mb-6 text-3xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+                    <h1 className="mb-6 text-3xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
                         <span className="font-[family-name:var(--font-montserrat)]">
                             Acompañando a organizaciones para el desarrollo
                         </span>
