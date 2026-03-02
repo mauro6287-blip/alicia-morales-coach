@@ -28,8 +28,8 @@ const valores = [
 export default function Valores() {
     return (
         <section id="valores" className="relative bg-background px-6 py-24">
-            {/* Background rectangle behind the cards */}
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 rounded-t-3xl bg-[#242424]" />
+            {/* Background rectangle */}
+            <div className="absolute inset-x-0 bottom-0 top-8 rounded-t-3xl bg-[#242424]" />
 
             <div className="relative mx-auto max-w-7xl">
                 {/* Header */}
