@@ -11,14 +11,14 @@ export default function Hero() {
         >
             {/* Background image */}
             <Image
-                src="/images/Hero_AliciaMoralesCoach.png"
+                src="/images/Hero_AliciaMoralesCoach2.png"
                 alt="Hero background"
                 fill
                 priority
                 className="object-cover"
             />
             {/* Dark overlay for text readability */}
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-black/40" />
 
             <div className="relative z-10 mx-auto w-full max-w-6xl text-center">
                 <ScrollReveal>
