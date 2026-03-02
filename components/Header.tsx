@@ -6,8 +6,8 @@ import Image from "next/image";
 const navLinks = [
     { label: "Inicio", href: "#hero" },
     { label: "Soluciones", href: "#soluciones" },
-    { label: "Proceso", href: "#como-trabajo" },
-    { label: "Sobre Mí", href: "#sobre-mi" },
+    { label: "Método", href: "#como-trabajo" },
+    { label: "Quiénes Somos", href: "#sobre-mi" },
 ];
 
 export default function Header() {
