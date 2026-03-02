@@ -1,17 +1,26 @@
 "use client";
 
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative flex min-h-screen items-end justify-center overflow-hidden bg-background px-6 pb-12 pt-32"
+            className="relative flex min-h-screen items-end justify-center overflow-hidden px-6 pb-12 pt-32"
         >
-            {/* Background decoration */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent-light/10 to-transparent" />
+            {/* Background image */}
+            <Image
+                src="/images/Hero_AliciaMoralesCoach.png"
+                alt="Hero background"
+                fill
+                priority
+                className="object-cover"
+            />
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-black/60" />
 
-            <div className="mx-auto w-full max-w-6xl text-center">
+            <div className="relative z-10 mx-auto w-full max-w-6xl text-center">
                 <ScrollReveal>
                     {/* Main heading */}
                     <h1 className="mb-6 text-3xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
