@@ -58,13 +58,16 @@ export default function SobreMi() {
                             {/* Credentials */}
                             <div className="mt-8 flex flex-wrap gap-4">
                                 <span className="rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-primary">
-                                    Coach ICF
+                                    Competencias
                                 </span>
                                 <span className="rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-primary">
-                                    Coaching Ontológico
+                                    Desarrollo profesional
                                 </span>
                                 <span className="rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-primary">
-                                    PNL Practitioner
+                                    Empleabilidad
+                                </span>
+                                <span className="rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-primary">
+                                    Coaching
                                 </span>
                             </div>
 
