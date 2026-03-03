@@ -19,7 +19,7 @@ export default function ParaQuienEs() {
                 <ScrollReveal>
                     <div className="mb-16 text-center">
                         <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-                            ¿Es para ti?
+                            ¿ES PARA TU ORGANIZACIÓN?
                         </span>
                         <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
                             <span className="font-[family-name:var(--font-montserrat)]">
