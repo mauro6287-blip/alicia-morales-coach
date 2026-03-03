@@ -29,7 +29,7 @@ export default function ParaQuienEs() {
                         </span>
                         <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
                             <span className="font-[family-name:var(--font-montserrat)]">
-                                El coaching es para ti si...
+                                Esto es para tu organización si:
                             </span>
                         </h2>
                     </div>
