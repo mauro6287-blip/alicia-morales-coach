@@ -18,7 +18,7 @@ export default function Hero() {
                 className="object-cover"
             />
             {/* Dark overlay for text readability */}
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/45" />
 
             <div className="relative z-10 mx-auto w-full max-w-6xl text-center">
                 <ScrollReveal>
