@@ -16,22 +16,22 @@ export default function CTAFinal() {
 
             <div className="mx-auto max-w-4xl text-center">
                 <ScrollReveal>
-                    {/* Urgency badge */}
+                    {/* Badge */}
                     <span className="mb-6 inline-block rounded-full bg-gray-900/10 px-4 py-2 text-sm font-medium backdrop-blur-sm">
-                        🔥 Solo 3 espacios disponibles este mes
+                        ☆ Lo técnico ya no es suficiente
                     </span>
 
                     <h2 className="mb-6 text-3xl font-bold md:text-4xl lg:text-5xl">
                         <span className="font-[family-name:var(--font-montserrat)]">
-                            Tu nueva vida está a una
-                            <br />
-                            conversación de distancia
+                            Si lo técnico no se complementa con habilidades transversales, el avance se estanca. Los resultados también.
                         </span>
                     </h2>
 
                     <p className="mx-auto mb-10 max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed opacity-90">
-                        Agenda una sesión de claridad <strong>100% gratuita</strong>. En 30
-                        minutos tendrás más claridad que en meses de dar vueltas solo/a.
+                        Liderazgo, comunicación efectiva, trabajo colaborativo, adaptabilidad,
+                        planificación, productividad y reconocimiento.{" "}
+                        <strong>Las competencias que hoy marcan la diferencia no se enseñan en un manual.</strong>{" "}
+                        Se entrenan. Y nosotros sabemos cómo hacerlo.
                     </p>
                 </ScrollReveal>
 
@@ -42,7 +42,7 @@ export default function CTAFinal() {
                             href="mailto:hola@aliciamorales.com?subject=Quiero%20agendar%20mi%20sesión%20gratuita"
                             className="group rounded-full bg-gray-900 px-10 py-5 text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-gray-800 hover:shadow-3xl"
                         >
-                            Sí, Quiero Mi Sesión Gratuita
+                            Conversemos Sobre Tu Organización
                             <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
                                 →
                             </span>
@@ -64,19 +64,18 @@ export default function CTAFinal() {
                 {/* Trust elements */}
                 <ScrollReveal delay={350}>
                     <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm opacity-80">
-                        <span>✓ Sin compromiso</span>
-                        <span>✓ 100% confidencial</span>
+                        <span>✓ Soluciones a medida</span>
                         <span>✓ Respuesta en 24h</span>
                     </div>
 
                     {/* Micro-copy */}
                     <p className="mt-8 text-sm opacity-70">
-                        ¿Prefieres email? Escríbeme a{" "}
+                        ¿Prefieres email? Escríbenos a{" "}
                         <a
-                            href="mailto:hola@aliciamorales.com"
+                            href="mailto:coaching@aliciamorales.cl"
                             className="underline hover:no-underline"
                         >
-                            hola@aliciamorales.com
+                            coaching@aliciamorales.cl
                         </a>
                     </p>
                 </ScrollReveal>
