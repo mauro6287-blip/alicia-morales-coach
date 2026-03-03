@@ -3,24 +3,17 @@
 import ScrollReveal from "@/components/ScrollReveal";
 
 const perfilIdeal = [
-    "Sientes que es momento de un cambio, pero no sabes por dónde empezar",
-    "Tienes metas importantes pero te cuesta mantener el enfoque",
-    "Quieres desarrollar mayor confianza y seguridad en ti mismo/a",
-    "Buscas equilibrio entre tu vida personal y profesional",
-    "Estás atravesando una transición y necesitas claridad",
-    "Quieres dejar de postergar y empezar a actuar",
-];
-
-const noEsPara = [
-    "Buscas soluciones mágicas sin esfuerzo",
-    "No estás dispuesto/a a cuestionar tus creencias",
-    "Esperas que alguien tome las decisiones por ti",
+    "Inviertes en capacitación, pero no ves cambios reales en el desempeño de tus equipos",
+    "Necesitas fortalecer competencias transversales como liderazgo, comunicación efectiva y trabajo colaborativo",
+    "Enfrentas alta rotación, desmotivación o brechas de habilidades que impactan los resultados del negocio",
+    "Buscas programas que se conecten con la realidad operacional y generen resultados medibles",
+    "Necesitas preparar a futuros talentos o profesionales para los desafíos del mercado laboral actual y futuro",
 ];
 
 export default function ParaQuienEs() {
     return (
         <section id="para-quien" className="bg-white px-6 py-20">
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-4xl">
                 {/* Header */}
                 <ScrollReveal>
                     <div className="mb-16 text-center">
@@ -35,82 +28,25 @@ export default function ParaQuienEs() {
                     </div>
                 </ScrollReveal>
 
-                <div className="grid gap-12 lg:grid-cols-2">
-                    {/* Para quién SÍ es */}
-                    <ScrollReveal delay={100}>
-                        <div className="h-full rounded-2xl border border-white/5 bg-[#18181b] p-8">
-                            <div className="mb-6 flex items-center gap-3">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-900/30 text-green-400">
-                                    <svg
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M5 13l4 4L19 7"
-                                        />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-white">
-                                    Esto es para ti si:
-                                </h3>
-                            </div>
+                <ScrollReveal delay={100}>
+                    <div className="rounded-2xl border border-white/5 bg-[#18181b] p-8">
+                        <ul className="space-y-4">
+                            {perfilIdeal.map((item, index) => (
+                                <li key={index} className="flex items-start gap-3">
+                                    <span className="mt-1 text-primary">•</span>
+                                    <span className="text-gray-400">{item}</span>
+                                </li>
+                            ))}
+                        </ul>
 
-                            <ul className="space-y-4">
-                                {perfilIdeal.map((item, index) => (
-                                    <li key={index} className="flex items-start gap-3">
-                                        <span className="mt-1 text-primary">•</span>
-                                        <span className="text-gray-400">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </ScrollReveal>
+                        <hr className="my-6 border-gray-700" />
 
-                    {/* Para quién NO es */}
-                    <ScrollReveal delay={250}>
-                        <div className="h-full rounded-2xl border border-white/5 bg-[#18181b] p-8">
-                            <div className="mb-6 flex items-center gap-3">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-900/30 text-red-400">
-                                    <svg
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-white">
-                                    No es para ti si:
-                                </h3>
-                            </div>
-
-                            <ul className="space-y-4">
-                                {noEsPara.map((item, index) => (
-                                    <li key={index} className="flex items-start gap-3">
-                                        <span className="mt-1 text-gray-500">•</span>
-                                        <span className="text-gray-400">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <p className="mt-6 text-sm italic text-gray-500">
-                                El coaching requiere compromiso y disposición al cambio. Si estás
-                                listo/a para eso, ¡vamos!
-                            </p>
-                        </div>
-                    </ScrollReveal>
-                </div>
+                        <p className="text-sm italic text-gray-400">
+                            Si tu organización se identifica con al menos uno de estos puntos, conversemos.
+                            Diseñamos soluciones a la medida de cada realidad.
+                        </p>
+                    </div>
+                </ScrollReveal>
             </div>
         </section>
     );
