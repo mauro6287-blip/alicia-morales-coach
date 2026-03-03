@@ -11,7 +11,7 @@ export default function Hero() {
         >
             {/* Background image */}
             <Image
-                src="/images/Hero_AliciaMoralesCoach2.png"
+                src="/images/Hero2 AliciaMorales.png"
                 alt="Hero background"
                 fill
                 priority
