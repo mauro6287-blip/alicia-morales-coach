@@ -23,7 +23,7 @@ export default function ParaQuienEs() {
                         </span>
                         <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
                             <span className="font-[family-name:var(--font-montserrat)]">
-                                Esto es para tu organización si:
+                                Nuestras soluciones son para ti si tu organización enfrenta estos desafíos:
                             </span>
                         </h2>
                     </div>
@@ -48,7 +48,7 @@ export default function ParaQuienEs() {
                                 </svg>
                             </div>
                             <h3 className="text-xl font-semibold text-white">
-                                Esto es para tu organización si:
+                                Nuestras soluciones son para ti si tu organización enfrenta estos desafíos:
                             </h3>
                         </div>
 
