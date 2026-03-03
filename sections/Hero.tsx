@@ -39,7 +39,7 @@ export default function Hero() {
 
                 <ScrollReveal delay={200}>
                     {/* Description */}
-                    <p className="mx-auto mb-10 max-w-3xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-muted">
+                    <p className="mx-auto mb-10 max-w-3xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-gray-200">
                         Creamos espacios de transformación donde las organizaciones
                         potencian a sus equipos a través del coaching ontológico y el
                         desarrollo de competencias clave, con las personas en el centro de la acción.
