@@ -32,9 +32,12 @@ const pasos = [
     },
     {
         numero: "04",
-        titulo: "Seguimiento y Ajustes",
+        etiqueta: "SOSTENER · ACOMPAÑAMIENTO",
+        titulo: "El cambio sostenido vale más que el cambio puntual",
         descripcion:
-            "Evaluamos tu progreso, celebramos los logros y ajustamos el plan según sea necesario.",
+            "El verdadero retorno sobre la inversión ocurre cuando el cambio se sostiene en el tiempo. Ofrecemos acompañamiento continuo para que las competencias desarrolladas se integren en la cultura de la organización y no se diluyan. Seguimiento, ajuste y soporte para que lo aprendido se convierta en identidad de equipo.",
+        resultado:
+            "Tu organización no vuelve al punto de partida.",
     },
 ];
 
