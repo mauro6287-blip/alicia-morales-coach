@@ -23,9 +23,12 @@ const pasos = [
     },
     {
         numero: "03",
-        titulo: "Sesiones de Coaching",
+        etiqueta: "TENER · RESULTADOS",
+        titulo: "Evidencia del cambio, no solo percepción",
         descripcion:
-            "Trabajamos en sesiones regulares donde exploramos, reflexionamos y creamos estrategias para tu avance.",
+            "Medimos el impacto del proceso en comportamientos observables y resultados organizacionales concretos. Acompañamos a líderes y equipos en la consolidación de nuevas formas de trabajar, relacionarse y tomar decisiones. El resultado no es una certificación — es una transformación verificable.",
+        resultado:
+            "Tu organización tiene evidencia de lo que cambió y cómo impacta el negocio.",
     },
     {
         numero: "04",
