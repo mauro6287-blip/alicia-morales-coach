@@ -45,8 +45,8 @@ export default function ComoTrabajo() {
                             </span>
                         </h2>
                         <p className="mx-auto max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light text-muted">
-                            Un proceso claro y estructurado que te guía paso a paso hacia tus
-                            objetivos.
+                            Un proceso estructurado en cuatro etapas que convierte las brechas de
+                            competencias en resultados organizacionales concretos y sostenibles.
                         </p>
                     </div>
                 </ScrollReveal>
