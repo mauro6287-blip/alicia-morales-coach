@@ -36,14 +36,13 @@ export default function ComoTrabajo() {
                 {/* Header */}
                 <ScrollReveal>
                     <div className="mb-16 text-center">
-                        <span className="mb-4 inline-flex items-center gap-3 text-sm font-medium uppercase tracking-wider text-primary">
-                            <span className="h-px w-8 bg-primary" />
+                        <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
                             Nuestra metodología
-                            <span className="h-px w-8 bg-primary" />
                         </span>
                         <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-                            <span className="font-light text-foreground">El </span>
-                            <span className="font-bold italic text-primary">Método CARA</span>
+                            <span className="font-[family-name:var(--font-montserrat)]">
+                                El Método CARA
+                            </span>
                         </h2>
                         <p className="mx-auto max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-light text-muted">
                             Un proceso claro y estructurado que te guía paso a paso hacia tus
