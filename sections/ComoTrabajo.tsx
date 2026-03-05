@@ -14,9 +14,12 @@ const pasos = [
     },
     {
         numero: "02",
-        titulo: "Plan Personalizado",
+        etiqueta: "HACER · ACCIÓN",
+        titulo: "Programas diseñados para provocar cambios reales, no solo aprendizajes",
         descripcion:
-            "Diseñamos juntos un plan de acción adaptado a tus objetivos, ritmo y circunstancias únicas.",
+            "Diseñamos e implementamos el programa a medida de tu organización: talleres, sesiones de coaching grupal, facilitaciones y relatorías que integran la metodología ontológica con herramientas de acción inmediata. Cada sesión está construida para que algo cambie, no solo para que algo se entienda.",
+        resultado:
+            "Tus equipos no solo aprenden — actúan diferente desde la primera intervención.",
     },
     {
         numero: "03",
