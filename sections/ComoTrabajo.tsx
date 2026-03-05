@@ -48,6 +48,9 @@ export default function ComoTrabajo() {
                             Un proceso estructurado en cuatro etapas que convierte las brechas de
                             competencias en resultados organizacionales concretos y sostenibles.
                         </p>
+                        <p className="mx-auto mt-4 max-w-2xl font-[family-name:var(--font-montserrat)] text-lg font-semibold text-primary">
+                            Consciencia · Acción · Resultados · Acompañamiento
+                        </p>
                     </div>
                 </ScrollReveal>
 
