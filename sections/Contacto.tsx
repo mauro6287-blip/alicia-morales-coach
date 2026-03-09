@@ -5,10 +5,11 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const servicios = [
     { value: "", label: "Selecciona un servicio" },
-    { value: "sesion-claridad", label: "Sesión de Claridad (Gratis)" },
-    { value: "coaching-individual", label: "Coaching Individual" },
-    { value: "programa-3-meses", label: "Programa 3 Meses" },
-    { value: "otro", label: "Otro / No estoy seguro/a" },
+    { value: "habilidades-mercado-laboral", label: "Habilidades Clave para el Mercado Laboral" },
+    { value: "insercion-laboral", label: "Programa de Inserción Laboral" },
+    { value: "outplacement-reinsercion", label: "Outplacement Grupal- Re-inserción Laboral" },
+    { value: "mentorias-charlas", label: "Mentorías y Charlas Corporativas" },
+    { value: "facilitacion-talleres", label: "Facilitación de Talleres" },
 ];
 
 interface FormData {
