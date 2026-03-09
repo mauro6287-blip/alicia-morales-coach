@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
+import KeywordMarquee from "@/components/KeywordMarquee";
 
 export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative flex min-h-screen items-end justify-center overflow-hidden px-6 pb-12 pt-32"
+            className="relative flex min-h-screen flex-col justify-end overflow-hidden"
         >
             {/* Background image */}
             <Image
@@ -20,7 +21,7 @@ export default function Hero() {
             {/* Dark overlay for text readability */}
             <div className="absolute inset-0 bg-black/40" />
 
-            <div className="relative z-10 mx-auto w-full max-w-6xl text-center">
+            <div className="relative z-10 mx-auto mb-8 w-full max-w-6xl px-6 pb-4 pt-32 text-center">
                 <ScrollReveal>
                     {/* Main heading */}
                     <h1 className="mb-6 text-3xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
@@ -84,6 +85,9 @@ export default function Hero() {
                     </div>
                 </ScrollReveal>
             </div>
+
+            {/* Keyword marquee at the bottom */}
+            <KeywordMarquee />
         </section>
     );
 }
