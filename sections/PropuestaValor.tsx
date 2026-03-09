@@ -64,8 +64,8 @@ export default function PropuestaValor() {
                                 <p>
                                     Somos una empresa especializada en el desarrollo de competencias
                                     transversales para organizaciones. Acompañamos a empresas, instituciones
-                                    educativas y organismos públicos a fortalecer el capital humano de sus
-                                    equipos a través de metodologías vivenciales que integran consciencia,
+                                    educativas y organismos públicos a fortalecer el capital humano
+                                    a través de metodologías vivenciales que integran consciencia,
                                     acción y resultados.
                                 </p>
                                 <p>
