@@ -29,7 +29,7 @@ export default function Valores() {
     return (
         <section id="valores" className="relative bg-background px-6 py-24">
             {/* Background rectangle */}
-            <div className="absolute inset-x-0 bottom-0 top-8 rounded-t-3xl bg-[#a9a9ad]" />
+            <div className="absolute inset-x-0 bottom-0 top-8 rounded-t-3xl bg-gradient-to-b from-[#242424] to-[#ffffff]" />
 
             <div className="relative mx-auto max-w-7xl">
                 {/* Header */}
