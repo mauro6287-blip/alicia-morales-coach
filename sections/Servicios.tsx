@@ -35,7 +35,7 @@ const programas = [
     },
     {
         numero: "03",
-        badge: "EMPRESAS · OMIL · SINDICATOS",
+        badge: "ORGANISMOS PUBLICOS · EMPRESAS · SINDICATOS",
         badgeIcon: "🤝",
         titulo: "Programa de Coaching y Transición Laboral",
         descripcion:

@@ -26,7 +26,7 @@ const soluciones = [
         ],
     },
     {
-        categoria: "EMPRESAS- OMIL- SINDICATOS",
+        categoria: "ORGANISMOS PUBLICOS - EMPRESAS - SINDICATOS",
         titulo: "Outplacement Grupal- Re-inserción Laboral",
         descripcion:
             "Diseñado para organizaciones que buscan un proceso de transición laboral eficiente, estratégico y de accesible.",
