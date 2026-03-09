@@ -29,7 +29,7 @@ export default function Valores() {
     return (
         <section id="valores" className="relative bg-background px-6 py-24">
             {/* Background rectangle */}
-            <div className="absolute inset-x-0 bottom-0 top-8 rounded-t-3xl bg-[#242424]" />
+            <div className="absolute inset-x-0 bottom-0 top-8 rounded-t-3xl bg-[#a9a9ad]" />
 
             <div className="relative mx-auto max-w-7xl">
                 {/* Header */}
@@ -40,7 +40,7 @@ export default function Valores() {
                         </span>
                         <h2 className="mb-12 text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
                             <span className="font-[family-name:var(--font-montserrat)]">
-                                Pilares de Nuestra Filosofía
+                                Los pilares que nos mueven
                             </span>
                         </h2>
                     </div>
