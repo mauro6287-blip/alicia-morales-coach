@@ -18,7 +18,7 @@ export default function Hero() {
                 className="object-cover"
             />
             {/* Dark overlay for text readability */}
-            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-0 bg-black/40" />
 
             <div className="relative z-10 mx-auto w-full max-w-6xl text-center">
                 <ScrollReveal>
@@ -41,8 +41,8 @@ export default function Hero() {
                     {/* Description */}
                     <p className="mx-auto mb-10 max-w-3xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-gray-200">
                         Creamos espacios de transformación donde las organizaciones
-                        potencian a sus equipos a través del coaching ontológico y el
-                        desarrollo de competencias clave, con las personas en el centro de la acción.
+                        potencian a profesionales y futuros talentos, a través del coaching
+                        y el desarrollo de competencias humanas en el centro de la acción.
                     </p>
 
                     {/* CTA Buttons with scroll indicator centered */}
