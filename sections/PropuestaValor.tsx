@@ -51,10 +51,10 @@ export default function PropuestaValor() {
                     </div>
                 </ScrollReveal>
 
-                <div className="grid gap-12 lg:grid-cols-5 lg:gap-8">
+                <div className="grid items-center gap-12 lg:grid-cols-5 lg:gap-8">
                     {/* Left Column - Propuesta de Valor */}
                     <ScrollReveal className="lg:col-span-2">
-                        <div className="flex flex-col justify-center">
+                        <div className="flex flex-col">
                             <h3 className="mb-8 text-3xl font-bold text-primary">
                                 <span className="font-[family-name:var(--font-montserrat)]">
                                     Propuesta de valor
