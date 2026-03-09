@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const valores = [
     {
-        icon: "🎯",
+        icon: "🏆",
         titulo: "Profesionalismo",
     },
     {
@@ -12,15 +12,15 @@ const valores = [
         titulo: "Integridad",
     },
     {
-        icon: "💪",
+        icon: "🔥",
         titulo: "Compromiso",
     },
     {
-        icon: "👥",
+        icon: "🤲",
         titulo: "Acompañamiento",
     },
     {
-        icon: "📈",
+        icon: "⭐",
         titulo: "Resultados",
     },
 ];
