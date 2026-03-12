@@ -7,8 +7,8 @@ const perfilIdeal = [
     "Necesitas fortalecer competencias transversales como liderazgo, comunicación efectiva y trabajo colaborativo",
     "Enfrentas alta rotación, desmotivación o brechas de habilidades que impactan los resultados del negocio",
     "Buscas programas que se conecten con la realidad operacional y generen resultados medibles",
-    "Necesitas preparar a tus estudiantes o profesionales para los desafíos del mercado laboral actual y futuro",
-    "Requieres acompañar procesos de transición laboral con un enfoque estratégico, digno y profesional",
+    "Necesitas preparar a tus futuros talentos con las competencias que el mundo laboral exige hoy",
+    "Buscas acompañamiento de coaching estratégico para cualquier etapa del ciclo de empleabilidad",
 ];
 
 export default function ParaQuienEs() {
