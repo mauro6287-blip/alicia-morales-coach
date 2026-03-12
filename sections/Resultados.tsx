@@ -4,11 +4,11 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const testimonios = [
     {
-        nombre: "María García",
-        rol: "Ejecutiva de Marketing",
+        nombre: "Andrea Fernandez Sales",
+        rol: "Ingeniero Comercial",
         texto:
-            "Trabajar con Alicia fue transformador. En 3 meses logré la claridad que buscaba hace años y finalmente di el salto profesional que tanto postergaba.",
-        avatar: "MG",
+            "Excelente experiencia. Después de muchos años sin estar en búsqueda activa de trabajo, necesitaba actualizar mi CV y conocer las últimas tendencias en esta materia. Alicia es muy profesional y cercana, siento que estuve en las mejores manos.",
+        avatar: "AF",
     },
     {
         nombre: "Carlos Rodríguez",
