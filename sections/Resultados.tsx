@@ -18,11 +18,11 @@ const testimonios = [
         avatar: "VP",
     },
     {
-        nombre: "Ana Martínez",
-        rol: "Profesora Universitaria",
+        nombre: "Víctor León Marquez",
+        rol: "Líder Comercial Estratégico",
         texto:
-            "Llegué agotada y sin dirección. Hoy tengo límites saludables, más energía y un plan claro para mi desarrollo. Eternamente agradecida.",
-        avatar: "AM",
+            "Recomiendo ampliamente a Alicia Morales Bustamante por sus excepcionales habilidades de comunicación, por su capacidad para expresar ideas con claridad y concisión para la ayuda de la generación y modificación de mi cv y perfil de LinkedIn. Gracias Alicia por tu profesionalismo y entrega para la construcción de un nuevo rumbo en esta plataforma lo que implico a volver a insertarme al mercado. Trabajar contigo fue un verdadero placer y gracias por el profesionalismo y la seriedad que le das por las personas que necesitamos de tu ayuda.",
+        avatar: "VL",
     },
 ];
 
