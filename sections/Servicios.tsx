@@ -79,13 +79,9 @@ export default function Servicios() {
                     {programas.map((programa, index) => (
                         <ScrollReveal key={index} delay={index * 120}>
                             <div className="group relative flex h-full flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
-                                {/* Number & Badge */}
-                                <div className="mb-6 flex items-start justify-between">
-                                    <span className="text-4xl font-bold text-white/10">
-                                        {programa.numero}
-                                    </span>
-                                    <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                                        <span>{programa.badgeIcon}</span>
+                                {/* Badge */}
+                                <div className="mb-6 flex justify-center">
+                                    <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">
                                         {programa.badge}
                                     </span>
                                 </div>
