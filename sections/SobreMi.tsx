@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function SobreMi() {
@@ -10,10 +11,12 @@ export default function SobreMi() {
                     {/* Image placeholder */}
                     <ScrollReveal className="order-2 lg:order-1">
                         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20">
-                            <img
+                            <Image
                                 src="/images/Alicia_Morales.jpeg"
                                 alt="Alicia Morales - Coach"
-                                className="h-full w-full object-cover"
+                                fill
+                                className="object-cover"
+                                priority
                             />
 
                             {/* Decorative element */}
