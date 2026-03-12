@@ -35,7 +35,7 @@ export default function SobreMi() {
 
                             <div className="space-y-4 text-muted">
                                 <p className="text-lg leading-relaxed">
-                                    La Escuela de Competencias Aplicadas Alicia Morales es una entidad
+                                    La Escuela de Competencias Aplicadas es una entidad
                                     de consultoría y formación creada con el propósito de acompañar a
                                     las organizaciones en el desarrollo de Habilidades Transversales
                                     necesarias para los entornos de alta complejidad actuales y futuros
