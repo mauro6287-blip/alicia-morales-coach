@@ -31,27 +31,6 @@ export default function ParaQuienEs() {
 
                 <ScrollReveal delay={100}>
                     <div className="rounded-2xl border border-white/5 bg-[#18181b] p-8">
-                        <div className="mb-6 flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-900/30 text-green-400">
-                                <svg
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M5 13l4 4L19 7"
-                                    />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-white">
-                                Nuestras soluciones son para ti si tu organización enfrenta estos desafíos:
-                            </h3>
-                        </div>
-
                         <ul className="space-y-4">
                             {perfilIdeal.map((item, index) => (
                                 <li key={index} className="flex items-start gap-3">
