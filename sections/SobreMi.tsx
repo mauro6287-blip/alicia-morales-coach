@@ -11,7 +11,7 @@ export default function SobreMi() {
                     <ScrollReveal className="order-2 lg:order-1">
                         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20">
                             <img
-                                src="/images/alicia.png"
+                                src="/images/Alicia_Morales.jpeg"
                                 alt="Alicia Morales - Coach"
                                 className="h-full w-full object-cover"
                             />
