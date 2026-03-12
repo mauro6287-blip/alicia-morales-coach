@@ -18,9 +18,6 @@ export default function SobreMi() {
                                 className="object-cover"
                                 priority
                             />
-
-                            {/* Decorative element */}
-                            <div className="absolute -bottom-6 -right-6 h-48 w-48 rounded-2xl border-4 border-accent/30" />
                         </div>
                     </ScrollReveal>
 
