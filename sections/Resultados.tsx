@@ -83,27 +83,6 @@ export default function Resultados() {
                     ))}
                 </div>
 
-                {/* Stats */}
-                <ScrollReveal delay={200}>
-                    <div className="mt-16 grid grid-cols-2 gap-8 rounded-2xl bg-gradient-to-r from-primary to-primary-dark p-8 text-white md:grid-cols-4">
-                        <div className="text-center">
-                            <p className="text-3xl font-bold md:text-4xl">+100</p>
-                            <p className="text-sm opacity-80">Clientes satisfechos</p>
-                        </div>
-                        <div className="text-center">
-                            <p className="text-3xl font-bold md:text-4xl">5+</p>
-                            <p className="text-sm opacity-80">Años de experiencia</p>
-                        </div>
-                        <div className="text-center">
-                            <p className="text-3xl font-bold md:text-4xl">98%</p>
-                            <p className="text-sm opacity-80">Tasa de satisfacción</p>
-                        </div>
-                        <div className="text-center">
-                            <p className="text-3xl font-bold md:text-4xl">+500</p>
-                            <p className="text-sm opacity-80">Sesiones realizadas</p>
-                        </div>
-                    </div>
-                </ScrollReveal>
             </div>
         </section>
     );
