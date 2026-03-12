@@ -45,7 +45,7 @@ export default function Header() {
                             priority
                         />
                     </div>
-                    <span className="font-[family-name:var(--font-montserrat)]">
+                    <span className="hidden font-[family-name:var(--font-montserrat)] md:inline">
                         Escuela de Competencias Aplicadas
                     </span>
                 </a>
