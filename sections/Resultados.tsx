@@ -11,11 +11,11 @@ const testimonios = [
         avatar: "AF",
     },
     {
-        nombre: "Carlos Rodríguez",
-        rol: "Emprendedor",
+        nombre: "Verónica Peña Puentes",
+        rol: "Ingeniero Comercial",
         texto:
-            "El coaching me ayudó a superar el síndrome del impostor y lanzar mi negocio con confianza. Alicia tiene un don para hacer las preguntas correctas.",
-        avatar: "CR",
+            "La asesoría de Alicia fue fundamental en mi búsqueda de trabajo después de estar 4 años fuera del mercado laboral. La mejora en mi CV y perfil de Linkedin, el apoyo en preparar entrevistas asociadas al cargo, dando mas seguridad y sacando provecho a cada experiencia y formación que a veces cuesta ver por sí solos. Su asesoría es clara, critica, certera, y acorde a los tiempos actuales.",
+        avatar: "VP",
     },
     {
         nombre: "Ana Martínez",
