@@ -21,10 +21,10 @@ export default function Hero() {
             {/* Dark overlay for text readability */}
             <div className="absolute inset-0 bg-black/40" />
 
-            <div className="relative z-10 mx-auto mb-8 w-full max-w-6xl px-6 pb-4 pt-32 text-center">
+            <div className="relative z-10 mx-auto mb-4 w-full max-w-6xl px-6 pb-4 pt-20 text-center md:mb-8 md:pt-32">
                 <ScrollReveal>
                     {/* Main heading */}
-                    <h1 className="mb-6 text-3xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
+                    <h1 className="mb-4 text-3xl font-light tracking-tight text-foreground md:mb-6 md:text-6xl lg:text-7xl">
                         <span className="font-[family-name:var(--font-montserrat)]">
                             Acompañando a organizaciones para el desarrollo
                         </span>
@@ -40,14 +40,14 @@ export default function Hero() {
 
                 <ScrollReveal delay={200}>
                     {/* Description */}
-                    <p className="mx-auto mb-10 max-w-3xl font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-gray-200">
+                    <p className="mx-auto mb-6 max-w-3xl font-[family-name:var(--font-montserrat)] text-base font-light leading-relaxed text-gray-200 md:mb-10 md:text-lg">
                         Creamos espacios de transformación donde las organizaciones
                         potencian a profesionales y futuros talentos, a través del coaching
                         y el desarrollo de competencias humanas en el centro de la acción.
                     </p>
 
                     {/* CTA Buttons with scroll indicator centered */}
-                    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                         <a
                             href="#formulario"
                             className="group rounded-full bg-primary px-8 py-4 text-lg font-semibold text-gray-900 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary-dark hover:shadow-xl"
