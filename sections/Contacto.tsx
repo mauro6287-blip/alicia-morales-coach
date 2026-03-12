@@ -10,6 +10,7 @@ const servicios = [
     { value: "outplacement-reinsercion", label: "Outplacement Grupal- Re-inserción Laboral" },
     { value: "mentorias-charlas", label: "Mentorías y Charlas Corporativas" },
     { value: "facilitacion-talleres", label: "Facilitación de Talleres" },
+    { value: "otros-servicios", label: "Otros servicios" },
 ];
 
 interface FormData {
