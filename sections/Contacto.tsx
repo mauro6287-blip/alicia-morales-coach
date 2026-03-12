@@ -149,7 +149,7 @@ export default function Contacto() {
                             </span>
                             <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
                                 <span className="font-[family-name:var(--font-montserrat)]">
-                                    Escribenos directamente
+                                    Escríbenos directamente
                                 </span>
                             </h2>
                             <p className="mb-8 font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-muted">
@@ -345,7 +345,7 @@ export default function Contacto() {
                                 )}
 
                                 <p className="text-center text-sm text-muted">
-                                    * Campos requeridos. Respondo en menos de 24 horas.
+                                    * Campos requeridos. Respondemos en menos de 24 horas.
                                 </p>
                             </div>
                         </form>
