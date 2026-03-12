@@ -148,12 +148,12 @@ export default function Contacto() {
                             </span>
                             <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
                                 <span className="font-[family-name:var(--font-montserrat)]">
-                                    Escríbeme directamente
+                                    Escribenos directamente
                                 </span>
                             </h2>
                             <p className="mb-8 font-[family-name:var(--font-montserrat)] text-lg font-light leading-relaxed text-muted">
                                 ¿Tienes preguntas? ¿No estás seguro/a de qué servicio es el
-                                adecuado? Cuéntame tu situación y te respondo personalmente.
+                                adecuado? Cuéntanos tu situación y te responderemos personalmente.
                             </p>
 
                             {/* Contact info */}
@@ -321,7 +321,7 @@ export default function Contacto() {
                                         rows={4}
                                         className={`w-full resize-none rounded-xl border bg-background px-4 py-3 text-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${errors.mensaje ? "border-red-500" : "border-border"
                                             }`}
-                                        placeholder="Cuéntame brevemente qué te trae por aquí..."
+                                        placeholder="Cuéntanos brevemente qué te trae por aquí..."
                                     />
                                     {errors.mensaje && (
                                         <p className="mt-1 text-sm text-red-500">{errors.mensaje}</p>
