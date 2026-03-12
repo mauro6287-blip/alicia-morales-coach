@@ -75,7 +75,7 @@ export default function Problemas() {
                             <h3 className="mb-4 text-xl font-bold text-white">
                                 {solucion.titulo}
                             </h3>
-                            <p className="mb-6 flex-grow text-sm leading-relaxed text-gray-600">
+                            <p className="mb-6 flex-grow text-sm leading-relaxed text-[#8ba3af]">
                                 {solucion.descripcion}
                             </p>
 
