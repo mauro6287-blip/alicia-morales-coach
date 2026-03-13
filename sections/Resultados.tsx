@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const testimonios = [
@@ -26,7 +27,11 @@ const testimonios = [
     },
 ];
 
+const TRUNCATE_LENGTH = 380;
+
 export default function Resultados() {
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
     return (
         <section id="resultados" className="bg-white px-6 py-20">
             <div className="mx-auto max-w-6xl">
@@ -50,37 +55,53 @@ export default function Resultados() {
 
                 {/* Testimonials grid */}
                 <div className="grid gap-8 md:grid-cols-3">
-                    {testimonios.map((testimonio, index) => (
-                        <ScrollReveal key={index} delay={index * 120}>
-                            <div className="h-full rounded-2xl border border-white/5 bg-[#18181b] p-8">
-                                {/* Quote icon */}
-                                <svg
-                                    className="mb-4 h-8 w-8 text-accent"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                                </svg>
+                    {testimonios.map((testimonio, index) => {
+                        const needsTruncation = testimonio.texto.length > TRUNCATE_LENGTH;
+                        const isExpanded = expandedIndex === index;
+                        const displayText = needsTruncation && !isExpanded
+                            ? testimonio.texto.slice(0, TRUNCATE_LENGTH).trimEnd() + "..."
+                            : testimonio.texto;
 
-                                <p className="mb-6 leading-relaxed text-gray-400">
-                                    {testimonio.texto}
-                                </p>
+                        return (
+                            <ScrollReveal key={index} delay={index * 120}>
+                                <div className="h-full rounded-2xl border border-white/5 bg-[#18181b] p-8">
+                                    {/* Quote icon */}
+                                    <svg
+                                        className="mb-4 h-8 w-8 text-accent"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                    </svg>
 
-                                {/* Author */}
-                                <div className="flex items-center gap-4">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-gray-900">
-                                        {testimonio.avatar}
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold text-white">
-                                            {testimonio.nombre}
-                                        </p>
-                                        <p className="text-sm text-gray-400">{testimonio.rol}</p>
+                                    <p className="mb-6 leading-relaxed text-gray-400">
+                                        {displayText}
+                                        {needsTruncation && (
+                                            <button
+                                                onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                                                className="ml-1 font-medium text-primary transition-colors hover:text-primary/80"
+                                            >
+                                                {isExpanded ? "Ver menos" : "Ver más"}
+                                            </button>
+                                        )}
+                                    </p>
+
+                                    {/* Author */}
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-gray-900">
+                                            {testimonio.avatar}
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-white">
+                                                {testimonio.nombre}
+                                            </p>
+                                            <p className="text-sm text-gray-400">{testimonio.rol}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </ScrollReveal>
-                    ))}
+                            </ScrollReveal>
+                        );
+                    })}
                 </div>
 
             </div>
