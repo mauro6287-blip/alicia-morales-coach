@@ -87,7 +87,7 @@ export default function Servicios() {
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="mb-4 text-xl font-bold text-white">
+                                <h3 className="mb-4 text-center text-xl font-bold text-white">
                                     {programa.titulo}
                                 </h3>
 
