@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const valores = [
@@ -25,18 +26,14 @@ const valores = [
         titulo: "Compromiso",
         // Handshake
         svg: (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
-                <path d="M12.22 19.85c-.18.18-.5.18-.67 0l-3.45-3.46c-.18-.18-.18-.5 0-.67l.67-.67c.18-.18.5-.18.67 0l2.34 2.34 2.34-2.34a.48.48 0 01.67 0l.67.67c.18.18.18.5 0 .67l-3.24 3.46zM22 8.5l-3.79 3.8-2.94-2.94-.67.67 3.61 3.61L23.34 8.5H22zM6.73 10.03L2 14.76v.01l5.34 5.34.67-.67-3.61-3.61 3-3-.67-.67v-.13zM17 6h-2.69l-2.5 2.5-.67-.67L14.28 4.7a1 1 0 00-.7-.3H9.42a1 1 0 00-.71.3L4 9.41V11h1.59l3.12-3.12.67.67L6.73 11.2l.67.67L11 8.27l3.59 3.6.67-.67-3.55-3.55L14.34 5H17V6z" />
-            </svg>
+            <Image src="/images/apreton-de-manos.svg" alt="Compromiso" width={32} height={32} className="h-8 w-8" />
         ),
     },
     {
         titulo: "Acompañamiento",
-        // Open hands / support
+        // Team leader / support
         svg: (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z" />
-            </svg>
+            <Image src="/images/jefe-de-equipo.svg" alt="Acompañamiento" width={32} height={32} className="h-8 w-8" />
         ),
     },
     {
