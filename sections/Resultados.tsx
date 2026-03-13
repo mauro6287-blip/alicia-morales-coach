@@ -104,7 +104,7 @@ export default function Resultados() {
                                         alt="LinkedIn"
                                         width={20}
                                         height={20}
-                                        className="absolute bottom-4 right-4 opacity-30 transition-opacity hover:opacity-70"
+                                        className="absolute bottom-4 right-4"
                                     />
                                 </div>
                             </ScrollReveal>
