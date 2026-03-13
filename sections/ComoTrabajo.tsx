@@ -19,7 +19,7 @@ const pasos = [
         descripcion:
             "Diseñamos e implementamos el programa a medida de tu organización: talleres, sesiones de coaching grupal, facilitaciones y relatorías que integran la metodología ontológica con herramientas de acción inmediata. Cada sesión está construida para que algo cambie, no solo para que algo se entienda.",
         resultado:
-            "Tus equipos no solo aprenden — actúan diferente desde la primera intervención.",
+            "Cada instancia está diseñada para que la acción sea posible. Nosotros la habilitamos.",
     },
     {
         numero: "03",
