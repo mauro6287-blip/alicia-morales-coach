@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const testimonios = [
@@ -100,8 +99,8 @@ export default function Resultados() {
                                         </div>
                                     </div>
                                     {/* LinkedIn logo */}
-                                    <Image
-                                        src="/images/linkedin (1).svg"
+                                    <img
+                                        src="/images/linkedin.svg"
                                         alt="LinkedIn"
                                         width={20}
                                         height={20}
