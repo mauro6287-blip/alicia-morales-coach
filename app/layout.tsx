@@ -85,12 +85,12 @@ export const metadata: Metadata = {
   },
   category: "Coaching",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/Favicon_AliciaMoralesCoach.svg",
+    shortcut: "/Favicon_AliciaMoralesCoach.svg",
+    apple: "/Favicon_AliciaMoralesCoach.svg",
     other: {
       rel: "apple-touch-icon-precomposed",
-      url: "/logo.png",
+      url: "/Favicon_AliciaMoralesCoach.svg",
     },
   },
 };
