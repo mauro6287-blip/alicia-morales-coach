@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const testimonios = [
@@ -64,7 +65,7 @@ export default function Resultados() {
 
                         return (
                             <ScrollReveal key={index} delay={index * 120}>
-                                <div className="flex h-full flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8">
+                                <div className="relative flex h-full flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8">
                                     {/* Quote icon */}
                                     <svg
                                         className="mb-4 h-8 w-8 text-accent"
@@ -98,6 +99,14 @@ export default function Resultados() {
                                             <p className="text-sm text-gray-400">{testimonio.rol}</p>
                                         </div>
                                     </div>
+                                    {/* LinkedIn logo */}
+                                    <Image
+                                        src="/images/linkedin (1).svg"
+                                        alt="LinkedIn"
+                                        width={20}
+                                        height={20}
+                                        className="absolute bottom-4 right-4 opacity-30 transition-opacity hover:opacity-70"
+                                    />
                                 </div>
                             </ScrollReveal>
                         );
