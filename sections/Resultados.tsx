@@ -64,7 +64,7 @@ export default function Resultados() {
 
                         return (
                             <ScrollReveal key={index} delay={index * 120}>
-                                <div className="h-full rounded-2xl border border-white/5 bg-[#18181b] p-8">
+                                <div className="flex h-full flex-col rounded-2xl border border-white/5 bg-[#18181b] p-8">
                                     {/* Quote icon */}
                                     <svg
                                         className="mb-4 h-8 w-8 text-accent"
@@ -87,7 +87,7 @@ export default function Resultados() {
                                     </p>
 
                                     {/* Author */}
-                                    <div className="flex items-center gap-4">
+                                    <div className="mt-auto flex items-center gap-4">
                                         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-gray-900">
                                             {testimonio.avatar}
                                         </div>
