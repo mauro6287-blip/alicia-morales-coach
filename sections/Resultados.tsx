@@ -99,13 +99,19 @@ export default function Resultados() {
                                         </div>
                                     </div>
                                     {/* LinkedIn logo */}
-                                    <img
-                                        src="/images/linkedin.svg"
-                                        alt="LinkedIn"
-                                        width={20}
-                                        height={20}
+                                    <a
+                                        href="https://www.linkedin.com/in/alicia-morales-formacion-consultoria-coaching-habilidades-transversales-empleabilidad/details/recommendations/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="absolute bottom-4 right-4"
-                                    />
+                                    >
+                                        <img
+                                            src="/images/linkedin.svg"
+                                            alt="Ver recomendaciones en LinkedIn"
+                                            width={20}
+                                            height={20}
+                                        />
+                                    </a>
                                 </div>
                             </ScrollReveal>
                         );
