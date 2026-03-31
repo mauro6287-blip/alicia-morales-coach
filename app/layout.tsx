@@ -65,7 +65,7 @@ export const metadata: Metadata = {
       "Acompañamos a organizaciones para el desarrollo del talento que impulsa resultados. Coaching y competencias transversales.",
     images: [
       {
-        url: "/og-image-v2.jpg",
+        url: "https://aliciamoralescoach.com/og-image-v2.jpg",
         width: 1200,
         height: 630,
         alt: "Escuela de Competencias Aplicadas - Alicia Morales",
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     title: "Escuela de Competencias Aplicadas | Alicia Morales",
     description:
       "Acompañamos a organizaciones para el desarrollo del talento que impulsa resultados.",
-    images: ["/og-image-v2.jpg"],
+    images: ["https://aliciamoralescoach.com/og-image-v2.jpg"],
   },
   verification: {
     // Placeholder for Google Search Console
