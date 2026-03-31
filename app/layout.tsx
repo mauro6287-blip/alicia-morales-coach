@@ -59,24 +59,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     url: siteUrl,
-    siteName: "Alicia Morales Coach",
-    title: "Alicia Morales | Coach Profesional",
+    siteName: "Escuela de Competencias Aplicadas",
+    title: "Escuela de Competencias Aplicadas | Alicia Morales",
     description:
-      "Transforma tu vida con acompañamiento experto. Coach certificada ICF con +100 clientes satisfechos.",
+      "Acompañamos a organizaciones para el desarrollo del talento que impulsa resultados. Coaching y competencias transversales.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Alicia Morales - Coach Profesional",
+        alt: "Escuela de Competencias Aplicadas - Alicia Morales",
+        type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alicia Morales Coach | Coach Profesional",
+    title: "Escuela de Competencias Aplicadas | Alicia Morales",
     description:
-      "Transforma tu vida con acompañamiento experto. Coach certificada ICF.",
+      "Acompañamos a organizaciones para el desarrollo del talento que impulsa resultados.",
     images: ["/og-image.jpg"],
   },
   verification: {
