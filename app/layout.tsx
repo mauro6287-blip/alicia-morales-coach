@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Roboto } from "next/font/google";
-import { Header, Footer, WhatsAppButton } from "@/components";
+import { Header, Footer, WhatsAppButton, CartDrawer } from "@/components";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -122,6 +122,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <WhatsAppButton />
+        <CartDrawer />
       </body>
     </html>
   );

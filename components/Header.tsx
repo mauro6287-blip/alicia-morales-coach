@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import CartButton from "./cart/CartButton";
 
 const navLinks = [
-    { label: "Inicio", href: "#hero" },
-    { label: "Soluciones", href: "#soluciones" },
-    { label: "Método", href: "#como-trabajo" },
-    { label: "Quiénes Somos", href: "#sobre-mi" },
+    { label: "Inicio", href: "/#hero" },
+    { label: "Soluciones", href: "/#soluciones" },
+    { label: "Método", href: "/#como-trabajo" },
+    { label: "Tienda", href: "/tienda" },
+    { label: "Quiénes Somos", href: "/#sobre-mi" },
 ];
 
 export default function Header() {
@@ -53,26 +56,29 @@ export default function Header() {
                 {/* Desktop Navigation */}
                 <nav className="hidden items-center gap-8 md:flex">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.href}
                             href={link.href}
                             className="text-sm font-medium text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
                         >
                             {link.label}
-                        </a>
+                        </Link>
                     ))}
                     <a
-                        href="#formulario"
+                        href="/#formulario"
                         className="rounded-full bg-[#FFDE59] px-5 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-[#F7B52A]"
                     >
                         Contacto
                     </a>
+                    <CartButton />
                 </nav>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile Cart + Menu */}
+                <div className="flex items-center gap-2 md:hidden">
+                <CartButton />
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-[#27272A] md:hidden"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-[#27272A]"
                     aria-label="Toggle menu"
                 >
                     {isMobileMenuOpen ? (
@@ -105,6 +111,7 @@ export default function Header() {
                         </svg>
                     )}
                 </button>
+                </div>
             </div>
 
             {/* Mobile Navigation */}
@@ -114,17 +121,17 @@ export default function Header() {
             >
                 <nav className="flex flex-col items-start gap-2 bg-[#18181B]/95 px-6 pb-6 backdrop-blur-md">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.href}
                             href={link.href}
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="w-full rounded-lg py-3 text-left font-medium text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
                         >
                             {link.label}
-                        </a>
+                        </Link>
                     ))}
                     <a
-                        href="#formulario"
+                        href="/#formulario"
                         onClick={() => setIsMobileMenuOpen(false)}
                         className="mt-2 w-full rounded-full bg-[#FFDE59] py-3 text-center font-medium text-gray-900 transition-colors hover:bg-[#F7B52A]"
                     >
