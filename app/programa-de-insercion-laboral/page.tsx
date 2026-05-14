@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Programa de Inserción Laboral para organismos educacionales: coaching laboral, talleres, seminarios, programas educativos y empleabilidad para docentes, orientado al desarrollo de competencias transversales en estudiantes y egresados.",
 };
 
-export default function ServiciosPage() {
+export default function ProgramaInsercionLaboralPage() {
   return (
     <div className="min-h-screen bg-[#1A1A1A] pb-20 pt-32">
       <div className="mx-auto max-w-6xl px-4 md:px-6">

@@ -20,7 +20,7 @@ const navLinks: NavLink[] = [
             {
                 label: "Organismos Educacionales",
                 children: [
-                    { label: "Programa de Inserción Laboral", href: "/servicios" },
+                    { label: "Programa de Inserción Laboral", href: "/programa-de-insercion-laboral" },
                 ],
             },
             {

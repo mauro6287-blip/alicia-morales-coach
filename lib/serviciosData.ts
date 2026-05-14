@@ -20,7 +20,7 @@ export const servicios: Servicio[] = [
     id: "coaching-laboral",
     tabLabel: "Coaching Laboral",
     title: "Coaching Laboral",
-    image: "/servicios/coaching-laboral.jpg",
+    image: "/programa-de-insercion-laboral/coaching-laboral.jpg",
     imageAlt: "Sesión de coaching laboral",
     subTabs: [
       {
@@ -39,7 +39,7 @@ export const servicios: Servicio[] = [
     id: "talleres-charlas",
     tabLabel: "Talleres y Charlas",
     title: "Talleres, Charlas y Conversatorios Interactivos",
-    image: "/servicios/talleres-charlas.jpg",
+    image: "/programa-de-insercion-laboral/talleres-charlas.jpg",
     imageAlt: "Taller participativo de competencias",
     intro:
       "Hemos desarrollado más de 20 temáticas en torno a empleabilidad, comunicación efectiva, liderazgo y trabajo colaborativo. Son instancias vivenciales y participativas, pensadas para que cada grupo se lleve herramientas aplicables desde el primer día. El formato se ajusta a la realidad y los objetivos de cada organización o institución.",
@@ -48,7 +48,7 @@ export const servicios: Servicio[] = [
     id: "seminarios",
     tabLabel: "Seminarios",
     title: "Seminarios",
-    image: "/servicios/seminarios.jpg",
+    image: "/programa-de-insercion-laboral/seminarios.jpg",
     imageAlt: "Seminario sobre competencias y futuro del trabajo",
     intro:
       "Encuentros estratégicos que reúnen a empleadores, estudiantes, egresados y egresadas en torno a las competencias transversales y el futuro del trabajo. Espacios de reflexión y conversación que conectan distintas miradas y abren oportunidades de vinculación entre los actores del mundo laboral y formativo.",
@@ -57,7 +57,7 @@ export const servicios: Servicio[] = [
     id: "programas-educativos",
     tabLabel: "Programas Educativos",
     title: "Programas Educativos online y/o presencial",
-    image: "/servicios/programas-educativos.jpg",
+    image: "/programa-de-insercion-laboral/programas-educativos.jpg",
     imageAlt: "Programa educativo online",
     subTabs: [
       {
@@ -78,7 +78,7 @@ export const servicios: Servicio[] = [
     id: "empleabilidad-docentes",
     tabLabel: "Empleabilidad para Docentes",
     title: "Empleabilidad para Docentes",
-    image: "/servicios/empleabilidad-docentes.jpg",
+    image: "/programa-de-insercion-laboral/empleabilidad-docentes.jpg",
     imageAlt: "Taller de empleabilidad para docentes",
     intro:
       "Acompañamos a docentes en el desarrollo de competencias para guiar a sus estudiantes y egresados en su trayectoria profesional.",

@@ -25,7 +25,7 @@ const soluciones = [
             "Construcción de marca personal",
             "Preparación integral para el mercado laboral competencias Chile Valora",
         ],
-        href: "/servicios",
+        href: "/programa-de-insercion-laboral",
     },
     {
         categoria: "ORGANISMOS PUBLICOS - EMPRESAS - SINDICATOS",
