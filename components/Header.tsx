@@ -5,9 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import CartButton from "./cart/CartButton";
 
-type NavLink =
-    | { label: string; href: string }
-    | { label: string; children: { label: string; href: string }[] };
+type NavLeaf = { label: string; href: string };
+type NavBranch = { label: string; children: NavLeaf[] };
+type NavChild = NavLeaf | NavBranch;
+type NavGroup = { label: string; children: NavChild[] };
+type NavLink = NavLeaf | NavGroup;
 
 const navLinks: NavLink[] = [
     { label: "Inicio", href: "/#hero" },
@@ -15,7 +17,12 @@ const navLinks: NavLink[] = [
         label: "Soluciones",
         children: [
             { label: "Empresas y Corporativos", href: "/#soluciones" },
-            { label: "Organismos Educacionales", href: "/servicios" },
+            {
+                label: "Organismos Educacionales",
+                children: [
+                    { label: "Programa de Inserción Laboral", href: "/servicios" },
+                ],
+            },
             {
                 label: "Organismos Públicos, Empresas y Sindicatos",
                 href: "/#soluciones",
@@ -31,10 +38,12 @@ export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+    const [expandedMobileSub, setExpandedMobileSub] = useState<string | null>(null);
 
     const closeMobileMenu = () => {
         setIsMobileMenuOpen(false);
         setExpandedMobile(null);
+        setExpandedMobileSub(null);
     };
 
     useEffect(() => {
@@ -100,15 +109,52 @@ export default function Header() {
                                 </button>
                                 <div className="invisible absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100">
                                     <div className="min-w-[260px] rounded-xl border border-white/5 bg-[#18181B] py-2 shadow-xl shadow-black/40">
-                                        {link.children.map((child) => (
-                                            <Link
-                                                key={child.label}
-                                                href={child.href}
-                                                className="block px-4 py-2.5 text-sm text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
-                                            >
-                                                {child.label}
-                                            </Link>
-                                        ))}
+                                        {link.children.map((child) =>
+                                            "children" in child ? (
+                                                <div
+                                                    key={child.label}
+                                                    className="group/sub relative"
+                                                >
+                                                    <div className="flex cursor-default items-center justify-between gap-2 px-4 py-2.5 text-sm text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]">
+                                                        <span>{child.label}</span>
+                                                        <svg
+                                                            className="h-3 w-3"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth={2}
+                                                                d="M9 5l7 7-7 7"
+                                                            />
+                                                        </svg>
+                                                    </div>
+                                                    <div className="invisible absolute left-full top-0 z-20 -mt-2 pl-2 opacity-0 transition-all duration-150 group-hover/sub:visible group-hover/sub:opacity-100">
+                                                        <div className="min-w-[260px] rounded-xl border border-white/5 bg-[#18181B] py-2 shadow-xl shadow-black/40">
+                                                            {child.children.map((leaf) => (
+                                                                <Link
+                                                                    key={leaf.label}
+                                                                    href={leaf.href}
+                                                                    className="block px-4 py-2.5 text-sm text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
+                                                                >
+                                                                    {leaf.label}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <Link
+                                                    key={child.label}
+                                                    href={child.href}
+                                                    className="block px-4 py-2.5 text-sm text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
+                                                >
+                                                    {child.label}
+                                                </Link>
+                                            )
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +220,7 @@ export default function Header() {
 
             {/* Mobile Navigation */}
             <div
-                className={`overflow-hidden transition-all duration-300 md:hidden ${isMobileMenuOpen ? "max-h-[600px]" : "max-h-0"
+                className={`overflow-hidden transition-all duration-300 md:hidden ${isMobileMenuOpen ? "max-h-[720px]" : "max-h-0"
                     }`}
             >
                 <nav className="flex flex-col items-start gap-2 bg-[#18181B]/95 px-6 pb-6 backdrop-blur-md">
@@ -208,16 +254,62 @@ export default function Header() {
                                 </button>
                                 {expandedMobile === link.label && (
                                     <div className="flex flex-col pl-3">
-                                        {link.children.map((child) => (
-                                            <Link
-                                                key={child.label}
-                                                href={child.href}
-                                                onClick={closeMobileMenu}
-                                                className="w-full rounded-lg py-2.5 text-left text-sm text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
-                                            >
-                                                {child.label}
-                                            </Link>
-                                        ))}
+                                        {link.children.map((child) =>
+                                            "children" in child ? (
+                                                <div key={child.label} className="w-full">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            setExpandedMobileSub(
+                                                                expandedMobileSub === child.label
+                                                                    ? null
+                                                                    : child.label
+                                                            )
+                                                        }
+                                                        className="flex w-full items-center justify-between rounded-lg py-2.5 text-left text-sm text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
+                                                        aria-expanded={expandedMobileSub === child.label}
+                                                    >
+                                                        <span>{child.label}</span>
+                                                        <svg
+                                                            className={`h-4 w-4 transition-transform ${expandedMobileSub === child.label ? "rotate-180" : ""}`}
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth={2}
+                                                                d="M19 9l-7 7-7-7"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                    {expandedMobileSub === child.label && (
+                                                        <div className="flex flex-col pl-3">
+                                                            {child.children.map((leaf) => (
+                                                                <Link
+                                                                    key={leaf.label}
+                                                                    href={leaf.href}
+                                                                    onClick={closeMobileMenu}
+                                                                    className="w-full rounded-lg py-2 text-left text-sm text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
+                                                                >
+                                                                    {leaf.label}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <Link
+                                                    key={child.label}
+                                                    href={child.href}
+                                                    onClick={closeMobileMenu}
+                                                    className="w-full rounded-lg py-2.5 text-left text-sm text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
+                                                >
+                                                    {child.label}
+                                                </Link>
+                                            )
+                                        )}
                                     </div>
                                 )}
                             </div>
