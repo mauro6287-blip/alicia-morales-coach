@@ -12,6 +12,7 @@ const soluciones = [
             "Formato: Presencial y online (sincrónico)",
             "Enfoque en resultados tangibles y medibles",
         ],
+        href: "#contacto",
     },
     {
         categoria: "ORGANISMOS EDUCACIONALES",
@@ -24,6 +25,7 @@ const soluciones = [
             "Construcción de marca personal",
             "Preparación integral para el mercado laboral competencias Chile Valora",
         ],
+        href: "/servicios",
     },
     {
         categoria: "ORGANISMOS PUBLICOS - EMPRESAS - SINDICATOS",
@@ -36,6 +38,7 @@ const soluciones = [
             "Acompañamiento integral del proceso",
             "Perspectiva colectiva y estratégica",
         ],
+        href: "#contacto",
     },
 ];
 
@@ -91,7 +94,7 @@ export default function Problemas() {
                             </ul>
 
                             <a
-                                href="#contacto"
+                                href={solucion.href}
                                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-light"
                             >
                                 Conocer más
