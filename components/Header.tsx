@@ -5,9 +5,23 @@ import Image from "next/image";
 import Link from "next/link";
 import CartButton from "./cart/CartButton";
 
-const navLinks = [
+type NavLink =
+    | { label: string; href: string }
+    | { label: string; children: { label: string; href: string }[] };
+
+const navLinks: NavLink[] = [
     { label: "Inicio", href: "/#hero" },
-    { label: "Soluciones", href: "/servicios" },
+    {
+        label: "Soluciones",
+        children: [
+            { label: "Empresas y Corporativos", href: "/#soluciones" },
+            { label: "Organismos Educacionales", href: "/servicios" },
+            {
+                label: "Organismos Públicos, Empresas y Sindicatos",
+                href: "/#soluciones",
+            },
+        ],
+    },
     { label: "Método", href: "/#como-trabajo" },
     { label: "Tienda", href: "/tienda" },
     { label: "Quiénes Somos", href: "/#sobre-mi" },
@@ -16,6 +30,12 @@ const navLinks = [
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+        setExpandedMobile(null);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -55,15 +75,53 @@ export default function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden items-center gap-8 md:flex">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className="text-sm font-medium text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
+                    {navLinks.map((link) =>
+                        "children" in link ? (
+                            <div key={link.label} className="group relative">
+                                <button
+                                    type="button"
+                                    className="flex items-center gap-1 text-sm font-medium text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
+                                    aria-haspopup="true"
+                                >
+                                    {link.label}
+                                    <svg
+                                        className="h-3 w-3 transition-transform group-hover:rotate-180"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M19 9l-7 7-7-7"
+                                        />
+                                    </svg>
+                                </button>
+                                <div className="invisible absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100">
+                                    <div className="min-w-[260px] rounded-xl border border-white/5 bg-[#18181B] py-2 shadow-xl shadow-black/40">
+                                        {link.children.map((child) => (
+                                            <Link
+                                                key={child.label}
+                                                href={child.href}
+                                                className="block px-4 py-2.5 text-sm text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
+                                            >
+                                                {child.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className="text-sm font-medium text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
+                            >
+                                {link.label}
+                            </Link>
+                        )
+                    )}
                     <a
                         href="/#formulario"
                         className="rounded-full bg-[#FFDE59] px-5 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-[#F7B52A]"
@@ -116,23 +174,67 @@ export default function Header() {
 
             {/* Mobile Navigation */}
             <div
-                className={`overflow-hidden transition-all duration-300 md:hidden ${isMobileMenuOpen ? "max-h-96" : "max-h-0"
+                className={`overflow-hidden transition-all duration-300 md:hidden ${isMobileMenuOpen ? "max-h-[600px]" : "max-h-0"
                     }`}
             >
                 <nav className="flex flex-col items-start gap-2 bg-[#18181B]/95 px-6 pb-6 backdrop-blur-md">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="w-full rounded-lg py-3 text-left font-medium text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
+                    {navLinks.map((link) =>
+                        "children" in link ? (
+                            <div key={link.label} className="w-full">
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setExpandedMobile(
+                                            expandedMobile === link.label ? null : link.label
+                                        )
+                                    }
+                                    className="flex w-full items-center justify-between rounded-lg py-3 text-left font-medium text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
+                                    aria-expanded={expandedMobile === link.label}
+                                >
+                                    <span>{link.label}</span>
+                                    <svg
+                                        className={`h-4 w-4 transition-transform ${expandedMobile === link.label ? "rotate-180" : ""}`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M19 9l-7 7-7-7"
+                                        />
+                                    </svg>
+                                </button>
+                                {expandedMobile === link.label && (
+                                    <div className="flex flex-col pl-3">
+                                        {link.children.map((child) => (
+                                            <Link
+                                                key={child.label}
+                                                href={child.href}
+                                                onClick={closeMobileMenu}
+                                                className="w-full rounded-lg py-2.5 text-left text-sm text-[#A1A1AA] transition-colors hover:text-[#FFDE59]"
+                                            >
+                                                {child.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={closeMobileMenu}
+                                className="w-full rounded-lg py-3 text-left font-medium text-[#A1A1AA] transition-colors hover:bg-[#27272A] hover:text-[#FFDE59]"
+                            >
+                                {link.label}
+                            </Link>
+                        )
+                    )}
                     <a
                         href="/#formulario"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={closeMobileMenu}
                         className="mt-2 w-full rounded-full bg-[#FFDE59] py-3 text-center font-medium text-gray-900 transition-colors hover:bg-[#F7B52A]"
                     >
                         Contacto

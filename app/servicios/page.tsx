@@ -3,9 +3,9 @@ import Link from "next/link";
 import ServiciosTabs from "@/components/servicios/ServiciosTabs";
 
 export const metadata: Metadata = {
-  title: "Programa de Inserción Laboral · Soluciones",
+  title: "Programa de Inserción Laboral",
   description:
-    "Soluciones para el desarrollo de competencias transversales y empleabilidad: coaching laboral, talleres, seminarios y programas educativos para estudiantes, egresados e instituciones.",
+    "Programa de Inserción Laboral para organismos educacionales: coaching laboral, talleres, seminarios, programas educativos y empleabilidad para docentes, orientado al desarrollo de competencias transversales en estudiantes y egresados.",
 };
 
 export default function ServiciosPage() {
@@ -24,7 +24,7 @@ export default function ServiciosPage() {
 
         <header className="mb-12 max-w-3xl">
           <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-primary">
-            SOLUCIONES
+            ORGANISMOS EDUCACIONALES
           </span>
           <h1 className="font-[family-name:var(--font-montserrat)] text-4xl font-bold text-white md:text-5xl">
             Programa de <span className="text-[#FFDE59]">Inserción Laboral</span>
