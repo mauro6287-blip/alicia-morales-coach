@@ -7,7 +7,7 @@ import CartButton from "./cart/CartButton";
 
 const navLinks = [
     { label: "Inicio", href: "/#hero" },
-    { label: "Soluciones", href: "/#soluciones" },
+    { label: "Soluciones", href: "/servicios" },
     { label: "Método", href: "/#como-trabajo" },
     { label: "Tienda", href: "/tienda" },
     { label: "Quiénes Somos", href: "/#sobre-mi" },
