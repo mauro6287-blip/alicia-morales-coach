@@ -26,7 +26,7 @@ export const servicios: Servicio[] = [
       {
         label: "Individual",
         description:
-          "Acompañamiento uno a uno, en formato online, para fortalecer las competencias transversales que intervienen en los procesos de empleabilidad y transición profesional. Cada sesión se diseña según el punto de partida de la persona, con foco en la acción concreta.",
+          "Acompañamiento uno a uno, en formato online y presencial, para fortalecer las competencias transversales que intervienen en los procesos de empleabilidad y transición profesional. Cada sesión se diseña según el punto de partida de la persona, con foco en la acción concreta.",
       },
       {
         label: "Grupal",
