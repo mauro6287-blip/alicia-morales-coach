@@ -112,9 +112,32 @@ export default function ServiciosTabs() {
                   </div>
                 )}
 
-                <p className="mb-8 flex-grow text-sm leading-relaxed text-gray-400">
+                <p
+                  className={`${subTab.items && subTab.items.length > 0 ? "mb-4" : "mb-8 flex-grow"} text-sm leading-relaxed text-gray-400`}
+                >
                   {subTab.description}
                 </p>
+
+                {subTab.items && subTab.items.length > 0 && (
+                  <ul className="mb-8 flex-grow space-y-3 pl-2">
+                    {subTab.items.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2 text-sm leading-relaxed text-gray-400"
+                      >
+                        <span aria-hidden className="mt-0.5 select-none text-primary">
+                          –
+                        </span>
+                        <span>
+                          <strong className="font-semibold text-white">
+                            {item.bold}
+                          </strong>
+                          {item.text}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             )}
 

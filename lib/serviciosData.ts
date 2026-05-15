@@ -1,6 +1,12 @@
+export interface SubTabItem {
+  bold: string;
+  text: string;
+}
+
 export interface SubTab {
   label: string;
   description: string;
+  items?: SubTabItem[];
   meta?: string[];
 }
 
@@ -63,7 +69,17 @@ export const servicios: Servicio[] = [
       {
         label: "Programa de Empleabilidad",
         description:
-          "Dos programas formativos diseñados para fortalecer la empleabilidad de estudiantes de últimos años y egresados de la educación superior. Ready to Work entrega una formación integral 360°, articulando marca profesional, búsqueda estratégica de empleo y competencias transversales en un solo itinerario. LinkedInLab se enfoca exclusivamente en estrategias de visibilidad y posicionamiento profesional en LinkedIn. Ambos están alineados con las tendencias actuales del mercado laboral y miden resultados de forma cuantificable, validando el impacto real sobre el perfil de egreso institucional.",
+          "Dos programas formativos diseñados para fortalecer la empleabilidad de estudiantes de últimos años y egresados de la educación superior:",
+        items: [
+          {
+            bold: "Ready to Work",
+            text: " entrega una formación integral 360°, articulando marca profesional, búsqueda estratégica de empleo y competencias transversales en un solo itinerario.",
+          },
+          {
+            bold: "LinkedInLab",
+            text: " se enfoca exclusivamente en estrategias de visibilidad y posicionamiento profesional en LinkedIn. Ambos están alineados con las tendencias actuales del mercado laboral y miden resultados de forma cuantificable, validando el impacto real sobre el perfil de egreso institucional.",
+          },
+        ],
         meta: ["Estudiantes y Egresados", "6 sesiones"],
       },
       {
