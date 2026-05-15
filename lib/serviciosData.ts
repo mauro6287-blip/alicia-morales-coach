@@ -51,7 +51,7 @@ export const servicios: Servicio[] = [
     image: "/programa-de-insercion-laboral/seminarios.jpg",
     imageAlt: "Seminario sobre competencias y futuro del trabajo",
     intro:
-      "Encuentros estratégicos que reúnen a empleadores, estudiantes, egresados y egresadas en torno a las competencias transversales y el futuro del trabajo. Espacios de reflexión y conversación que conectan distintas miradas y abren oportunidades de vinculación entre los actores del mundo laboral y formativo.",
+      "Encuentros estratégicos que reúnen a empleadores, estudiantes, egresados y egresadas en torno a las competencias transversales y el futuro del trabajo. Son espacios de reflexión, conversación y networking que crean y expanden oportunidades en el mercado laboral, conectando distintas miradas y vinculando a los actores del mundo formativo y productivo.",
   },
   {
     id: "programas-educativos",
