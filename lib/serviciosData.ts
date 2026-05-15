@@ -63,7 +63,7 @@ export const servicios: Servicio[] = [
       {
         label: "Programa de Empleabilidad",
         description:
-          "Proceso formativo orientado a estudiantes y egresados que se preparan para ingresar al mercado laboral. Trabaja la marca personal, las herramientas de búsqueda y las competencias transversales que hoy marcan la diferencia.",
+          "Dos programas formativos diseñados para fortalecer la empleabilidad de estudiantes de últimos años y egresados de la educación superior. Ready to Work entrega una formación integral 360°, articulando marca profesional, búsqueda estratégica de empleo y competencias transversales en un solo itinerario. LinkedInLab se enfoca exclusivamente en estrategias de visibilidad y posicionamiento profesional en LinkedIn. Ambos están alineados con las tendencias actuales del mercado laboral y miden resultados de forma cuantificable, validando el impacto real sobre el perfil de egreso institucional.",
         meta: ["Estudiantes y Egresados", "6 sesiones"],
       },
       {
