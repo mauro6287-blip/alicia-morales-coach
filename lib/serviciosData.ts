@@ -80,13 +80,11 @@ export const servicios: Servicio[] = [
             text: " se enfoca exclusivamente en estrategias de visibilidad y posicionamiento profesional en LinkedIn. Ambos están alineados con las tendencias actuales del mercado laboral y miden resultados de forma cuantificable, validando el impacto real sobre el perfil de egreso institucional.",
           },
         ],
-        meta: ["Estudiantes y Egresados", "6 sesiones"],
       },
       {
         label: "Programa de Liderazgo",
         description:
           "Proceso formativo centrado en el desarrollo de competencias de liderazgo y gestión, dirigido a estudiantes y egresados que proyectan roles de mayor responsabilidad. Metodología vivencial con foco en la aplicación real.",
-        meta: ["Estudiantes y Egresados", "5 sesiones"],
       },
     ],
   },
