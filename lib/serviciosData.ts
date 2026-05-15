@@ -42,7 +42,7 @@ export const servicios: Servicio[] = [
     image: "/programa-de-insercion-laboral/talleres-charlas.jpg",
     imageAlt: "Taller participativo de competencias",
     intro:
-      "Hemos desarrollado más de 20 temáticas en torno a empleabilidad, comunicación efectiva, liderazgo y trabajo colaborativo. Son instancias vivenciales y participativas, pensadas para que cada grupo se lleve herramientas aplicables desde el primer día. El formato se ajusta a la realidad y los objetivos de cada organización o institución.",
+      "Preparamos a estudiantes de educación superior para enfrentar con éxito la búsqueda de práctica y el primer empleo, integrando habilidades técnicas y estratégicas: autoconocimiento, marca personal y visibilidad, el perfil de LinkedIn como herramienta estratégica, entrevistas laborales, comunicación efectiva, iniciativa y adaptabilidad. No se trata solo de aprender a postular, sino de instalar capacidades que el estudiante seguirá usando a lo largo de toda su trayectoria.",
   },
   {
     id: "seminarios",
