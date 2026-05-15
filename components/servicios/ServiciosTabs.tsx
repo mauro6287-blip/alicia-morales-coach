@@ -112,6 +112,12 @@ export default function ServiciosTabs() {
                   </div>
                 )}
 
+                {subTab.title && (
+                  <h3 className="mb-3 font-[family-name:var(--font-montserrat)] text-lg font-bold text-white">
+                    {subTab.title}
+                  </h3>
+                )}
+
                 <p
                   className={`${subTab.items && subTab.items.length > 0 ? "mb-4" : "mb-8 flex-grow"} text-sm leading-relaxed text-gray-400`}
                 >

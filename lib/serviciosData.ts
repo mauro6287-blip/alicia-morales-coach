@@ -5,6 +5,7 @@ export interface SubTabItem {
 
 export interface SubTab {
   label: string;
+  title?: string;
   description: string;
   items?: SubTabItem[];
   meta?: string[];
@@ -83,8 +84,9 @@ export const servicios: Servicio[] = [
       },
       {
         label: "Programa de Liderazgo",
+        title: "Escuela de Liderazgo Futuro Profesional",
         description:
-          "Proceso formativo centrado en el desarrollo de competencias de liderazgo y gestión, dirigido a estudiantes y egresados que proyectan roles de mayor responsabilidad. Metodología vivencial con foco en la aplicación real.",
+          "La principal brecha que hoy declaran los empleadores en Chile no está en el conocimiento técnico, sino en las competencias humanas que definen el desempeño profesional. Esta escuela responde directamente a esa brecha: forma estudiantes capaces de liderar su propio desarrollo desde la etapa universitaria, integrando liderazgo personal y profesional alineado a Chile Valora —autoconocimiento, autogestión, iniciativa, comunicación efectiva, trabajo colaborativo, adaptabilidad y mejora continua.",
       },
     ],
   },
