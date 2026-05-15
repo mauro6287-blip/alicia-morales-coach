@@ -113,7 +113,7 @@ export default function ServiciosTabs() {
                 )}
 
                 {subTab.title && (
-                  <p className="mb-2 text-sm font-bold leading-relaxed text-gray-400">
+                  <p className="mb-2 text-sm font-semibold leading-relaxed text-white">
                     {subTab.title}
                   </p>
                 )}
