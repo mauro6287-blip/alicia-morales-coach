@@ -93,14 +93,14 @@ export const servicios: Servicio[] = [
   {
     id: "empleabilidad-docentes",
     tabLabel: "Empleabilidad para Docentes",
-    title: "Empleabilidad para Docentes",
+    title: "Docentes como Referentes de Empleabilidad",
     image: "/programa-de-insercion-laboral/empleabilidad-docentes.jpg",
     imageAlt: "Taller de empleabilidad para docentes",
     intro:
-      "Acompañamos a docentes en el desarrollo de competencias para guiar a sus estudiantes y egresados en su trayectoria profesional.",
+      "Acompañamos a docentes de educación superior en el desarrollo de competencias para guiar a sus estudiantes y egresados en su trayectoria profesional.",
     bullets: [
-      "Talleres formativos para instalar y desarrollar las competencias del siglo XXI dentro del aula.",
-      "Programa educativo asincrónico y autoinstruccional: “El docente universitario como guía y referente de sus estudiantes y egresados en el desarrollo de carrera y empleabilidad”.",
+      "LinkedIn LAB para Docentes: programa para que cada docente desarrolle y modele, en primera persona, el uso estratégico de LinkedIn como plataforma de oportunidades, convirtiéndose en un referente para sus estudiantes y egresados.",
+      "Talleres Formativos de Empleabilidad: sesiones para instalar y desarrollar en los estudiantes las competencias y tendencias clave de empleabilidad que demanda el mundo laboral actual.",
     ],
   },
 ];
