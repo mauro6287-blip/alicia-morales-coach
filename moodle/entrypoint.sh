@@ -147,5 +147,9 @@ fi
 # ---------------------------------------------------------------------------
 # 6. Arrancar Apache en primer plano
 # ---------------------------------------------------------------------------
+echo "==> Diagnóstico MPM (runtime):"
+echo "    symlinks mods-enabled:"; ls -1 /etc/apache2/mods-enabled/ | grep -i mpm || echo "      (ninguno)"
+echo "    LoadModule mpm en configs:"; grep -rEn "LoadModule mpm" /etc/apache2/ 2>/dev/null || echo "      (ninguno)"
+
 echo "==> Arrancando Apache."
 exec apache2-foreground
