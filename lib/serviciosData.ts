@@ -94,7 +94,7 @@ export const servicios: Servicio[] = [
     id: "empleabilidad-docentes",
     tabLabel: "Empleabilidad para Docentes",
     title: "Docentes como Referentes de Empleabilidad",
-    image: "/programa-de-insercion-laboral/empleabilidad-docentes.jpg",
+    image: "/images/Empleabilidad_para_docentes.png",
     imageAlt: "Taller de empleabilidad para docentes",
     intro:
       "Acompañamos a docentes de educación superior en el desarrollo de competencias para guiar a sus estudiantes y egresados en su trayectoria profesional.",
