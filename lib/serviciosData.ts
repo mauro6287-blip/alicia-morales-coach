@@ -27,7 +27,7 @@ export const servicios: Servicio[] = [
     id: "coaching-laboral",
     tabLabel: "Coaching Laboral",
     title: "Coaching Laboral",
-    image: "/programa-de-insercion-laboral/coaching-laboral.jpg",
+    image: "/images/Coaching_Individual.png",
     imageAlt: "Sesión de coaching laboral",
     subTabs: [
       {
