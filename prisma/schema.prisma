@@ -73,3 +73,58 @@ enum OrderStatus {
   REFUNDED
   EXPIRED
 }
+
+// ===========================================================================
+// Moodle — Hito 1 (cursos, clientes B2B y enrolamientos). Modelos NUEVOS.
+// ===========================================================================
+
+model Curso {
+  id             String   @id @default(cuid())
+  moodleCourseId Int      @unique
+  nombre         String
+  modalidad      Modalidad
+  creadoEn       DateTime @default(now())
+  enrolamientos  Enrolamiento[]
+}
+
+model ClienteB2B {
+  id             String   @id @default(cuid())
+  nombreEmpresa  String
+  rut            String?
+  contactoEmail  String
+  contactoNombre String?
+  creadoEn       DateTime @default(now())
+  enrolamientos  Enrolamiento[]
+}
+
+model Enrolamiento {
+  id           String   @id @default(cuid())
+  cursoId      String
+  curso        Curso    @relation(fields: [cursoId], references: [id])
+  clienteB2BId String?
+  clienteB2B   ClienteB2B? @relation(fields: [clienteB2BId], references: [id])
+  alumnoEmail  String
+  alumnoNombre String
+  moodleUserId Int?
+  origen       OrigenEnrolamiento
+  estado       EstadoEnrolamiento @default(PENDIENTE)
+  creadoEn     DateTime @default(now())
+
+  @@unique([cursoId, alumnoEmail])
+}
+
+enum Modalidad {
+  B2B
+  INDIVIDUAL
+}
+
+enum OrigenEnrolamiento {
+  B2B
+  INDIVIDUAL
+}
+
+enum EstadoEnrolamiento {
+  PENDIENTE
+  ENROLADO
+  ERROR
+}
