@@ -145,11 +145,17 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 6. Arrancar Apache en primer plano
+# 6. Garantizar un ÚNICO MPM en RUNTIME (prefork, requerido por mod_php).
+# El base image en Railway trae mpm_event habilitado además de prefork, lo que
+# rompe Apache con "More than one MPM loaded". Forzarlo en el arranque cubre
+# cualquier estado de la imagen.
 # ---------------------------------------------------------------------------
-echo "==> Diagnóstico MPM (runtime):"
-echo "    symlinks mods-enabled:"; ls -1 /etc/apache2/mods-enabled/ | grep -i mpm || echo "      (ninguno)"
-echo "    LoadModule mpm en configs:"; grep -rEn "LoadModule mpm" /etc/apache2/ 2>/dev/null || echo "      (ninguno)"
+a2dismod mpm_event mpm_worker >/dev/null 2>&1 || true
+a2enmod mpm_prefork >/dev/null 2>&1 || true
+echo "==> MPM activos: $(ls -1 /etc/apache2/mods-enabled/ | grep -i mpm | tr '\n' ' ')"
 
+# ---------------------------------------------------------------------------
+# 7. Arrancar Apache en primer plano
+# ---------------------------------------------------------------------------
 echo "==> Arrancando Apache."
 exec apache2-foreground
