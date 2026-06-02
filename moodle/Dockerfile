@@ -84,6 +84,11 @@ RUN sed -ri 's!DocumentRoot /var/www/html!DocumentRoot /var/www/html/public!' \
         > /etc/apache2/conf-available/moodle-docroot.conf \
     && a2enconf moodle-docroot
 
+# Garantiza un ÚNICO MPM: prefork (requerido por mod_php). Instalar paquetes apt
+# arrastra el meta-paquete apache2, que habilita mpm_event; con prefork ya activo
+# eso produce "apache2: Configuration error: More than one MPM loaded" y crash-loop.
+RUN a2dismod mpm_event mpm_worker 2>/dev/null || true; a2enmod mpm_prefork
+
 # --- Entrypoint: genera config.php, espera la DB, instala si hace falta, arranca Apache ---
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 # Normaliza fin de línea (por si se editó en Windows) y da permisos de ejecución.
