@@ -18,7 +18,7 @@ export interface Servicio {
   image: string;
   imageAlt: string;
   intro?: string;
-  bullets?: string[];
+  bullets?: (string | SubTabItem)[];
   subTabs?: SubTab[];
 }
 
@@ -99,8 +99,14 @@ export const servicios: Servicio[] = [
     intro:
       "Acompañamos a docentes de educación superior en el desarrollo de competencias para guiar a sus estudiantes y egresados en su trayectoria profesional.",
     bullets: [
-      "LinkedIn LAB para Docentes: programa para que cada docente desarrolle y modele, en primera persona, el uso estratégico de LinkedIn como plataforma de oportunidades, convirtiéndose en un referente para sus estudiantes y egresados.",
-      "Talleres Formativos de Empleabilidad: sesiones para instalar y desarrollar en los estudiantes las competencias y tendencias clave de empleabilidad que demanda el mundo laboral actual.",
+      {
+        bold: "LinkedIn LAB para Docentes:",
+        text: " programa para que cada docente desarrolle y modele, en primera persona, el uso estratégico de LinkedIn como plataforma de oportunidades, convirtiéndose en un referente para sus estudiantes y egresados.",
+      },
+      {
+        bold: "Talleres Formativos de Empleabilidad:",
+        text: " sesiones para instalar y desarrollar en los estudiantes las competencias y tendencias clave de empleabilidad que demanda el mundo laboral actual.",
+      },
     ],
   },
 ];

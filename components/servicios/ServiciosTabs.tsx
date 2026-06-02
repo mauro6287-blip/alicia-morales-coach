@@ -161,7 +161,18 @@ export default function ServiciosTabs() {
                     className="flex items-start gap-3 text-sm leading-relaxed text-gray-400"
                   >
                     <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary/60" />
-                    <span>{b}</span>
+                    <span>
+                      {typeof b === "string" ? (
+                        b
+                      ) : (
+                        <>
+                          <strong className="font-semibold text-white">
+                            {b.bold}
+                          </strong>
+                          {b.text}
+                        </>
+                      )}
+                    </span>
                   </li>
                 ))}
               </ul>
