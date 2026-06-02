@@ -1,0 +1,50 @@
+# Compose SOLO para prueba local del Commit 1 (build + run con MariaDB local).
+# En Railway, MariaDB y Moodle son servicios separados con sus propias variables.
+# Valores de abajo = credenciales locales desechables (no son secretos de prod).
+services:
+  mariadb:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: moodle
+      MARIADB_USER: moodle
+      MARIADB_PASSWORD: moodlepass
+      # Charset/collation que espera Moodle.
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-file-per-table=1
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  moodle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      MOODLE_DB_HOST: mariadb
+      MOODLE_DB_NAME: moodle
+      MOODLE_DB_USER: moodle
+      MOODLE_DB_PASSWORD: moodlepass
+      MOODLE_ADMIN_USER: admin
+      MOODLE_ADMIN_PASSWORD: Admin123!local
+      MOODLE_ADMIN_EMAIL: admin@example.com
+      # En local probamos por http://localhost (sin proxy SSL).
+      MOODLE_SITE_URL: http://localhost:8090
+      MOODLE_SSLPROXY: "no"
+    ports:
+      - "8090:80"
+    volumes:
+      - moodledata:/var/www/moodledata
+
+volumes:
+  mariadb_data:
+  moodledata:
