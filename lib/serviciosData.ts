@@ -64,7 +64,7 @@ export const servicios: Servicio[] = [
     id: "programas-educativos",
     tabLabel: "Programas Educativos",
     title: "Programas Educativos online y/o presencial",
-    image: "/programa-de-insercion-laboral/programas-educativos.jpg",
+    image: "/images/Programas_Educativos.png",
     imageAlt: "Programa educativo online",
     subTabs: [
       {
