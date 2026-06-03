@@ -36,14 +36,18 @@ Variables (servicio `moodle` en Railway):
 - `MOODLE_SMTP_HOST=smtp.resend.com`
 - `MOODLE_SMTP_USER=resend`
 - `MOODLE_SMTP_PASSWORD=` → la API key de Resend (referencia `${{alicia-morales-coach.RESEND_API_KEY}}`)
-- `MOODLE_SMTP_PORT` (opcional, def. `587`), `MOODLE_SMTP_SECURE` (opcional, def. `tls`)
+- `MOODLE_SMTP_PORT` (opcional, def. **`465`**), `MOODLE_SMTP_SECURE` (opcional, def. **`ssl`**)
 - `MOODLE_NOREPLY_ADDRESS=` → **remitente; DEBE ser de un dominio verificado en Resend**
 
-`config.php` resultante: `$CFG->smtphosts='smtp.resend.com:587'`, `$CFG->smtpsecure='tls'`, `$CFG->smtpuser`, `$CFG->smtppass`, `$CFG->smtpmaxbulk=1`, `$CFG->noreplyaddress`.
+> **⚠️ Puerto: usar 465 + ssl, NO 587 + tls.** En Railway, el handshake STARTTLS en 587 falla ("no se pudo comunicar con el servidor de correo"); el SSL implícito en 465 funciona. Ambos puertos están abiertos (verificado), pero PHPMailer solo completó el intercambio por 465/ssl. Valores actuales del servicio: `MOODLE_SMTP_PORT=465`, `MOODLE_SMTP_SECURE=ssl`.
 
-> **Estado al cierre del Commit 3:** Resend NO tiene aún ningún dominio verificado (solo el sandbox `onboarding@resend.dev`, que solo entrega al email dueño de la cuenta). Para enviar a alumnos hace falta verificar un dominio/subdominio en Resend (registros DKIM/SPF en Hostinger) y fijar `MOODLE_NOREPLY_ADDRESS=noreply@<dominio-verificado>`.
+`config.php` resultante: `$CFG->smtphosts='smtp.resend.com:465'`, `$CFG->smtpsecure='ssl'`, `$CFG->smtpuser='resend'`, `$CFG->smtppass=<API key>`, `$CFG->smtpmaxbulk=1`, `$CFG->noreplyaddress`.
 
-**Verificar:** *Site administration → Server → Email → Test outgoing mail configuration*.
+> **Estado al cierre del Commit 3:** SMTP **verificado funcionando** (Test outgoing mail → "Moodle envió con éxito el mensaje de prueba", auth `235 Authentication successful`). PERO Resend está en modo sandbox: NO hay dominio verificado, así que `onboarding@resend.dev` **solo entrega al email dueño de la cuenta Resend = `coaching@aliciamorales.cl`**. Enviar a cualquier otra dirección devuelve `550` (probado con mauro6287@gmail.com). **Antes del Commit 7** (correos a alumnos) hay que **verificar un dominio/subdominio en Resend** (DKIM/SPF en Hostinger) y fijar `MOODLE_NOREPLY_ADDRESS=noreply@<dominio-verificado>`.
+>
+> Nota Railway: SMTP saliente requiere plan **Pro** (este proyecto lo es). Tras cambios de plan, re-desplegar.
+
+**Verificar:** *Site administration → Server → Email → Test outgoing mail configuration* (destinatario `coaching@aliciamorales.cl` mientras siga el sandbox).
 
 ---
 

@@ -76,8 +76,10 @@ fi
 # define MOODLE_NOREPLY_ADDRESS (debe ser de un dominio verificado en Resend).
 SMTP_BLOCK=""
 if [ -n "${MOODLE_SMTP_HOST:-}" ]; then
-  _smtp_port="${MOODLE_SMTP_PORT:-587}"
-  _smtp_secure="${MOODLE_SMTP_SECURE:-tls}"
+  # En Railway, el puerto 587/STARTTLS falla en el handshake; 465 con SSL
+  # implícito funciona (verificado con Resend). Por eso el default es 465/ssl.
+  _smtp_port="${MOODLE_SMTP_PORT:-465}"
+  _smtp_secure="${MOODLE_SMTP_SECURE:-ssl}"
   SMTP_BLOCK=$(printf "\$CFG->smtphosts  = '%s';\n\$CFG->smtpsecure = '%s';\n\$CFG->smtpuser   = '%s';\n\$CFG->smtppass   = '%s';\n\$CFG->smtpmaxbulk = 1;" \
     "$(php_squote "${MOODLE_SMTP_HOST}:${_smtp_port}")" \
     "$(php_squote "${_smtp_secure}")" \
