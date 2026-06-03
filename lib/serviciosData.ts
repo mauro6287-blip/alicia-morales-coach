@@ -55,7 +55,7 @@ export const servicios: Servicio[] = [
     id: "seminarios",
     tabLabel: "Seminarios",
     title: "Seminarios",
-    image: "/programa-de-insercion-laboral/seminarios.jpg",
+    image: "/images/Seminario.jpeg",
     imageAlt: "Seminario sobre competencias y futuro del trabajo",
     intro:
       "Encuentros estratégicos que reúnen a empleadores, estudiantes, egresados y egresadas en torno a las competencias transversales y el futuro del trabajo. Son espacios de reflexión, conversación y networking que crean y expanden oportunidades en el mercado laboral, conectando distintas miradas y vinculando a los actores del mundo formativo y productivo.",
