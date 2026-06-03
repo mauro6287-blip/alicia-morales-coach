@@ -89,8 +89,8 @@ RUN sed -ri 's!DocumentRoot /var/www/html!DocumentRoot /var/www/html/public!' \
 # eso produce "apache2: Configuration error: More than one MPM loaded" y crash-loop.
 RUN a2dismod mpm_event mpm_worker 2>/dev/null || true; a2enmod mpm_prefork
 
-# --- Script CLI del curso piloto (fuera de /public, no accesible por web) ---
-COPY cli/create_pilot_course.php /var/www/html/cli_custom/create_pilot_course.php
+# --- Scripts CLI de administración (fuera de /public, no accesibles por web) ---
+COPY cli/ /var/www/html/cli_custom/
 
 # --- Entrypoint: genera config.php, espera la DB, instala si hace falta, arranca Apache ---
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
