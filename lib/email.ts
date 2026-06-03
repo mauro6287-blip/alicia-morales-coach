@@ -147,3 +147,53 @@ export async function sendAdminNotificationEmail(order: OrderEmailData) {
     html,
   });
 }
+
+// ---------------------------------------------------------------------------
+// Correo de acceso a Moodle (enrolamiento B2B — Hito 1, Commit 7).
+// NO bloqueante: devuelve { ok } y nunca lanza. El remitente es configurable
+// (EMAIL_FROM) con fallback al sandbox de Resend mientras no haya dominio
+// verificado. Copy fijado por el plan (no modificar el texto).
+// ---------------------------------------------------------------------------
+export async function enviarCorreoAccesoMoodle(params: {
+  email: string;
+  nombreAlumno: string;
+  nombreCurso: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  const from =
+    process.env.EMAIL_FROM ||
+    "Escuela de Competencias Aplicadas <onboarding@resend.dev>";
+  const replyTo = process.env.ADMIN_EMAIL || "coaching@aliciamorales.cl";
+
+  const texto = `Hola ${params.nombreAlumno},
+
+Tienes acceso a la capacitación "${params.nombreCurso}" en la plataforma de la
+Escuela de Competencias Aplicadas.
+
+Ingresa aquí: https://cursos.aliciamoralescoach.com
+Usuario: ${params.email}
+La primera vez se te pedirá crear tu contraseña.
+
+Si tienes dudas, responde a este correo.
+
+Equipo Alicia Morales Coach`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to: params.email,
+      replyTo,
+      subject: `Tu acceso a la capacitación: ${params.nombreCurso}`,
+      text: texto,
+    });
+    if (error) {
+      const msg =
+        typeof error === "string"
+          ? error
+          : error.message || JSON.stringify(error);
+      return { ok: false, error: msg };
+    }
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}

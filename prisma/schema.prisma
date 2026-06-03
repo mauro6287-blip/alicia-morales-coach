@@ -109,6 +109,7 @@ model Enrolamiento {
   origen       OrigenEnrolamiento
   estado       EstadoEnrolamiento @default(PENDIENTE)
   creadoEn     DateTime @default(now())
+  correoEnviadoEn DateTime?   // null = correo pendiente de enviar; con fecha = enviado
 
   @@unique([cursoId, alumnoEmail])
 }
