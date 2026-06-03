@@ -51,7 +51,7 @@ Variables (servicio `moodle` en Railway):
 
 - Nombre: **"Liderazgo – Piloto"** (shortname `liderazgo-piloto`), categoría por defecto.
 - Creado de forma idempotente por `moodle/cli/create_pilot_course.php` (ejecutado desde el entrypoint; imprime `PILOT_COURSE_ID=<n>` en los logs).
-- **`courseid` = _(pendiente: leer de los logs `[pilot] PILOT_COURSE_ID=...` tras el primer deploy con este cambio)_** — necesario para los Commits 6 y 7.
+- **`courseid` = `2`** (verificado en logs: `[pilot] PILOT_COURSE_ID=2`) — necesario para los Commits 6 y 7.
 
 ---
 
