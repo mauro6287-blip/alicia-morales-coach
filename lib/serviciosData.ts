@@ -46,7 +46,7 @@ export const servicios: Servicio[] = [
     id: "talleres-charlas",
     tabLabel: "Talleres y Charlas",
     title: "Talleres, Charlas y Conversatorios Interactivos",
-    image: "/programa-de-insercion-laboral/talleres-charlas.jpg",
+    image: "/images/Charla_y_talleres.jpeg",
     imageAlt: "Taller participativo de competencias",
     intro:
       "Preparamos a estudiantes de educación superior para enfrentar con éxito la búsqueda de práctica y el primer empleo, integrando habilidades técnicas y estratégicas: autoconocimiento, marca personal y visibilidad, el perfil de LinkedIn como herramienta estratégica, entrevistas laborales, comunicación efectiva, iniciativa y adaptabilidad. No se trata solo de aprender a postular, sino de instalar capacidades que el estudiante seguirá usando a lo largo de toda su trayectoria.",
