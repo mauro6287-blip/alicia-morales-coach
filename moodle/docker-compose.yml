@@ -40,6 +40,12 @@ services:
       # En local probamos por http://localhost (sin proxy SSL).
       MOODLE_SITE_URL: http://localhost:8090
       MOODLE_SSLPROXY: "no"
+      # SMTP de prueba local (credenciales falsas; solo para verificar la
+      # generación de config.php, cron y curso piloto — no envía de verdad).
+      MOODLE_SMTP_HOST: smtp.resend.com
+      MOODLE_SMTP_USER: resend
+      MOODLE_SMTP_PASSWORD: local_dummy_key
+      MOODLE_NOREPLY_ADDRESS: test@example.com
     ports:
       - "8090:80"
     volumes:
