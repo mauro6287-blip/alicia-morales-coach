@@ -199,11 +199,8 @@ CRON
 chmod 0644 /etc/cron.d/moodle
 cron || service cron start || echo "ADVERTENCIA: no se pudo iniciar crond"
 echo "==> crond iniciado (Moodle cron cada minuto; log en ${CRON_LOG})."
-
-# Corrida única al boot (segundo plano) con salida a los logs del contenedor,
-# para verificar que cron.php se ejecuta sin errores sin bloquear el arranque.
-( runuser -u www-data -- /usr/local/bin/php "${MOODLE_DIR}/admin/cli/cron.php" 2>&1 \
-    | sed 's/^/[cron-boot] /' ) &
+# Nota: el cron periódico escribe en ${CRON_LOG} (no en stdout) para no inundar
+# los logs del contenedor. Verificación: ver ese archivo o Site admin → Tasks.
 
 # ---------------------------------------------------------------------------
 # 6. Garantizar un ÚNICO MPM en RUNTIME (prefork, requerido por mod_php).
