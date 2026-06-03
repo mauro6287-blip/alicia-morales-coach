@@ -59,6 +59,25 @@ Variables (servicio `moodle` en Railway):
 
 ---
 
+## Web Services REST (Commit 4)
+
+Configurado de forma idempotente por `moodle/cli/setup_webservices.php` (en la
+imagen en `/var/www/html/cli_custom/`; se ejecuta **manualmente** por SSH, NO
+desde el entrypoint, para que el token no quede en logs). Re-ejecutable.
+
+- **Web services**: habilitados; protocolo **REST** activo.
+- **Rol de servicio**: `ws_nextjs` (arquetipo `manager`, asignable en contexto sistema) con capacidades:
+  `webservice/rest:use`, `moodle/user:create`, `moodle/user:update`, `moodle/user:viewalldetails`, `enrol/manual:enrol`, `moodle/course:view`.
+- **Usuario de servicio**: `wsuser` (auth manual, confinado), con el rol `ws_nextjs` a nivel sistema.
+- **External Service**: `nextjs-integration` (enabled, restricted users) con EXACTAMENTE estas funciones:
+  - `core_user_create_users`
+  - `core_user_get_users_by_field`
+  - `enrol_manual_enrol_users`
+  - `core_enrol_get_users_courses`
+- **Token**: generado para `wsuser` en el servicio. **NO se documenta aquí (secreto).** Vive en la variable `MOODLE_WS_TOKEN` del **servicio Next.js** de Railway (también `MOODLE_WS_URL` y `MOODLE_DEFAULT_ROLE_ID=5`).
+- **Re-generar token** (si se compromete): borrar el token de `wsuser` en *Site admin → Server → Web services → Manage tokens*, re-ejecutar el script por SSH y actualizar `MOODLE_WS_TOKEN`.
+- **Verificación**: `core_user_get_users_by_field` con el token devuelve JSON válido (array), no `webservice_access_exception`/`invalidtoken`.
+
 ## Backups (definir frecuencia y automatizar más adelante)
 
 - **MariaDB**: respaldo lógico periódico, p. ej. `mysqldump` del esquema `moodle` (o snapshot del volumen `mariadb-volume`). Frecuencia sugerida: diaria.
