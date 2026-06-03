@@ -72,14 +72,28 @@ $caps = array(
     'webservice/rest:use',
     'moodle/user:create',
     'moodle/user:update',
+    'moodle/user:viewdetails',        // requerido por core_user_get_users_by_field (can_view_user_details_cap)
     'moodle/user:viewalldetails',
+    'moodle/site:viewuseridentity',   // requerido para ver/buscar por el campo email (identity field)
     'enrol/manual:enrol',
+    'moodle/role:assign',             // requerido por enrol_manual_enrol_users para asignar el rol
     'moodle/course:view',
+    'moodle/site:viewparticipants',   // permite a core_enrol_get_users_courses listar enrolamientos de otros
 );
 foreach ($caps as $cap) {
     assign_capability($cap, CAP_ALLOW, $roleid, $systemcontext->id, true);
 }
 note('capacidades asignadas: ' . implode(', ', $caps));
+
+// Permitir que ws_nextjs ASIGNE los roles de arquetipo 'student' (necesario para
+// enrol_manual_enrol_users; el arquetipo manager no copia esto al crear el rol).
+foreach ($DB->get_records('role', array('archetype' => 'student'), '', 'id') as $sr) {
+    if (!$DB->record_exists('role_allow_assign', array('roleid' => $roleid, 'allowassign' => $sr->id))) {
+        $DB->insert_record('role_allow_assign', (object) array('roleid' => $roleid, 'allowassign' => $sr->id));
+        note("role_allow_assign: ws_nextjs puede asignar rol {$sr->id}");
+    }
+}
+
 $systemcontext->mark_dirty();
 
 // ---------------------------------------------------------------------------
