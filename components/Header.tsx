@@ -77,9 +77,10 @@ export default function Header() {
                             priority
                         />
                     </div>
-                    <span className="hidden font-[family-name:var(--font-montserrat)] md:inline">
-                        Escuela de Competencias Aplicadas
-                    </span>
+                    <div className="hidden flex-col font-[family-name:var(--font-montserrat)] md:flex">
+                        <span>Escuela de Competencias Aplicadas</span>
+                        <span className="text-sm font-light italic text-white/60">Alicia Morales Coach.</span>
+                    </div>
                 </a>
 
                 {/* Desktop Navigation */}
