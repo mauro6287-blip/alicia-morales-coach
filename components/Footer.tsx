@@ -247,7 +247,7 @@ export default function Footer() {
                         &copy; {currentYear} Escuela de Competencias Aplicadas. Todos los
                         derechos reservados.
                     </p>
-                    <div className="flex gap-6 text-sm">
+                    <div className="flex items-center gap-6 text-sm">
                         {legalLinks.map((link) => (
                             <a
                                 key={link.label}
@@ -257,6 +257,13 @@ export default function Footer() {
                                 {link.label}
                             </a>
                         ))}
+                        <a
+                            href="/admin/login"
+                            aria-label="Acceso administrador"
+                            className="text-muted/20 transition-colors duration-200 hover:text-muted/60"
+                        >
+                            &bull;
+                        </a>
                     </div>
                 </div>
             </div>
