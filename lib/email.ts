@@ -197,3 +197,64 @@ Equipo Alicia Morales Coach`;
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
   }
 }
+
+// ---------------------------------------------------------------------------
+// Correo de certificado de aprobación (Certificación digital, Commit 8).
+// Adjunta el PDF generado al vuelo. NO bloqueante: devuelve { ok }.
+// ---------------------------------------------------------------------------
+export async function enviarCertificadoPorEmail(params: {
+  alumnoEmail: string;
+  alumnoNombre: string;
+  cursoNombre: string;
+  codigo: string;
+  verificarUrl: string;
+  pdfBuffer: Buffer;
+}): Promise<{ ok: boolean; error?: string }> {
+  const from =
+    process.env.EMAIL_FROM ||
+    "Escuela de Competencias Aplicadas <onboarding@resend.dev>";
+  const primerNombre = params.alumnoNombre.trim().split(/\s+/)[0] || params.alumnoNombre;
+
+  const html = `<!DOCTYPE html>
+<html><body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;color:${BRAND.text};">
+  <div style="max-width:600px;margin:0 auto;background:#ffffff;">
+    <div style="background:${BRAND.dark};padding:32px 24px;text-align:center;">
+      <h1 style="margin:0;color:${BRAND.goldLight};font-size:22px;font-weight:600;">Alicia Morales Coach</h1>
+      <p style="margin:6px 0 0;color:#ffffff;opacity:0.7;font-size:13px;">Escuela de Competencias Aplicadas</p>
+    </div>
+    <div style="padding:32px 24px;">
+      <p style="margin:0 0 16px;line-height:1.6;">Hola <strong>${primerNombre}</strong>,</p>
+      <p style="margin:0 0 24px;line-height:1.6;">Adjuntamos tu certificado de aprobación del curso <strong>${params.cursoNombre}</strong>. Puedes verificar su autenticidad en cualquier momento en el enlace de abajo.</p>
+      <p style="text-align:center;margin:0 0 24px;">
+        <a href="${params.verificarUrl}" style="display:inline-block;background:${BRAND.gold};color:${BRAND.dark};text-decoration:none;font-weight:600;padding:12px 24px;border-radius:4px;">Verificar certificado</a>
+      </p>
+      <p style="margin:24px 0 0;line-height:1.6;font-size:14px;color:${BRAND.muted};">Escuela de Competencias Aplicadas — Alicia Morales Coach SPA</p>
+    </div>
+  </div>
+</body></html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to: params.alumnoEmail,
+      subject: `Tu certificado de aprobación — ${params.cursoNombre}`,
+      html,
+      attachments: [
+        {
+          filename: `certificado-${params.codigo}.pdf`,
+          content: params.pdfBuffer,
+        },
+      ],
+    });
+    if (error) {
+      const msg =
+        typeof error === "string"
+          ? error
+          : error.message || JSON.stringify(error);
+      return { ok: false, error: msg };
+    }
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}

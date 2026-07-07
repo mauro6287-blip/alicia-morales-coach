@@ -3,6 +3,8 @@
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /verificar/
 
 # Sitemap
 Sitemap: https://aliciamoralescoach.com/sitemap.xml

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Roboto } from "next/font/google";
-import { Header, Footer, WhatsAppButton, CartDrawer } from "@/components";
+import { SiteChrome } from "@/components";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -118,11 +118,7 @@ export default function RootLayout({
         className={`${roboto.variable} ${montserrat.variable} antialiased overflow-x-hidden`}
         style={{ backgroundColor: '#1A1A1A', color: '#FAFAFA' }}
       >
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <CartDrawer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

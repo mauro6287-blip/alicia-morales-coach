@@ -3,4 +3,5 @@ export { default as Footer } from "./Footer";
 export { default as WhatsAppButton } from "./WhatsAppButton";
 export { default as CartButton } from "./cart/CartButton";
 export { default as CartDrawer } from "./cart/CartDrawer";
+export { default as SiteChrome } from "./SiteChrome";
 export * from "./ui";

@@ -85,6 +85,7 @@ model Curso {
   modalidad      Modalidad
   creadoEn       DateTime @default(now())
   enrolamientos  Enrolamiento[]
+  emisiones      Emision[]
 }
 
 model ClienteB2B {
@@ -128,4 +129,102 @@ enum EstadoEnrolamiento {
   PENDIENTE
   ENROLADO
   ERROR
+}
+
+// ===========================================================================
+// Certificación digital con QR — Hito Certificados. Modelos NUEVOS.
+// ===========================================================================
+
+model AdminUser {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  nombre        String
+  activo        Boolean  @default(true)
+  ultimoLoginEn DateTime?
+  creadoEn      DateTime @default(now())
+
+  emisiones Emision[]
+}
+
+model PlantillaCertificado {
+  id           String   @id @default(cuid())
+  nombre       String   @unique
+  descripcion  String?
+  version      Int      @default(1)
+  activa       Boolean  @default(true)
+  creadoEn     DateTime @default(now())
+
+  certificados Certificado[]
+  emisiones    Emision[]
+}
+
+model Emision {
+  id              String   @id @default(cuid())
+  cursoId         String
+  curso           Curso    @relation(fields: [cursoId], references: [id])
+  plantillaId     String
+  plantilla       PlantillaCertificado @relation(fields: [plantillaId], references: [id])
+  adminUserId     String
+  adminUser       AdminUser @relation(fields: [adminUserId], references: [id])
+  cantidadTotal   Int
+  nombreArchivo   String?
+  notas           String?  @db.Text
+  creadaEn        DateTime @default(now())
+  certificados    Certificado[]
+
+  @@index([cursoId])
+  @@index([creadaEn])
+}
+
+model Certificado {
+  id              String   @id @default(cuid())
+  codigo          String   @unique
+  emisionId       String
+  emision         Emision  @relation(fields: [emisionId], references: [id])
+  plantillaId     String
+  plantilla       PlantillaCertificado @relation(fields: [plantillaId], references: [id])
+
+  alumnoNombre    String
+  alumnoRut       String
+  alumnoEmail     String
+
+  cursoNombre     String
+  fechaEmision    DateTime
+  fechaAprobacion DateTime
+  horasCurso      Int
+
+  hashIntegridad  String
+
+  estado          EstadoCertificado @default(VALIDO)
+  motivoAnulacion String?
+  anuladoEn       DateTime?
+  anuladoPorId    String?
+
+  emailEnviadoEn  DateTime?
+  creadoEn        DateTime @default(now())
+
+  verificaciones  VerificacionLog[]
+
+  @@index([alumnoRut])
+  @@index([alumnoEmail])
+  @@index([estado])
+  @@index([emisionId])
+}
+
+model VerificacionLog {
+  id            String   @id @default(cuid())
+  certificadoId String
+  certificado   Certificado @relation(fields: [certificadoId], references: [id])
+  ip            String?
+  userAgent     String?
+  verificadoEn  DateTime @default(now())
+
+  @@index([certificadoId])
+  @@index([verificadoEn])
+}
+
+enum EstadoCertificado {
+  VALIDO
+  ANULADO
 }
