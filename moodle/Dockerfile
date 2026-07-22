@@ -68,6 +68,15 @@ RUN git clone --depth 1 --branch "${MOODLE_BRANCH}" \
         https://github.com/moodle/moodle.git /var/www/html \
     && rm -rf /var/www/html/.git
 
+# --- Exabis AI Chat Block: bloque de chat con RAG real (analiza documentos subidos
+# por curso vía un vector store del proveedor de IA). Autocontenido, sin dependencias.
+# En Moodle 5.x el código de plugins vive bajo /var/www/html/public (ver nota DocumentRoot
+# más abajo), NO en /var/www/html directamente. NO se agrega a ningún curso por defecto;
+# eso se hace manualmente desde el curso cuando se quiera activar.
+RUN git clone --depth 1 --branch v5.1-2026061900 \
+        https://github.com/gtn/moodle-block_exaaichat.git /var/www/html/public/blocks/exaaichat \
+    && rm -rf /var/www/html/public/blocks/exaaichat/.git
+
 # --- moodledata FUERA del docroot ---
 RUN mkdir -p /var/www/moodledata \
     && chown -R www-data:www-data /var/www/moodledata /var/www/html \

@@ -188,7 +188,18 @@ if [ -f "${MOODLE_DIR}/cli_custom/create_pilot_course.php" ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 5c. Cron de Moodle: crond (cada minuto) + una corrida al boot para verificar.
+# 5c. Plugins nuevos (p.ej. block_exaaichat): Moodle cachea el listado de plugins
+# detectados en moodledata/cache/core_component.php — hay que purgarlo y correr
+# upgrade.php para que reconozca código nuevo agregado al Dockerfile e instale sus
+# tablas. Idempotente: si no hay nada nuevo, upgrade.php no hace nada.
+# ---------------------------------------------------------------------------
+echo "==> Purgando caché de componentes y actualizando esquema (idempotente)..."
+rm -f "${MOODLE_DATA}/cache/core_component.php"
+runuser -u www-data -- /usr/local/bin/php "${MOODLE_DIR}/admin/cli/upgrade.php" --non-interactive 2>&1 \
+  | sed 's/^/[upgrade] /' || echo "[upgrade] ERROR al actualizar esquema"
+
+# ---------------------------------------------------------------------------
+# 5d. Cron de Moodle: crond (cada minuto) + una corrida al boot para verificar.
 # El cron vive DENTRO del contenedor Moodle (misma BD + mismo moodledata); un
 # servicio cron aparte no es viable porque el volumen moodledata solo puede
 # montarse en un servicio. Sobrevive a redeploys (se configura en cada arranque).
