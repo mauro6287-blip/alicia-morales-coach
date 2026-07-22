@@ -29,8 +29,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_flujos';
-$plugin->version   = 2026072200;        // AAAAMMDDXX.
+$plugin->version   = 2026072202;        // AAAAMMDDXX. Commit 2: modelo de datos.
 $plugin->requires  = 2025041400;        // Moodle 5.0 o superior.
 $plugin->supported = [502, 502];        // Probado en Moodle 5.2.
 $plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.1.0';
+$plugin->release   = '0.2.0';

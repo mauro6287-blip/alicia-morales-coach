@@ -58,7 +58,7 @@ el panel y nada requiere tocar PHP. Tablas propuestas (prefijo real
 |---|---|---|
 | `local_flujos_flow` | Definición de un flujo | id, name, intro, status (borrador/activo/archivado), settingsjson (opciones generales: audiencia, consentimiento requerido, texto de consentimiento, plantilla del informe final), usermodified, timecreated, timemodified |
 | `local_flujos_stage` | Etapas ordenadas de un flujo | id, flowid (FK), sortorder, name, stagetype (`conversacion` \| `formulario` \| `informativa`), configjson (prompt de sistema de la etapa, criterio de avance, nº máx. de turnos, texto estático…) |
-| `local_flujos_field` | Campos de datos estructurados que una etapa captura | id, stageid (FK), shortname, label, fieldtype (texto/número/opción/escala/rut/email…), required, sensitive (flag para enmascaramiento), optionsjson, sortorder |
+| `local_flujos_field` | Campos de datos estructurados que una etapa captura | id, stageid (FK), shortname, label, fieldtype (texto/número/opción/escala/rut/email…), required, sensitivedata (flag para enmascaramiento; NO `sensitive` — palabra reservada en MariaDB, ver Commit 2), optionsjson, sortorder |
 | `local_flujos_session` | Una ejecución de un flujo por un usuario | id, flowid (FK), userid (FK), status (`en_curso` \| `completada` \| `abandonada`), currentstageid, consenttime, consenttextversion, timestarted, timecompleted |
 | `local_flujos_message` | Transcripción de la conversación | id, sessionid (FK), stageid, role (`user` \| `assistant` \| `system`), content, timecreated |
 | `local_flujos_answer` | Valores capturados de los campos estructurados | id, sessionid (FK), fieldid (FK), value, timecreated, timemodified |
@@ -95,6 +95,20 @@ Notas:
 - **Una sesión activa por usuario y flujo** (índice único parcial por lógica de
   aplicación): evita estados ambiguos; el usuario puede abandonar y empezar de
   nuevo (la anterior queda `abandonada`).
+- **Alcance del prompt por turno (decisión explícita, corrige ambigüedad
+  detectada al revisar costos en el Commit 2):** cada llamada a la IA envía
+  como historial **solo la transcripción de la etapa actual** (los mensajes de
+  `local_flujos_message` con ese `stageid`), NO el historial crudo de TODA la
+  sesión. La continuidad entre etapas no se logra reenviando los mensajes
+  anteriores palabra por palabra, sino porque el motor ya tiene guardados los
+  **datos estructurados extraídos** de etapas previas (`local_flujos_answer`)
+  y puede citarlos de forma compacta en el prompt de sistema de la etapa
+  siguiente si hace falta contexto ("La persona mencionó antes: área=...,
+  situación=..."). Motivo: reenviar el historial completo de la sesión en cada
+  turno hace crecer el prompt sin límite a medida que se agregan etapas
+  (riesgo de tope de contexto en flujos largos) y encarece la sesión ~30% sin
+  aportar calidad conversacional adicional (medido en el spike de costos, ver
+  §5).
 
 ### 1.4 Integración con IA
 
@@ -184,7 +198,7 @@ poco después de este desarrollo: se diseña desde ya para cumplirla).
 3. **Derecho a eliminación:** doble vía — (a) Privacy API de Moodle (borrado
    por solicitud del interesado, herramienta estándar de admin), y (b) botón de
    borrado de sesiones en el panel de resultados (Commit 8).
-4. **RUT:** si un flujo captura RUT (fieldtype `rut`, flag `sensitive`):
+4. **RUT:** si un flujo captura RUT (fieldtype `rut`, flag `sensitivedata`):
    - se almacena normalizado pero **toda visualización lo muestra enmascarado**
      (patrón ya usado en el sistema de certificados: `12.XXX.XXX-9`), incluido
      el panel de Alicia y el informe final;
@@ -315,7 +329,7 @@ Criterios de aceptación:
 ### Commit 6 — Datos estructurados + consentimiento + RUT (cierre de privacidad)
 
 Contenido: fieldtypes completos (incl. `rut` con validación de dígito
-verificador y enmascaramiento en TODA visualización), flag `sensitive`,
+verificador y enmascaramiento en TODA visualización), flag `sensitivedata`,
 registro de versión de consentimiento, tarea programada de
 retención/anonimización según política del flujo, y **privacy provider
 completo** (export + delete por usuario y por contexto, probados).
@@ -359,7 +373,7 @@ eliminación, con confirmación y registro en logs de Moodle).
 Criterios de aceptación:
 
 - [ ] Alicia ve quién completó cada flujo y descarga el CSV/PDF.
-- [ ] El CSV enmascara los campos `sensitive`.
+- [ ] El CSV enmascara los campos `sensitivedata`.
 - [ ] Un manager sin `viewresults` no accede; los eventos de
       visualización/borrado quedan en el log estándar de Moodle.
 
@@ -428,7 +442,7 @@ parametrizable:
 
 ---
 
-## 5. Estimación de costos de IA (medida en el spike 2026-07-22)
+## 5. Estimación de costos de IA (medida en el spike 2026-07-22, revisada en el Commit 2)
 
 > **Origen de las cifras.** Los conteos de tokens son **medidos**: salen del
 > campo `usage` que devuelve la API de OpenAI en cada llamada real hecha en
@@ -437,36 +451,70 @@ parametrizable:
 > para `gpt-4o-mini` (**US$0,15 por 1M tokens de entrada; US$0,60 por 1M de
 > salida**) — conviene reconfirmarlo en el panel de facturación de OpenAI.
 
-### Consumo medido por componente (flujo de referencia: 3 etapas × 5 turnos + informe)
+### Corrección metodológica (revisión del Commit 2)
 
-| Componente | Tokens entrada (medidos) | Tokens salida (medidos) |
+La estimación original (spike 2026-07-22) medía correctamente el crecimiento
+del historial **dentro de una etapa** (real, turno a turno), pero al proyectar
+el total de la sesión **asumía sin decirlo** que cada una de las 3 etapas
+arranca de cero (multiplicaba el subtotal de 1 etapa × 3). Esto **no modelaba
+la acumulación entre etapas** — si el motor reenviara el historial completo de
+la sesión en cada turno (creciendo sin resetear al cambiar de etapa), el costo
+real sería mayor. Al revisar esto se detectó que el diseño no había fijado
+explícitamente ese comportamiento (ambigüedad ya corregida en §1.3: **el
+motor solo reenvía la transcripción de la etapa actual**, no la sesión
+completa).
+
+Para no dejar la corrección basada en una extrapolación de memoria, se
+**volvió a medir en vivo** (mismo proveedor `core_ai` ya configurado en
+staging, sin tocar su configuración) el escenario contrario — **peor caso: sin
+reset entre etapas, el historial completo de las 3 etapas se reenvía en cada
+uno de los 15 turnos** — para tener una cifra real de comparación, no
+inventada:
+
+| Escenario | Tokens entrada medidos | Tokens salida medidos |
 |---|---|---|
-| 1 etapa conversacional (5 turnos, historial creciente) | 1.556 | 257 |
-| 1 evaluación de cierre de etapa (extracción JSON) | 455 | 31 |
-| **Subtotal por etapa** | **2.011** | **288** |
-| × 3 etapas | 6.033 | 864 |
-| Informe final (1 llamada) | 219 | 362 |
-| **TOTAL por sesión completada** | **6.252** | **1.226** |
+| **A — Reset por etapa (diseño recomendado, §1.3)**: 3 etapas × (5 turnos + 1 evaluación de cierre) | 6.033 | 864 |
+| **B — Peor caso medido: sin reset, historial completo de sesión en los 15 turnos + 3 evaluaciones** | 9.603 | 777 |
 
-Detalle medido del crecimiento del historial dentro de una etapa (turno 1→5):
-entrada 174 → 240 → 308 → 375 → 459 tokens. Ese crecimiento (el historial se
-reenvía como texto cada turno) es el principal driver del costo.
+Detalle medido del crecimiento turno a turno:
+- Escenario A, dentro de 1 etapa (turnos 1→5): entrada 174 → 240 → 308 → 375 → 459.
+- Escenario B, los 15 turnos consecutivos sin reset: entrada 135 → 180 → 235 →
+  286 → 337 (fin etapa 1) → 384 → 444 → 504 → 562 → 615 (fin etapa 2) → 687 →
+  740 → 793 → 856 → 912 (fin etapa 3).
 
-### Costo por sesión y proyección mensual
+**Ambos incluyen el informe final** (219 in / 362 out, medido, no depende del
+escenario porque el informe usa un resumen compacto de datos ya extraídos, no
+la transcripción cruda):
+
+| Escenario | TOTAL entrada | TOTAL salida | Costo por sesión |
+|---|---|---|---|
+| **A — recomendado (reset por etapa)** | 6.252 | 1.226 | **≈ US$0,00167** |
+| **B — peor caso (sin reset)** | 9.822 | 1.139 | **≈ US$0,00216** |
+
+La diferencia real medida es **~29% más caro en el peor caso**, no un
+multiplicador dramático — el crecimiento del historial es más suave de lo que
+una extrapolación sin medir podría sugerir. Aun así, se mantiene el diseño A
+(reset por etapa) como decisión de arquitectura porque además de ser más
+barato evita que el prompt crezca sin límite en flujos con muchas etapas
+(riesgo de tope de contexto), sin perder continuidad real (los datos
+extraídos de etapas previas quedan disponibles vía `local_flujos_answer`).
+
+### Costo por sesión y proyección mensual (diseño recomendado, escenario A)
 
 - Entrada: 6.252 × US$0,15/1M = **US$0,000938**
 - Salida: 1.226 × US$0,60/1M = **US$0,000736**
 - **Costo por sesión completada ≈ US$0,00167** (menos de 0,2 centavos de dólar).
 
-| Sesiones/mes | Costo mensual estimado (gpt-4o-mini) |
-|---|---|
-| 50 | **≈ US$0,08** |
-| 200 | **≈ US$0,33** |
-| 1.000 | **≈ US$1,67** |
+| Sesiones/mes | Escenario A (recomendado) | Escenario B (peor caso, referencia) |
+|---|---|---|
+| 50 | **≈ US$0,08** | ≈ US$0,11 |
+| 200 | **≈ US$0,33** | ≈ US$0,43 |
+| 1.000 | **≈ US$1,67** | ≈ US$2,16 |
 
-A este modelo, el costo de IA es prácticamente despreciable incluso a 1.000
-sesiones/mes. La única variable que lo cambia de orden de magnitud es el
-**modelo elegido** (ver palancas).
+En cualquiera de los dos escenarios el costo de IA es prácticamente
+despreciable incluso a 1.000 sesiones/mes. La única variable que lo cambia de
+orden de magnitud es el **modelo elegido** (ver palancas), no el manejo del
+historial.
 
 ### Palancas para abaratar (y cuánto ahorran, aprox.)
 
@@ -476,13 +524,15 @@ sesiones/mes. La única variable que lo cambia de orden de magnitud es el
    salvo que la calidad de conversación lo exija.
 2. **Límite de turnos por etapa.** Bajar de 5 a 3 turnos recorta ~40% la
    entrada conversacional (el historial crece menos). Ahorro global ≈ 25-30%.
-3. **No reenviar el historial completo** (resumir turnos viejos o enviar solo
-   los últimos N). Puede recortar la entrada 30-50% en etapas largas.
+3. **Reset por etapa en vez de historial completo de sesión** (ya adoptado
+   como diseño, ver arriba): ahorra ~29% medido, y evita el riesgo de tope de
+   contexto en flujos largos.
 4. **Prompt caching de OpenAI** (descuento ~50% en el prefijo repetido, p.ej. el
    prompt de sistema de la etapa). Ahorro modesto sobre la entrada.
 
 **Conclusión de costos:** con `gpt-4o-mini` el gasto de IA no es una
-restricción del proyecto. La decisión de modelo (mini vs. 4o) es de calidad, no
+restricción del proyecto, en ninguno de los dos escenarios medidos. La
+decisión de modelo (mini vs. 4o) es de calidad, no
 de presupuesto, hasta volúmenes muy superiores a los previstos.
 
 ---
