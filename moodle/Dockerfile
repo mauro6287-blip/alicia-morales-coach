@@ -101,6 +101,12 @@ RUN a2dismod mpm_event mpm_worker 2>/dev/null || true; a2enmod mpm_prefork
 # --- Scripts CLI de administración (fuera de /public, no accesibles por web) ---
 COPY cli/ /var/www/html/cli_custom/
 
+# --- Plugin a medida: local_flujos (motor de flujos guiados, ver PLAN_FLUJOS.md) ---
+# En Moodle 5.x los plugins viven bajo public/ (public/local/<nombre>).
+# Va al final para no invalidar las capas caras en cada iteración del plugin.
+COPY plugins/local/flujos/ /var/www/html/public/local/flujos/
+RUN chown -R www-data:www-data /var/www/html/public/local/flujos
+
 # --- Entrypoint: genera config.php, espera la DB, instala si hace falta, arranca Apache ---
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 # Normaliza fin de línea (por si se editó en Windows) y da permisos de ejecución.
