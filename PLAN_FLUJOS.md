@@ -109,13 +109,45 @@ Opciones evaluadas:
 **Recomendación: `core_ai` con provider OpenAI del core.** El plugin define su
 propio "placement"/consumo interno que arma el prompt por etapa (prompt de
 sistema de la etapa + transcripción de la sesión) y llama a la acción de
-generación de texto. **Validación obligatoria en el Commit 5:** confirmar que
-la acción del core soporta bien el patrón conversacional multi-turno con
-instrucciones de sistema por etapa; si resultara insuficiente, el fallback es
-una capa cliente propia y delgada (`classes/local/aiclient.php`) sobre la
-OpenAI Responses API (mismo patrón ya probado por `block_exaaichat`), con la
-key en un setting del plugin que **Mauro ingresa manualmente** — nunca en
-código ni en variables gestionadas por el agente.
+generación de texto.
+
+#### VEREDICTO DEL SPIKE (2026-07-22, ejecutado en staging con `gpt-4o-mini`)
+
+**`core_ai` ALCANZA. Se confirma como opción; NO se necesita el fallback.**
+Se probó de verdad contra la API real. Salidas resumidas:
+
+| Punto evaluado | Resultado | Evidencia real medida |
+|---|---|---|
+| Multi-turno | ✅ Funciona (con historial embebido) | Con 4 turnos previos en el prompt, el modelo recordó el área ("comunicación") y el caso concreto ("informe entregado tarde") y encadenó la pregunta. 218 tokens in / 49 out |
+| Instrucciones de sistema por etapa | ✅ Funciona (embebidas en el prompt) | Mismo mensaje de usuario, dos instrucciones distintas embebidas → tonos claramente distintos (evaluador formal con "usted" vs. amigo cálido con "tú" y emojis) |
+| Salida JSON estructurada | ✅ Fiable y repetible | **5/5 intentos** devolvieron JSON parseable con la forma `{"etapa_completa":bool,"datos":{...}}`, sin ```-fences, contenido consistente entre corridas |
+| Manejo de errores | ✅ Estructurado y seguro | Key inválida → `success=false`, `errorcode=401`, mensaje localizado "Algo salió mal" sin filtrar detalles; la sesión no se rompe. El core mapea **429 (cuota agotada) → "Demasiadas solicitudes"** (clase `ratelimit`), 404 y 5xx a sus propias clases |
+
+**Limitación arquitectónica confirmada (no es bloqueante):** `core_ai` **no
+tiene API conversacional nativa**. Cada llamada `generate_text` envía UN solo
+mensaje de usuario más un `systeminstruction` **global fijo** del provider (no
+por llamada). Por lo tanto el motor debe **construir él mismo el prompt
+completo** (instrucciones de la etapa + historial de la sesión) como un único
+string `prompttext` por turno. Es un patrón conocido y funciona de forma fiable
+(probado arriba). Consecuencia: el historial se reenvía como texto en cada
+turno, lo que hace crecer los tokens de entrada turno a turno — es el principal
+driver de costo (ver §5), pero a los precios medidos es irrelevante.
+
+**Impacto en los commits siguientes:** ninguno respecto al plan original. El
+Commit 5 implementa el consumo de `core_ai` con el prompt armado por el motor
+(sistema de etapa + transcripción). **Se elimina la incertidumbre**: ya no hace
+falta reservar la opción del cliente propio sobre la Responses API. La API key
+se configura **una sola vez** en *Administración del sitio → General → IA →
+Proveedores de IA* y **Mauro la ingresa manualmente** — nunca en código,
+variables gestionadas por el agente ni logs.
+
+**No verificado (marcado explícitamente):**
+- No se disparó un 429 real contra una cuota agotada de verdad; el mapeo
+  429→"Demasiadas solicitudes" se verificó ejecutando el `error factory` del
+  core, no agotando la cuota.
+- Ajustes de modelo (`temperature`, `top_p`, `modelextraparams`): existen en el
+  código del provider (plantilla de modelo "custom" acepta JSON de parámetros
+  extra) pero **no se probaron en vivo** en este spike.
 
 ### 1.5 Privacy API (obligatoria)
 
@@ -396,7 +428,66 @@ parametrizable:
 
 ---
 
-## 5. Referencias del proyecto
+## 5. Estimación de costos de IA (medida en el spike 2026-07-22)
+
+> **Origen de las cifras.** Los conteos de tokens son **medidos**: salen del
+> campo `usage` que devuelve la API de OpenAI en cada llamada real hecha en
+> staging (`prompttokens` / `completiontokens` capturados vía `core_ai`). El
+> **precio por token** NO es medido: es el precio de lista publicado por OpenAI
+> para `gpt-4o-mini` (**US$0,15 por 1M tokens de entrada; US$0,60 por 1M de
+> salida**) — conviene reconfirmarlo en el panel de facturación de OpenAI.
+
+### Consumo medido por componente (flujo de referencia: 3 etapas × 5 turnos + informe)
+
+| Componente | Tokens entrada (medidos) | Tokens salida (medidos) |
+|---|---|---|
+| 1 etapa conversacional (5 turnos, historial creciente) | 1.556 | 257 |
+| 1 evaluación de cierre de etapa (extracción JSON) | 455 | 31 |
+| **Subtotal por etapa** | **2.011** | **288** |
+| × 3 etapas | 6.033 | 864 |
+| Informe final (1 llamada) | 219 | 362 |
+| **TOTAL por sesión completada** | **6.252** | **1.226** |
+
+Detalle medido del crecimiento del historial dentro de una etapa (turno 1→5):
+entrada 174 → 240 → 308 → 375 → 459 tokens. Ese crecimiento (el historial se
+reenvía como texto cada turno) es el principal driver del costo.
+
+### Costo por sesión y proyección mensual
+
+- Entrada: 6.252 × US$0,15/1M = **US$0,000938**
+- Salida: 1.226 × US$0,60/1M = **US$0,000736**
+- **Costo por sesión completada ≈ US$0,00167** (menos de 0,2 centavos de dólar).
+
+| Sesiones/mes | Costo mensual estimado (gpt-4o-mini) |
+|---|---|
+| 50 | **≈ US$0,08** |
+| 200 | **≈ US$0,33** |
+| 1.000 | **≈ US$1,67** |
+
+A este modelo, el costo de IA es prácticamente despreciable incluso a 1.000
+sesiones/mes. La única variable que lo cambia de orden de magnitud es el
+**modelo elegido** (ver palancas).
+
+### Palancas para abaratar (y cuánto ahorran, aprox.)
+
+1. **Modelo (palanca dominante, ~16×).** Es lo único que mueve la aguja de
+   verdad. Con `gpt-4o` completo (US$2,50/US$10 por 1M) la misma sesión cuesta
+   ≈ US$0,028 → 1.000/mes ≈ **US$28**. Recomendación: quedarse en `gpt-4o-mini`
+   salvo que la calidad de conversación lo exija.
+2. **Límite de turnos por etapa.** Bajar de 5 a 3 turnos recorta ~40% la
+   entrada conversacional (el historial crece menos). Ahorro global ≈ 25-30%.
+3. **No reenviar el historial completo** (resumir turnos viejos o enviar solo
+   los últimos N). Puede recortar la entrada 30-50% en etapas largas.
+4. **Prompt caching de OpenAI** (descuento ~50% en el prefijo repetido, p.ej. el
+   prompt de sistema de la etapa). Ahorro modesto sobre la entrada.
+
+**Conclusión de costos:** con `gpt-4o-mini` el gasto de IA no es una
+restricción del proyecto. La decisión de modelo (mini vs. 4o) es de calidad, no
+de presupuesto, hasta volúmenes muy superiores a los previstos.
+
+---
+
+## 6. Referencias del proyecto
 
 - Entorno staging: environment `moodle-staging` de Railway (servicios
   `moodle-stg` + `mariadb-stg`, DB propia y vacía, dominio
