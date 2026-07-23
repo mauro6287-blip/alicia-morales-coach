@@ -96,3 +96,107 @@ desde el entrypoint, para que el token no quede en logs). Re-ejecutable.
 - `crond` activo y `cron.php` corriendo (ver logs / Tasks).
 - HTTPS OK en `https://cursos.aliciamoralescoach.com`.
 - Persistencia: datos de MariaDB y `moodledata` intactos.
+
+---
+
+## Chat de empleabilidad en el Dashboard (`block_exaaichat`)
+
+Plan para activar `block_exaaichat` en el Área personal (Dashboard) de
+producción, con documentos propios de empleabilidad (entrevistas, CV,
+LinkedIn), sin exponerlo a invitados/portada. Escrito tras probar en
+`moodle-staging` (2026-07-23) y encontrar **dos riesgos reales** que este plan
+resuelve explícitamente antes de tocar producción.
+
+### Riesgos encontrados en staging (por qué el plan tiene este orden)
+
+1. **Orden de subida de documentos.** Un usuario que visita su Área personal
+   ANTES de que los documentos terminen de subirse recibe una copia personal
+   del bloque **congelada sin documentos para siempre** (Moodle clona el
+   bloque a cada usuario en su primera visita, copiando la configuración tal
+   cual está en ese momento; no vuelve a sincronizar después). Probado con dos
+   usuarios de prueba: el que visitó antes recibió respuestas genéricas: el
+   que visitó después, respuestas basadas en los documentos reales.
+2. **Usuarios que ya personalizaron su Área personal antes de hoy.** Moodle
+   solo clona los bloques del Dashboard por defecto **la primera vez** que
+   cada usuario lo visita. Si alguien (staff, profesores) ya tocó su Área
+   personal alguna vez en el pasado, su copia personal ya existe **sin** el
+   chat, y Moodle no se la va a agregar automáticamente nunca. Confirmado con
+   la propia cuenta admin de staging.
+
+### Precondición
+
+Tener listos los documentos reales de empleabilidad. Formatos aceptados por
+el bloque: `.md .txt .csv .html .pdf .docx .pptx .json`. Máximo 50 archivos,
+sin límite de tamaño declarado.
+
+### Fase B1 — Preparar sin exponer a nadie (reversible, cero usuarios afectados)
+
+Con `allow_on_dashboard` en `0`, el bloque queda invisible en **cualquier**
+Área personal (la del sitio y cualquier copia ya clonada), aunque la
+instancia ya exista en el Dashboard por defecto — es un interruptor global,
+no por usuario. Esto permite preparar todo sin que nadie vea nada a medias.
+
+1. Confirmar en *Site administration → Extensiones → Bloques → Exabis AI Chat
+   Block*: `api_type=responses`, `model=gpt-4o-mini`, `apikey` ya cargada
+   (viene del hito RAG anterior), `enablefileupload=1`.
+2. Confirmar explícitamente: `allow_on_dashboard=0`, `allowguests=0`,
+   `aiplacement_showonfrontpage=0`.
+3. Agregar el bloque al Dashboard por defecto: *Site administration →
+   Apariencia → Área personal predeterminada* → Modo de edición → Agregar un
+   bloque → Exabis AI Chat Block. (Con `allow_on_dashboard=0` sigue invisible
+   para todos — este paso solo crea la instancia.)
+4. Subir los documentos reales: en esa misma página, ícono de engranaje del
+   bloque → Configurar bloque → sección "Documents for the AI" → arrastrar
+   los archivos → Guardar cambios.
+5. **Esperar y verificar que terminen de procesarse** antes de seguir (pueden
+   quedar "in_progress" un rato, sobre todo si hay algún incidente de OpenAI
+   en curso — revisar `https://status.openai.com` si tarda de más).
+   Verificación simple: como admin, abrir el chat en esa misma página y
+   preguntar algo cuya respuesta esté en los documentos reales; si responde
+   con contenido específico (no una respuesta genérica), están listos.
+
+**No avanzar a la Fase B3 hasta confirmar el paso 5.**
+
+### Fase B2 — Decisión pendiente de Mauro (usuarios con Dashboard ya personalizado)
+
+Este es el punto donde la tarea original pide detenerse y preguntar antes de
+tocar los Dashboards de otros usuarios. Opciones:
+
+| Opción | Qué hace | Impacto | Recomendación |
+|---|---|---|---|
+| **A. No resetear nada** | Los usuarios nuevos (que nunca visitaron su Área personal) reciben el chat automáticamente. A los que ya la personalizaron, se les avisa que pueden agregarlo ellos mismos: Área personal → Modo de edición → Agregar un bloque → Exabis AI Chat Block. | Cero riesgo, cero usuarios afectados sin su consentimiento. Requiere comunicar la opción manual. | **Recomendada** para el lanzamiento inicial. |
+| **B. Resetear el Área personal de TODOS los usuarios** (botón "Restablecer Área personal para todos los usuarios") | Cualquier bloque que alguien haya movido, agregado, quitado u ocultado en su Dashboard vuelve al estado por defecto (con el chat incluido). | Alto: se pierde la personalización de cualquiera que la haya tocado, no solo la relacionada al chat. Conviene avisar antes. | Solo si hay pocos usuarios y Mauro confirma que ninguno tiene una personalización que le importe conservar. |
+| **C. Resetear cuentas puntuales** (vía script dirigido, solo las cuentas que Mauro indique) | Igual que B pero acotado a una lista de usuarios específicos (ej. solo staff). | Bajo, pero requiere que Mauro identifique a quién. | Alternativa si B2-A no alcanza para alguien en particular (ej. la propia Alicia). |
+
+**No ejecutar B ni C sin que Mauro lo confirme explícitamente aquí, y solo
+después de que la Fase B1 esté 100% verificada** (si se resetea antes de
+tener los documentos listos, se vuelve a crear el mismo problema del riesgo
+1, ahora a escala de todo el sitio).
+
+### Fase B3 — Activar (solo cuando B1 esté verificado y B2 decidido)
+
+6. Cambiar `allow_on_dashboard=1`.
+7. Verificar con una cuenta de prueba que **nunca haya visitado su Área
+   personal antes** (o una cuenta nueva creada para la prueba): el chat debe
+   aparecer y responder con contenido de los documentos reales.
+8. Si se eligió la opción B o C de la Fase B2, ejecutarla recién ahora.
+9. Confirmar que `allowguests=0` y `aiplacement_showonfrontpage=0` siguen
+   desactivados, y que un visitante sin sesión iniciada no puede acceder
+   (tanto la página como `blocks/exaaichat/api/completion.php` deben
+   redirigir a login).
+
+### Verificación post-lanzamiento
+
+- `https://cursos.aliciamoralescoach.com` responde con normalidad.
+- Un usuario nuevo ve el chat en su Área personal y obtiene respuestas
+  basadas en los documentos, no genéricas.
+- Guests y portada pública siguen sin acceso.
+- `local_flujos` y su rama de trabajo no se ven afectados (son componentes
+  independientes).
+
+### Rollback
+
+Volver `allow_on_dashboard` a `0` revierte la visibilidad del chat para
+**todos** de forma inmediata y sin pérdida de datos (no borra la instancia,
+los documentos ni el vector store — solo lo oculta). Es la forma más segura
+de pausar el lanzamiento si algo sale mal después de la Fase B3.
