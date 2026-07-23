@@ -129,25 +129,45 @@ Tener listos los documentos reales de empleabilidad. Formatos aceptados por
 el bloque: `.md .txt .csv .html .pdf .docx .pptx .json`. Máximo 50 archivos,
 sin límite de tamaño declarado.
 
-### Fase B1 — Preparar sin exponer a nadie (reversible, cero usuarios afectados)
+> **Corrección importante (2026-07-23, descubierta al ejecutar B1 en
+> producción):** la primera versión de este plan asumía que
+> `allow_on_dashboard=0` deja invisible cualquier instancia del bloque ya
+> agregada al Dashboard. **Eso es falso** — se verificó en el código de
+> Moodle (`lib/blocklib.php`) que `applicable_formats()`/`allow_on_dashboard`
+> solo filtran el selector "Agregar un bloque"; NO filtran el renderizado de
+> un bloque que ya existe. Una vez agregada la instancia, se muestra a
+> cualquiera que visite esa página, sin importar `allow_on_dashboard`
+> (`allow_on_dashboard=0` sí sigue bloqueando que el chat *responda*
+> mensajes vía `completion.php`, pero el cuadro de chat igual aparecería
+> visible y roto). **El mecanismo real para ocultar un bloque ya creado es
+> `block_positions.visible = 0`** (lo mismo que el ícono "Ocultar bloque" del
+> menú de acciones), que sí se respeta en el renderizado normal (confirmado
+> en `block_manager::load_blocks()`). El paso 3 de abajo ya quedó corregido
+> con este mecanismo.
 
-Con `allow_on_dashboard` en `0`, el bloque queda invisible en **cualquier**
-Área personal (la del sitio y cualquier copia ya clonada), aunque la
-instancia ya exista en el Dashboard por defecto — es un interruptor global,
-no por usuario. Esto permite preparar todo sin que nadie vea nada a medias.
+### Fase B1 — Preparar sin exponer a nadie (reversible, cero usuarios afectados)
 
 1. Confirmar en *Site administration → Extensiones → Bloques → Exabis AI Chat
    Block*: `api_type=responses`, `model=gpt-4o-mini`, `apikey` ya cargada
    (viene del hito RAG anterior), `enablefileupload=1`.
 2. Confirmar explícitamente: `allow_on_dashboard=0`, `allowguests=0`,
    `aiplacement_showonfrontpage=0`.
-3. Agregar el bloque al Dashboard por defecto: *Site administration →
-   Apariencia → Área personal predeterminada* → Modo de edición → Agregar un
-   bloque → Exabis AI Chat Block. (Con `allow_on_dashboard=0` sigue invisible
-   para todos — este paso solo crea la instancia.)
-4. Subir los documentos reales: en esa misma página, ícono de engranaje del
-   bloque → Configurar bloque → sección "Documents for the AI" → arrastrar
-   los archivos → Guardar cambios.
+3. Agregar el bloque al Dashboard por defecto **y ocultarlo de inmediato**
+   con `block_positions.visible = 0` para esa página (contexto sistema,
+   pagetype `my-index`, subpage = id de la página `__default` privada). Como
+   `allow_on_dashboard=0` excluye el bloque del selector "Agregar un bloque"
+   de la UI, este paso se hizo por CLI (`$DB->insert_record('block_instances',
+   ...)` + `blocks_set_visibility()`), replicando exactamente el registro que
+   generaría la UI. **Estado en producción: HECHO** (instancia id 11,
+   oculta). El acceso de administrador a "Configurar bloque" sigue
+   funcionando igual estando oculto (el modo edición de
+   `/my/indexsys.php` sí muestra bloques ocultos, es la única vista que los
+   ignora).
+4. Subir los documentos reales: *Site administration → Apariencia → Área
+   personal predeterminada* → Modo de edición → ícono de engranaje del
+   bloque Exabis AI Chat → Configurar bloque → sección "Documents for the
+   AI" → arrastrar los archivos → Guardar cambios. **Pendiente — lo hace
+   Mauro.**
 5. **Esperar y verificar que terminen de procesarse** antes de seguir (pueden
    quedar "in_progress" un rato, sobre todo si hay algún incidente de OpenAI
    en curso — revisar `https://status.openai.com` si tarda de más).
@@ -175,15 +195,24 @@ tener los documentos listos, se vuelve a crear el mismo problema del riesgo
 
 ### Fase B3 — Activar (solo cuando B1 esté verificado y B2 decidido)
 
-6. Cambiar `allow_on_dashboard=1`.
-7. Verificar con una cuenta de prueba que **nunca haya visitado su Área
+Dos interruptores independientes, ambos hace falta cambiar (ver corrección
+arriba): uno para que se **vea**, otro para que **funcione**.
+
+6. Quitar el ocultamiento: `block_positions.visible = 1` (o eliminar ese
+   registro) para la instancia del bloque en la página `__default` del
+   sistema — equivalente al ícono "Mostrar bloque" del menú de acciones en
+   *Área personal predeterminada* con Modo de edición activo.
+7. Cambiar `allow_on_dashboard=1` (esto es lo que permite que
+   `completion.php` procese mensajes; sin este paso el chat se ve pero
+   cualquier mensaje falla).
+8. Verificar con una cuenta de prueba que **nunca haya visitado su Área
    personal antes** (o una cuenta nueva creada para la prueba): el chat debe
    aparecer y responder con contenido de los documentos reales.
-8. Si se eligió la opción B o C de la Fase B2, ejecutarla recién ahora.
-9. Confirmar que `allowguests=0` y `aiplacement_showonfrontpage=0` siguen
-   desactivados, y que un visitante sin sesión iniciada no puede acceder
-   (tanto la página como `blocks/exaaichat/api/completion.php` deben
-   redirigir a login).
+9. Si se eligió la opción B o C de la Fase B2, ejecutarla recién ahora.
+10. Confirmar que `allowguests=0` y `aiplacement_showonfrontpage=0` siguen
+    desactivados, y que un visitante sin sesión iniciada no puede acceder
+    (tanto la página como `blocks/exaaichat/api/completion.php` deben
+    redirigir a login).
 
 ### Verificación post-lanzamiento
 
@@ -196,7 +225,8 @@ tener los documentos listos, se vuelve a crear el mismo problema del riesgo
 
 ### Rollback
 
-Volver `allow_on_dashboard` a `0` revierte la visibilidad del chat para
-**todos** de forma inmediata y sin pérdida de datos (no borra la instancia,
-los documentos ni el vector store — solo lo oculta). Es la forma más segura
+Volver a poner `block_positions.visible = 0` para la instancia oculta el chat
+de forma inmediata para todos (sin pérdida de datos: no borra la instancia,
+los documentos ni el vector store). Además, `allow_on_dashboard=0` bloquea
+que `completion.php` procese mensajes como capa extra. Es la forma más segura
 de pausar el lanzamiento si algo sale mal después de la Fase B3.
