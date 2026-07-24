@@ -193,6 +193,19 @@ después de que la Fase B1 esté 100% verificada** (si se resetea antes de
 tener los documentos listos, se vuelve a crear el mismo problema del riesgo
 1, ahora a escala de todo el sitio).
 
+> **Decisión confirmada (2026-07-24):** en producción, a la fecha, **solo la
+> cuenta `admin` tiene el Dashboard ya personalizado** (verificado por
+> consulta de solo lectura a `my_pages`: 1 sola página personal entre las 6
+> cuentas activas del sitio). Con ese dato, se descarta la opción B (no hay
+> "todos" a los que afecte) y se elige una **variante acotada de la opción
+> C: resetear únicamente la cuenta `admin`**, con `my_reset_page()` dirigido
+> a ese usuario (NO el botón "Restablecer Área personal para todos los
+> usuarios", que resetearía a todo el mundo sin necesidad). **Mauro confirmó
+> que el reset se ejecuta recién en la Fase B3**, no antes — resetear ahora
+> (con el bloque todavía oculto y sin documentos) solo le haría perder el
+> acomodo actual de su Dashboard (desde 2026-06-03) sin ganar nada a cambio,
+> ya que le quedaría otra copia igual de vacía.
+
 ### Fase B3 — Activar (solo cuando B1 esté verificado y B2 decidido)
 
 Dos interruptores independientes, ambos hace falta cambiar (ver corrección
@@ -208,7 +221,10 @@ arriba): uno para que se **vea**, otro para que **funcione**.
 8. Verificar con una cuenta de prueba que **nunca haya visitado su Área
    personal antes** (o una cuenta nueva creada para la prueba): el chat debe
    aparecer y responder con contenido de los documentos reales.
-9. Si se eligió la opción B o C de la Fase B2, ejecutarla recién ahora.
+9. Ejecutar la decisión de la Fase B2: resetear **solo** la cuenta `admin`
+   (`my_reset_page($userid, MY_PAGE_PRIVATE)` dirigido a ese usuario — NO el
+   botón de reset masivo). Verificar después que `admin` ve el chat
+   funcionando en su próxima visita a `/my/`.
 10. Confirmar que `allowguests=0` y `aiplacement_showonfrontpage=0` siguen
     desactivados, y que un visitante sin sesión iniciada no puede acceder
     (tanto la página como `blocks/exaaichat/api/completion.php` deben
