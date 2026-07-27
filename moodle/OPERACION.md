@@ -246,3 +246,40 @@ de forma inmediata para todos (sin pérdida de datos: no borra la instancia,
 los documentos ni el vector store). Además, `allow_on_dashboard=0` bloquea
 que `completion.php` procese mensajes como capa extra. Es la forma más segura
 de pausar el lanzamiento si algo sale mal después de la Fase B3.
+
+### Estado: LANZADO (2026-07-27)
+
+Las Fases B1–B3 quedaron completadas y verificadas en producción:
+
+- Mauro subió sus 3 documentos reales de empleabilidad
+  (`CV_2026_ATS_Internacional.md`, `CV_2026_ATS_Neutro.md`, `Matriz completa
+  para chatbot de empleabilidad en M.md`) a una instancia distinta del bloque
+  (agregada por su cuenta en *Administración del sitio*, `pagetype
+  admin-search`, instance id=13) — no a la instancia del Dashboard. Esa
+  instancia quedó **intacta y sigue existiendo** (solo visible para admins,
+  es una herramienta aparte que Mauro puede seguir usando).
+- Se copiaron esos 3 documentos y se reutilizó su vector store ya sincronizado
+  (`vs_6a676a2197d481919f572a7a12a0f44a`) en la instancia real del Dashboard
+  (id=11) — sin crear un vector store nuevo, evitando depender de que
+  `POST /v1/vector_stores` de OpenAI esté disponible (ver incidente de OpenAI
+  documentado en el spike de `local_flujos`).
+- Verificado por CLI (antes de destapar nada) que la instancia 11 responde
+  con contenido real y específico de los documentos.
+- `block_positions.visible = 1` para la instancia 11 y `allow_on_dashboard=1`
+  confirmados.
+- Reseteadas **2 cuentas** que ya tenían copia congelada del Dashboard:
+  `admin` (personalizado desde 2026-06-03) y `estudiante.prueba1` (se había
+  congelado sin querer al visitar su Área personal antes de esta activación).
+  `estudiante.prueba2` nunca visitó su Área personal, así que no necesitó
+  reset.
+- Verificado con login real de `estudiante.prueba1`: el bloque "Exabis AI
+  Chat" aparece en su Área personal (pide aceptar Términos de Servicio la
+  primera vez, comportamiento normal del plugin).
+- Confirmado que sin sesión iniciada, tanto `/my/` como
+  `blocks/exaaichat/api/completion.php` redirigen a login (no hay acceso de
+  invitado).
+
+**Cuentas de prueba disponibles en producción** (creadas para esta
+verificación, credenciales entregadas a Mauro por chat, no documentadas
+aquí): `estudiante.prueba1`, `estudiante.prueba2` — ambas inscritas como
+Estudiante en "Liderazgo – Piloto".
