@@ -273,11 +273,47 @@ Las Fases B1–B3 quedaron completadas y verificadas en producción:
   `estudiante.prueba2` nunca visitó su Área personal, así que no necesitó
   reset.
 - Verificado con login real de `estudiante.prueba1`: el bloque "Exabis AI
-  Chat" aparece en su Área personal (pide aceptar Términos de Servicio la
-  primera vez, comportamiento normal del plugin).
+  Chat" aparece en su Área personal y **responde preguntas reales con
+  contenido específico de los documentos** (probado end-to-end en el
+  navegador, no solo por CLI).
 - Confirmado que sin sesión iniciada, tanto `/my/` como
   `blocks/exaaichat/api/completion.php` redirigen a login (no hay acceso de
   invitado).
+
+### Bug encontrado y corregido: "Terms of Service" roto (2026-07-27)
+
+Al probar el chat con `estudiante.prueba1` en el navegador real (no por CLI),
+el botón "Show Terms of Service" no reaccionaba — ni con un usuario real ni
+en pruebas automatizadas. Diagnóstico (con la consola/red del navegador, no
+supuesto):
+
+- El módulo AMD `block_exaaichat/tos` nunca resuelve su `require()` (ni
+  éxito ni error, se cuelga indefinidamente).
+- Aislando sus dependencias una por una: `core/modal_events`, `core/str`,
+  `core/ajax` cargan bien; **`core/modal_factory` falla con
+  `"No define call for core/modal_factory"`**.
+- **Causa real: `core/modal_factory` es una API de Moodle que ya no existe
+  en Moodle 5.2** (fue reemplazada por `core/modal_save_cancel` y factories
+  estáticas). El JS compilado de `block_exaaichat/tos.js` todavía depende de
+  la API vieja — es un problema de compatibilidad del plugin con esta
+  versión de Moodle, no de esta configuración ni del navegador.
+- Además, `terms_of_service_content` estaba **vacío (0 caracteres)** —
+  el interruptor `terms_of_service_enabled` había quedado en `1` (default
+  del plugin o activado sin querer en algún momento) sin que nadie hubiera
+  cargado un texto real.
+
+**Fix aplicado:** `set_config('terms_of_service_enabled', 0,
+'block_exaaichat')`. Como no había contenido real que perder, es la solución
+más simple y segura mientras el plugin no arregle su compatibilidad con
+Moodle 5.2. Verificado end-to-end tras el fix: el estudiante escribe una
+pregunta real y recibe una respuesta basada en los documentos, sin ningún
+paso intermedio roto.
+
+**Pendiente si en el futuro se quiere reactivar el consentimiento de ToS:**
+revisar si una versión más nueva de `block_exaaichat` (repo
+`github.com/gtn/moodle-block_exaaichat`) ya actualizó `tos.js` a
+`core/modal_save_cancel`, o parchear el JS localmente. No se tocó el código
+del plugin en este fix — solo el ajuste de configuración.
 
 **Cuentas de prueba disponibles en producción** (creadas para esta
 verificación, credenciales entregadas a Mauro por chat, no documentadas
