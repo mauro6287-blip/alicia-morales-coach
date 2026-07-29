@@ -70,12 +70,18 @@ export default async function SuccessPage({
             <span className="font-mono text-white">{order.id}</span>
           </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/"
               className="rounded-full bg-[#FFDE59] px-6 py-2.5 text-sm font-semibold text-gray-900 transition-colors hover:bg-[#F7B52A]"
             >
               Volver al inicio
+            </Link>
+            <Link
+              href={`/bienvenida?order=${order.id}`}
+              className="rounded-full border border-[#3F3F46] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:border-[#FFDE59]/50"
+            >
+              Continuar
             </Link>
           </div>
         </div>
