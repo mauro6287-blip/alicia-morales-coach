@@ -156,6 +156,26 @@ function numeroEnPalabras(n: number): string {
   return resto === 0 ? milesTexto : `${milesTexto} ${under1000(resto)}`;
 }
 
+const ESPACIOS_UNICODE_RAROS = /[\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/g;
+const CARACTERES_ANCHO_CERO = /[\u200B\u200C\u200D\uFEFF]/g;
+
+/**
+ * Normaliza texto proveniente de fuentes externas (Excel, Moodle) antes de
+ * dibujarlo en el PDF. Las fuentes base del PDF (Helvetica) no soportan
+ * ciertos caracteres Unicode "invisibles" (espacios especiales, caracteres
+ * de ancho cero) que a veces se cuelan al copiar texto desde Word o
+ * PowerPoint; sin esta limpieza, esos caracteres se dibujan como glifos
+ * incorrectos o hacen que dos palabras queden pegadas.
+ */
+function limpiarTextoPdf(texto: string): string {
+  return texto
+    .normalize("NFC")
+    .replace(ESPACIOS_UNICODE_RAROS, " ")
+    .replace(CARACTERES_ANCHO_CERO, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function fechaEnPalabras(fecha: Date): string {
   const dia = fecha.getUTCDate();
   const mes = MESES[fecha.getUTCMonth()];
@@ -188,11 +208,11 @@ function CertificadoPDF({ data, qrDataUrl }: { data: CertificadoPdfData; qrDataU
                 La Escuela de Competencias Aplicadas — Alicia Morales Coach SPA otorga el
                 presente certificado a
               </Text>
-              <Text style={styles.nombreAlumno}>{data.nombre}</Text>
+              <Text style={styles.nombreAlumno}>{limpiarTextoPdf(data.nombre)}</Text>
               <Text style={styles.textoBlanco}>
                 RUT: {formatearRut(data.rut)} por haber aprobado satisfactoriamente el curso
               </Text>
-              <Text style={styles.nombreCurso}>{data.cursoNombre}</Text>
+              <Text style={styles.nombreCurso}>{limpiarTextoPdf(data.cursoNombre)}</Text>
               <Text style={styles.textoBlanco}>
                 con una duración de {data.horasCurso} horas, finalizado el{" "}
                 {fechaEnPalabras(data.fechaAprobacion)}.
