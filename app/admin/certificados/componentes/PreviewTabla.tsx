@@ -48,7 +48,7 @@ export default function PreviewTabla({
                   <td className="py-2 pr-3 text-foreground">{fila.cursoOpcional || "—"}</td>
                 )}
                 <td className="py-2 pr-3 text-foreground">
-                  {fila.fechaAprobacion.toISOString().slice(0, 10)}
+                  {new Date(fila.fechaAprobacion).toISOString().slice(0, 10)}
                 </td>
                 <td className="py-2 pr-3 text-foreground">{fila.horas}</td>
                 <td className="py-2 pr-3 text-red-400">{fila.errores.join(", ")}</td>
