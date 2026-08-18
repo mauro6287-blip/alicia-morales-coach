@@ -8,8 +8,8 @@ const CAMPOS: { key: CamposCertificado; label: string; requerido: boolean }[] = 
   { key: "rut", label: "RUT", requerido: true },
   { key: "email", label: "Email", requerido: true },
   { key: "cursoOpcional", label: "Curso (opcional)", requerido: false },
-  { key: "fechaAprobacion", label: "Fecha de aprobación", requerido: true },
-  { key: "horas", label: "Horas", requerido: true },
+  { key: "fechaAprobacion", label: "Fecha de aprobación", requerido: false },
+  { key: "horas", label: "Horas", requerido: false },
 ];
 
 export default function MapeoColumnas({

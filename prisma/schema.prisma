@@ -191,8 +191,8 @@ model Certificado {
 
   cursoNombre     String
   fechaEmision    DateTime
-  fechaAprobacion DateTime
-  horasCurso      Int
+  fechaAprobacion DateTime?
+  horasCurso      Int?
 
   hashIntegridad  String
 
