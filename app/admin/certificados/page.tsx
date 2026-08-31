@@ -22,7 +22,11 @@ export default async function CertificadosPage() {
           Emitir certificados
         </h1>
         <CertificadosClient
-          cursos={cursos.map((c) => ({ id: c.id, nombre: c.nombre }))}
+          cursos={cursos.map((c) => ({
+            id: c.id,
+            nombre: c.nombre,
+            parrafoCierre: c.parrafoCierre,
+          }))}
           plantillas={plantillas.map((p) => ({ id: p.id, nombre: p.nombre }))}
         />
       </div>

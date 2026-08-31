@@ -3,12 +3,22 @@
 import { useState } from "react";
 import type { CamposCertificado, Mapeo } from "@/lib/cert/excel-parser";
 
-const CAMPOS: { key: CamposCertificado; label: string; requerido: boolean }[] = [
+const CAMPOS: {
+  key: CamposCertificado;
+  label: string;
+  requerido: boolean;
+  ayuda?: string;
+}[] = [
   { key: "nombre", label: "Nombre", requerido: true },
   { key: "rut", label: "RUT", requerido: true },
   { key: "email", label: "Email", requerido: true },
   { key: "cursoOpcional", label: "Curso (opcional)", requerido: false },
-  { key: "fechaAprobacion", label: "Fecha de aprobación", requerido: false },
+  {
+    key: "fechaAprobacion",
+    label: "Fecha del taller",
+    requerido: false,
+    ayuda: "Se imprime en el certificado. Si no la mapeas, se usa la fecha de emisión.",
+  },
   { key: "horas", label: "Horas", requerido: false },
 ];
 
@@ -51,6 +61,9 @@ export default function MapeoColumnas({
                 </option>
               ))}
             </select>
+            {campo.ayuda && (
+              <p className="mt-1 font-sans text-xs text-muted">{campo.ayuda}</p>
+            )}
           </div>
         ))}
       </div>

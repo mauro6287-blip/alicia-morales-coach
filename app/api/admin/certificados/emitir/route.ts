@@ -100,6 +100,7 @@ export async function POST(request: NextRequest) {
                 fechaEmision: ahora,
                 fechaAprobacion: fila.fechaAprobacion,
                 horasCurso: fila.horas,
+                parrafoCierre: curso.parrafoCierre,
                 hashIntegridad,
                 estado: "VALIDO",
               },

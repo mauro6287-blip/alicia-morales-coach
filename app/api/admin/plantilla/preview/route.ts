@@ -16,6 +16,8 @@ export async function GET(request: NextRequest) {
     nombre: "Juan Ejemplo Pérez",
     rut: "12345678-9",
     cursoNombre: "Liderazgo y Competencias Transversales",
+    parrafoCierre:
+      "Este taller es un punto de partida. Hoy cuentas con herramientas nuevas para escuchar, orientar y acompañar a quienes recién comienzan su camino.",
     horasCurso: 16,
     fechaEmision: new Date(),
     fechaAprobacion: new Date(),

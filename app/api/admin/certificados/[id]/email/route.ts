@@ -34,6 +34,7 @@ export async function POST(
     horasCurso: certificado.horasCurso,
     fechaEmision: certificado.fechaEmision,
     fechaAprobacion: certificado.fechaAprobacion,
+    parrafoCierre: certificado.parrafoCierre,
     codigo: certificado.codigo,
     verificarUrl,
   });

@@ -12,12 +12,15 @@ import BotonEmitir from "./componentes/BotonEmitir";
 import type { FilaNormalizada, Mapeo } from "@/lib/cert/excel-parser";
 
 export default function CertificadosClient({
-  cursos,
+  cursos: cursosIniciales,
   plantillas,
 }: {
   cursos: CursoOpcion[];
   plantillas: PlantillaOpcion[];
 }) {
+  // La lista vive en el cliente para que crear o editar un curso se refleje
+  // en el desplegable sin recargar la página.
+  const [cursos, setCursos] = useState<CursoOpcion[]>(cursosIniciales);
   const [archivo, setArchivo] = useState<ExcelParseadoCliente | null>(null);
   const [mapeo, setMapeo] = useState<Mapeo | null>(null);
   const [filasNormalizadas, setFilasNormalizadas] = useState<FilaNormalizada[] | null>(null);
@@ -48,6 +51,15 @@ export default function CertificadosClient({
 
   const cantidadValidas = filasNormalizadas?.filter((f) => f.errores.length === 0).length ?? 0;
 
+  function agregarCurso(curso: CursoOpcion) {
+    setCursos((prev) => [curso, ...prev]);
+    setCursoId(curso.id);
+  }
+
+  function reemplazarCurso(curso: CursoOpcion) {
+    setCursos((prev) => prev.map((c) => (c.id === curso.id ? curso : c)));
+  }
+
   return (
     <div className="flex flex-col gap-6">
       {!archivo && <UploadExcel onParsed={setArchivo} />}
@@ -65,6 +77,8 @@ export default function CertificadosClient({
             plantillaId={plantillaId}
             onChangeCurso={setCursoId}
             onChangePlantilla={setPlantillaId}
+            onCursoCreado={agregarCurso}
+            onCursoActualizado={reemplazarCurso}
           />
 
           {normalizando && (

@@ -46,9 +46,10 @@ Font.registerHyphenationCallback((palabra) => [palabra]);
 const LOGO_BUFFER = readFileSync(path.join(process.cwd(), "public", "logo.png"));
 const FIRMA_BUFFER = readFileSync(path.join(process.cwd(), "public", "firma-alicia.png"));
 
-// Texto de cierre impreso en TODOS los certificados.
-// Editar esta constante para cambiarlo en todas las emisiones futuras.
-const PARRAFO_CIERRE =
+// Respaldo: se imprime solo cuando el curso no tiene una frase de cierre
+// propia. La frase por curso se edita desde /admin/certificados y queda
+// copiada en cada certificado al emitirlo.
+const PARRAFO_CIERRE_DEFECTO =
   "Participar de este proceso es también abrir camino. Hoy cuentas con nuevas herramientas para escuchar, orientar y acompañar a quienes comienzan a construir su propio desarrollo. Tú eres parte de este comienzo.";
 
 // A4 horizontal, en puntos PDF.
@@ -271,6 +272,7 @@ export type CertificadoPdfData = {
   rut: string;
   cursoNombre: string;
   horasCurso?: number | null;
+  parrafoCierre?: string | null;
   fechaEmision: Date;
   fechaAprobacion?: Date | null;
   codigo: string;
@@ -295,7 +297,9 @@ function CertificadoPDF({ data, qrDataUrl }: { data: CertificadoPdfData; qrDataU
           <Text style={styles.nombreAlumno}>{limpiarTextoPdf(data.nombre)}</Text>
           <View style={styles.lineaNombre} />
 
-          <Text style={styles.parrafoCierre}>{PARRAFO_CIERRE}</Text>
+          <Text style={styles.parrafoCierre}>
+            {limpiarTextoPdf(data.parrafoCierre?.trim() || PARRAFO_CIERRE_DEFECTO)}
+          </Text>
 
           <Image style={styles.firmaImagen} src={FIRMA_BUFFER} />
           <View style={styles.lineaFirma} />
@@ -303,7 +307,7 @@ function CertificadoPDF({ data, qrDataUrl }: { data: CertificadoPdfData; qrDataU
           <Text style={styles.cargo}>Coach</Text>
           <Text style={styles.escuela}>Escuela de Competencias Aplicadas</Text>
 
-          <Text style={styles.ciudadFecha}>{formatearCiudadFecha(data.fechaEmision)}</Text>
+          <Text style={styles.ciudadFecha}>{formatearCiudadFecha(data.fechaAprobacion ?? data.fechaEmision)}</Text>
         </View>
 
         <View style={styles.qrBloque}>

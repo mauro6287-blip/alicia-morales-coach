@@ -28,7 +28,7 @@ export default function PreviewTabla({
               <th className="py-2 pr-3">RUT</th>
               <th className="py-2 pr-3">Email</th>
               {mostrarCurso && <th className="py-2 pr-3">Curso</th>}
-              <th className="py-2 pr-3">Fecha aprobación</th>
+              <th className="py-2 pr-3">Fecha del taller</th>
               <th className="py-2 pr-3">Horas</th>
               <th className="py-2 pr-3">Errores</th>
             </tr>

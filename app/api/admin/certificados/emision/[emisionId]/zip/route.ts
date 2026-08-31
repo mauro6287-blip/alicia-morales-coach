@@ -39,6 +39,7 @@ export async function GET(
           horasCurso: certificado.horasCurso,
           fechaEmision: certificado.fechaEmision,
           fechaAprobacion: certificado.fechaAprobacion,
+          parrafoCierre: certificado.parrafoCierre,
           codigo: certificado.codigo,
           verificarUrl: `${siteUrl}/verificar/${certificado.codigo}`,
         });
