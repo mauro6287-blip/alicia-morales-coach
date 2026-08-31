@@ -1,11 +1,18 @@
 FROM node:20-alpine
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm install
+RUN npm ci
+
 COPY . .
-# Generar el cliente de Prisma con el schema ya presente (npm install corre antes
-# del COPY del schema, y el arranque usa `next dev` que no ejecuta prisma generate).
-RUN npx prisma generate
+
+# `npm run build` ya corre `prisma generate` antes de `next build`, así que el
+# cliente de Prisma queda generado con el schema definitivo.
+RUN npm run build
+
 EXPOSE 3000
-# Eliminamos las barras invertidas y usamos comillas dobles estándar
-CMD ["npm", "run", "dev"]
+
+# Las migraciones se aplican al arrancar, no al construir: durante el build la
+# base de datos no es alcanzable. Si `migrate deploy` falla, el contenedor no
+# levanta, y así un despliegue con la base sin migrar no llega a producción.
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]

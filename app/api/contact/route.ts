@@ -1,7 +1,14 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Se instancia al primer uso y no al importar el módulo: `next build` evalúa
+// cada módulo al recolectar datos de página, y el constructor de Resend lanza
+// si falta la API key. Al construir la imagen no hay variables de entorno, así
+// que hacerlo a nivel de módulo rompía el build entero.
+let resendInstancia: Resend | null = null;
+function getResend(): Resend {
+  return (resendInstancia ??= new Resend(process.env.RESEND_API_KEY));
+}
 
 export async function POST(request: Request) {
     try {
@@ -23,7 +30,7 @@ export async function POST(request: Request) {
             );
         }
 
-        await resend.emails.send({
+        await getResend().emails.send({
             from: "Formulario Web <onboarding@resend.dev>",
             to: "coaching@aliciamorales.cl",
             replyTo: email,

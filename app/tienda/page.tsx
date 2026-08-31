@@ -9,7 +9,10 @@ export const metadata: Metadata = {
     "Agenda una sesión de coaching 1-a-1 con Alicia Morales. Método CARA aplicado a tu proceso de desarrollo personal.",
 };
 
-export const revalidate = 60;
+// Se renderiza por petición en vez de prerenderizarse en build: la base de
+// datos no es alcanzable al construir la imagen. Además refleja de inmediato
+// los cambios de productos, que es como se comportaba hasta ahora.
+export const dynamic = "force-dynamic";
 
 export default async function TiendaPage() {
   const products = await prisma.product.findMany({

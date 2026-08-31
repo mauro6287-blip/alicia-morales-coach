@@ -1,7 +1,14 @@
 import { Resend } from "resend";
 import { formatClp, formatRut } from "./formatters";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Se instancia al primer uso y no al importar el módulo: `next build` evalúa
+// cada módulo al recolectar datos de página, y el constructor de Resend lanza
+// si falta la API key. Al construir la imagen no hay variables de entorno, así
+// que hacerlo a nivel de módulo rompía el build entero.
+let resendInstancia: Resend | null = null;
+function getResend(): Resend {
+  return (resendInstancia ??= new Resend(process.env.RESEND_API_KEY));
+}
 
 type OrderEmailData = {
   id: string;
@@ -92,7 +99,7 @@ export async function sendBuyerConfirmationEmail(order: OrderEmailData) {
   </div>
 </body></html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: "Alicia Morales Coach <onboarding@resend.dev>",
     to: order.buyerEmail,
     subject: "Hemos recibido tu solicitud de servicio — Alicia Morales Coach",
@@ -139,7 +146,7 @@ export async function sendAdminNotificationEmail(order: OrderEmailData) {
   </div>
 </body></html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: "Sistema Web <onboarding@resend.dev>",
     to: adminEmail,
     replyTo: order.buyerEmail,
@@ -178,7 +185,7 @@ Si tienes dudas, responde a este correo.
 Equipo Alicia Morales Coach`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from,
       to: params.email,
       replyTo,
@@ -234,7 +241,7 @@ export async function enviarCertificadoPorEmail(params: {
 </body></html>`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from,
       to: params.alumnoEmail,
       subject: `Tu certificado de aprobación — ${params.cursoNombre}`,
