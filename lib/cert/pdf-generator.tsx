@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   firmaImagen: {
-    width: 96.8,
-    height: 82.5,
+    width: 64,
+    height: 54.5,
     objectFit: "contain",
     marginTop: 8,
   },
@@ -178,11 +178,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: TEXTO,
     width: 97,
-    // El PNG de la firma trae margen blanco propio en su borde inferior, así
-    // que el trazo termina bastante antes que la caja de la imagen. El margen
-    // negativo sube la línea hasta quedar justo bajo el trazo, para que la
-    // firma se apoye en ella como una firma real y no flote encima.
-    marginTop: -9,
+    // El PNG trae un margen blanco propio abajo (12,7% de su alto), así que el
+    // trazo termina bastante antes que la caja de la imagen. El margen negativo
+    // sube la línea hasta cruzar el cuerpo de la firma, como cuando se firma
+    // encima de la línea y no por sobre ella.
+    marginTop: -11,
   },
   firmante: {
     fontFamily: "Montserrat",
