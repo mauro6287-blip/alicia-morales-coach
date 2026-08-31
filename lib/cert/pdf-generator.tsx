@@ -44,7 +44,10 @@ Font.registerHyphenationCallback((palabra) => [palabra]);
 // ("C:") como si fuera un protocolo remoto y termina intentando un fetch()
 // que falla en silencio. Pasar el Buffer evita esa resolución por completo.
 const LOGO_BUFFER = readFileSync(path.join(process.cwd(), "public", "logo.png"));
-const FIRMA_BUFFER = readFileSync(path.join(process.cwd(), "public", "firma-alicia.png"));
+// La firma vive fuera de public/ a propósito: todo lo que está en public/ se
+// sirve por HTTP, y una firma manuscrita descargable facilita falsificaciones.
+// Aquí se lee del disco, así que no necesita ser accesible por la web.
+const FIRMA_BUFFER = readFileSync(path.join(process.cwd(), "assets", "firma-alicia.png"));
 
 // Respaldo: se imprime solo cuando el curso no tiene una frase de cierre
 // propia. La frase por curso se edita desde /admin/certificados y queda
