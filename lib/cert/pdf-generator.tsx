@@ -7,16 +7,10 @@ import {
   View,
   StyleSheet,
   Image,
-  Svg,
-  Polygon,
-  Defs,
-  LinearGradient,
-  Stop,
   Font,
   renderToBuffer,
 } from "@react-pdf/renderer";
 import { generarQrDataUrl } from "./qr";
-import { formatearRut } from "./rut";
 
 // Fuentes registradas desde los .woff locales de @fontsource (no CDN remoto:
 // si Google Fonts cambiara de versión o no estuviera disponible en build/
@@ -24,18 +18,11 @@ import { formatearRut } from "./rut";
 const FUENTES_DIR = path.join(process.cwd(), "node_modules", "@fontsource");
 
 Font.register({
-  family: "Playfair Display",
-  fonts: [
-    { src: path.join(FUENTES_DIR, "playfair-display/files/playfair-display-latin-700-normal.woff"), fontWeight: 700 },
-    { src: path.join(FUENTES_DIR, "playfair-display/files/playfair-display-latin-700-italic.woff"), fontWeight: 700, fontStyle: "italic" },
-    { src: path.join(FUENTES_DIR, "playfair-display/files/playfair-display-latin-400-italic.woff"), fontWeight: 400, fontStyle: "italic" },
-  ],
-});
-
-Font.register({
   family: "Montserrat",
   fonts: [
-    { src: path.join(FUENTES_DIR, "montserrat/files/montserrat-latin-700-normal.woff"), fontWeight: 700 },
+    { src: path.join(FUENTES_DIR, "montserrat/files/montserrat-latin-500-normal.woff"), fontWeight: 500 },
+    { src: path.join(FUENTES_DIR, "montserrat/files/montserrat-latin-600-normal.woff"), fontWeight: 600 },
+    { src: path.join(FUENTES_DIR, "montserrat/files/montserrat-latin-800-normal.woff"), fontWeight: 800 },
   ],
 });
 
@@ -46,154 +33,201 @@ Font.register({
   ],
 });
 
-// Se carga como Buffer (no como ruta string) porque @react-pdf/image resuelve
+// Sin esto, react-pdf parte las palabras largas con guion al final de línea
+// ("Taller para Interlocutores de Co-/munidades"), que en un título de
+// certificado se ve como un error de imprenta. Devolver la palabra intacta
+// fuerza el salto de línea entre palabras completas.
+Font.registerHyphenationCallback((palabra) => [palabra]);
+
+// Se cargan como Buffer (no como ruta string) porque @react-pdf/image resuelve
 // rutas locales con url.parse(), que en Windows interpreta la letra de unidad
 // ("C:") como si fuera un protocolo remoto y termina intentando un fetch()
 // que falla en silencio. Pasar el Buffer evita esa resolución por completo.
 const LOGO_BUFFER = readFileSync(path.join(process.cwd(), "public", "logo.png"));
+const FIRMA_BUFFER = readFileSync(path.join(process.cwd(), "public", "firma-alicia.png"));
 
-const GOLD = "#F7B52A";
-const DARK = "#1A1A1A";
-const BG = "#F2F2F2";
-const CARBON_DARK = "#3D3D3B";
-const CARBON_LIGHT = "#5A5A56";
-const RUT_GRIS = "#555555";
+// Texto de cierre impreso en TODOS los certificados.
+// Editar esta constante para cambiarlo en todas las emisiones futuras.
+const PARRAFO_CIERRE =
+  "Participar de este proceso es también abrir camino. Hoy cuentas con nuevas herramientas para escuchar, orientar y acompañar a quienes comienzan a construir su propio desarrollo. Tú eres parte de este comienzo.";
+
+// A4 horizontal, en puntos PDF.
+const PAGINA_ANCHO = 841.89;
+
+const BLANCO = "#FFFFFF";
+const TEXTO = "#323232";
+const TEXTO_SUAVE = "#4A4A4A";
+const AMARILLO = "#FFDE56";
+const GRIS = "#555555";
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: BG,
+    backgroundColor: BLANCO,
     fontFamily: "Roboto",
   },
+
+  // Decoraciones: barras rectas superior e inferior, con un bloque de color
+  // contrario en la esquina opuesta de cada una (ver referencia visual).
+  barraSuperior: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: PAGINA_ANCHO,
+    height: 28,
+    backgroundColor: AMARILLO,
+  },
+  bloqueSupIzq: {
+    position: "absolute",
+    top: 18,
+    left: 0,
+    width: 158,
+    height: 21,
+    backgroundColor: GRIS,
+  },
+  bloqueInfDer: {
+    position: "absolute",
+    bottom: 15.6,
+    right: 0,
+    width: 168,
+    height: 21,
+    backgroundColor: AMARILLO,
+  },
+  barraInferior: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: PAGINA_ANCHO,
+    height: 21,
+    backgroundColor: GRIS,
+  },
+
   contenido: {
     flex: 1,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 30,
-    paddingBottom: 34,
-    paddingHorizontal: 90,
+    paddingTop: 34,
+    paddingBottom: 26,
+    paddingHorizontal: 75,
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: 46.3,
+    height: 48,
     objectFit: "contain",
-  },
-  escuela: {
-    fontFamily: "Montserrat",
-    fontWeight: 700,
-    fontSize: 14,
-    color: DARK,
-    textAlign: "center",
-    marginTop: 10,
-    letterSpacing: 0.5,
-  },
-  titulo: {
-    fontFamily: "Playfair Display",
-    fontWeight: 700,
-    fontSize: 58,
-    color: DARK,
-    textAlign: "center",
-    marginTop: 6,
   },
   subtitulo: {
     fontFamily: "Roboto",
     fontWeight: 400,
-    fontSize: 15,
-    color: DARK,
+    fontSize: 18,
+    color: TEXTO,
     textAlign: "center",
-    marginTop: 4,
-  },
-  nombreAlumno: {
-    fontFamily: "Playfair Display",
-    fontWeight: 700,
-    fontSize: 42,
-    color: DARK,
-    textAlign: "center",
-    marginTop: 10,
-  },
-  rut: {
-    fontFamily: "Roboto",
-    fontWeight: 400,
-    fontSize: 10,
-    color: RUT_GRIS,
-    textAlign: "center",
-    marginTop: 6,
-  },
-  lineaLarga: {
-    borderTopWidth: 1,
-    borderTopColor: DARK,
-    borderTopStyle: "dashed",
-    width: "88%",
-    marginTop: 16,
-  },
-  parrafo: {
-    fontFamily: "Roboto",
-    fontWeight: 400,
-    fontSize: 14,
-    color: DARK,
-    textAlign: "center",
-    marginTop: 16,
+    marginTop: 8,
   },
   nombreCurso: {
     fontFamily: "Montserrat",
-    fontWeight: 700,
-    fontSize: 19,
-    color: DARK,
+    fontWeight: 800,
+    fontSize: 40,
+    color: TEXTO,
+    textAlign: "center",
+    lineHeight: 1.12,
+    marginTop: 14,
+  },
+  otorga: {
+    fontFamily: "Roboto",
+    fontWeight: 400,
+    fontSize: 16,
+    color: TEXTO,
+    textAlign: "center",
+    marginTop: 18,
+  },
+  nombreAlumno: {
+    fontFamily: "Montserrat",
+    fontWeight: 600,
+    fontSize: 26,
+    color: TEXTO,
+    textAlign: "center",
+    marginTop: 16,
+  },
+  lineaNombre: {
+    borderTopWidth: 1,
+    borderTopColor: TEXTO,
+    width: 418,
+    marginTop: 12,
+  },
+  parrafoCierre: {
+    fontFamily: "Roboto",
+    fontWeight: 400,
+    fontSize: 14,
+    color: TEXTO,
+    textAlign: "center",
+    lineHeight: 1.45,
+    maxWidth: 630,
+    marginTop: 12,
+  },
+  firmaImagen: {
+    width: 96.8,
+    height: 82.5,
+    objectFit: "contain",
+    marginTop: 8,
+  },
+  lineaFirma: {
+    borderTopWidth: 1,
+    borderTopColor: TEXTO,
+    width: 97,
+    // El PNG de la firma trae margen blanco propio en su borde inferior, así
+    // que el trazo termina bastante antes que la caja de la imagen. El margen
+    // negativo sube la línea hasta quedar justo bajo el trazo, para que la
+    // firma se apoye en ella como una firma real y no flote encima.
+    marginTop: -9,
+  },
+  firmante: {
+    fontFamily: "Montserrat",
+    fontWeight: 500,
+    fontSize: 13.5,
+    color: TEXTO,
     textAlign: "center",
     marginTop: 6,
   },
-  espacioFlexible: {
-    flexGrow: 1,
+  cargo: {
+    fontFamily: "Roboto",
+    fontWeight: 400,
+    fontSize: 12,
+    color: TEXTO,
+    textAlign: "center",
+    marginTop: 4,
   },
-  lineaCorta: {
-    borderTopWidth: 1,
-    borderTopColor: DARK,
-    borderTopStyle: "dashed",
-    width: 180,
-    alignSelf: "center",
-    marginBottom: 8,
-  },
-  firma: {
-    fontFamily: "Playfair Display",
-    fontWeight: 700,
-    fontStyle: "italic",
-    fontSize: 15,
-    color: DARK,
+  escuela: {
+    fontFamily: "Roboto",
+    fontWeight: 400,
+    fontSize: 12,
+    color: TEXTO,
     textAlign: "center",
   },
+  ciudadFecha: {
+    fontFamily: "Roboto",
+    fontWeight: 400,
+    fontSize: 12,
+    color: TEXTO,
+    textAlign: "center",
+    marginTop: 12,
+  },
+
   qrBloque: {
     position: "absolute",
-    bottom: 18,
-    right: 26,
+    bottom: 46,
+    right: 34,
     alignItems: "center",
   },
   qrImagen: {
-    width: 55,
-    height: 55,
+    width: 48,
+    height: 48,
   },
   codigoTexto: {
     fontFamily: "Roboto",
-    fontSize: 7,
-    color: DARK,
-    marginTop: 3,
-    letterSpacing: 0.5,
-  },
-  piePagina: {
-    fontFamily: "Roboto",
-    fontSize: 6,
-    color: RUT_GRIS,
+    fontWeight: 400,
+    fontSize: 6.5,
+    color: TEXTO_SUAVE,
     marginTop: 2,
-  },
-  esquinaSupIzq: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-  },
-  esquinaInfDer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    transform: "rotate(180deg)",
   },
 });
 
@@ -215,6 +249,23 @@ function limpiarTextoPdf(texto: string): string {
     .trim();
 }
 
+const MESES = [
+  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+];
+
+/**
+ * "Santiago, 27 de Agosto 2026". Se leen los componentes en UTC porque las
+ * fechas llegan desde la BD como medianoche UTC; usar los getters locales
+ * correría el día hacia atrás en zonas horarias al oeste de Greenwich.
+ */
+function formatearCiudadFecha(fecha: Date): string {
+  const dia = fecha.getUTCDate();
+  const mes = MESES[fecha.getUTCMonth()];
+  const anio = fecha.getUTCFullYear();
+  return `Santiago, ${dia} de ${mes} ${anio}`;
+}
+
 export type CertificadoPdfData = {
   nombre: string;
   rut: string;
@@ -226,61 +277,38 @@ export type CertificadoPdfData = {
   verificarUrl: string;
 };
 
-/**
- * Composición decorativa de esquina (gris carbón + acento dorado), diagonal.
- * Se dibuja una vez para la esquina superior izquierda y se reutiliza
- * rotada 180° para la esquina inferior derecha (ver estilo esquinaInfDer).
- */
-function EsquinaDecorativa() {
-  return (
-    <Svg width={330} height={230} viewBox="0 0 430 300">
-      <Defs>
-        <LinearGradient id="carbonGrad" x1="0" y1="0" x2="1" y2="1">
-          <Stop offset="0" stopColor={CARBON_LIGHT} />
-          <Stop offset="1" stopColor={CARBON_DARK} />
-        </LinearGradient>
-      </Defs>
-      <Polygon points="0,0 430,0 120,300 0,210" fill="url(#carbonGrad)" />
-      <Polygon points="0,0 300,0 150,150 30,70" fill={CARBON_LIGHT} />
-      <Polygon points="0,150 355,0 400,0 40,300 0,300" fill={GOLD} />
-    </Svg>
-  );
-}
-
 function CertificadoPDF({ data, qrDataUrl }: { data: CertificadoPdfData; qrDataUrl: string }) {
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page}>
-        <View style={styles.esquinaSupIzq} fixed>
-          <EsquinaDecorativa />
-        </View>
-        <View style={styles.esquinaInfDer} fixed>
-          <EsquinaDecorativa />
-        </View>
+        <View style={styles.barraSuperior} fixed />
+        <View style={styles.bloqueSupIzq} fixed />
+        <View style={styles.bloqueInfDer} fixed />
+        <View style={styles.barraInferior} fixed />
 
         <View style={styles.contenido}>
           <Image style={styles.logo} src={LOGO_BUFFER} />
-          <Text style={styles.escuela}>Escuela de Competencias Aplicadas</Text>
-          <Text style={styles.titulo}>CERTIFICADO</Text>
-          <Text style={styles.subtitulo}>de reconocimiento otorgado a:</Text>
-          <Text style={styles.nombreAlumno}>{limpiarTextoPdf(data.nombre)}</Text>
-          <Text style={styles.rut}>RUT {formatearRut(data.rut)}</Text>
-
-          <View style={styles.lineaLarga} />
-
-          <Text style={styles.parrafo}>Por su participación en el taller</Text>
+          <Text style={styles.subtitulo}>Certificado de participación</Text>
           <Text style={styles.nombreCurso}>{limpiarTextoPdf(data.cursoNombre)}</Text>
 
-          <View style={styles.espacioFlexible} />
+          <Text style={styles.otorga}>Se otorga el presente certificado a:</Text>
+          <Text style={styles.nombreAlumno}>{limpiarTextoPdf(data.nombre)}</Text>
+          <View style={styles.lineaNombre} />
 
-          <View style={styles.lineaCorta} />
-          <Text style={styles.firma}>Coach Alicia Morales Bustamante</Text>
+          <Text style={styles.parrafoCierre}>{PARRAFO_CIERRE}</Text>
+
+          <Image style={styles.firmaImagen} src={FIRMA_BUFFER} />
+          <View style={styles.lineaFirma} />
+          <Text style={styles.firmante}>Alicia Morales Bustamante</Text>
+          <Text style={styles.cargo}>Coach</Text>
+          <Text style={styles.escuela}>Escuela de Competencias Aplicadas</Text>
+
+          <Text style={styles.ciudadFecha}>{formatearCiudadFecha(data.fechaEmision)}</Text>
         </View>
 
-        <View style={styles.qrBloque} fixed>
+        <View style={styles.qrBloque}>
           <Image style={styles.qrImagen} src={qrDataUrl} />
           <Text style={styles.codigoTexto}>{data.codigo}</Text>
-          <Text style={styles.piePagina}>Verifique en aliciamoralescoach.com/verificar</Text>
         </View>
       </Page>
     </Document>
