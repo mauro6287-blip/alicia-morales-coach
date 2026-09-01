@@ -169,20 +169,20 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   firmaImagen: {
-    width: 140,
-    height: 119.1,
+    width: 104,
+    height: 88.5,
     objectFit: "contain",
     marginTop: 8,
   },
   lineaFirma: {
     borderTopWidth: 1,
     borderTopColor: TEXTO,
-    // Un poco más ancha que la firma, para que sobresalga a ambos lados.
-    width: 166,
-    // La línea se sube hasta el 38% del alto de la firma, de modo que el
-    // cuerpo del trazo quede montado sobre ella y no flotando encima. El
-    // valor es -(1 - 0,38) x 119,1.
-    marginTop: -73.8,
+    // Algo más ancha que la firma, para que sobresalga a ambos lados.
+    width: 130,
+    // La línea cruza al 52% del alto de la firma, así el cuerpo del trazo
+    // queda montado sobre ella. Los trazos descendentes la cruzan, que es
+    // justamente el aspecto de una firma puesta sobre su línea.
+    marginTop: -42.5,
   },
   firmante: {
     fontFamily: "Montserrat",
@@ -190,7 +190,10 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     color: TEXTO,
     textAlign: "center",
-    marginTop: 6,
+    // Baja hasta pasar el borde inferior de la imagen de la firma. Sin esto
+    // los trazos descendentes caen encima del nombre y del resto del pie.
+    // Es (1 - 0,52) x 88,5 + 6 de separación.
+    marginTop: 48.5,
   },
   cargo: {
     fontFamily: "Roboto",
