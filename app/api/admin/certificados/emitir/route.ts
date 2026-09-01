@@ -49,6 +49,11 @@ export async function POST(request: NextRequest) {
     where: {
       alumnoRut: { in: rutsFormateados },
       emision: { cursoId: body.cursoId },
+      // Solo un certificado VÁLIDO bloquea la reemisión. Si se anuló, el
+      // alumno tiene que poder recibir uno nuevo: de lo contrario anular
+      // sería irreversible y dejaría a esa persona sin certificado para
+      // siempre en ese curso.
+      estado: "VALIDO",
     },
     select: { alumnoRut: true },
   });
