@@ -140,6 +140,7 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
   const [progreso, setProgreso] = useState<string | null>(null);
   const [resumen, setResumen] = useState<Resumen | null>(null);
   const [errorLote, setErrorLote] = useState<string | null>(null);
+  const [aviso, setAviso] = useState<string | null>(null);
 
   // Los anulados no se pueden enviar: quedan fuera de la selección.
   const seleccionables = useMemo(
@@ -151,6 +152,7 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
     seleccionables.length > 0 && seleccionados.size === seleccionables.length;
 
   function alternarUno(id: string) {
+    setAviso(null);
     setSeleccionados((previos) => {
       const siguiente = new Set(previos);
       if (siguiente.has(id)) {
@@ -163,6 +165,7 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
   }
 
   function alternarTodos() {
+    setAviso(null);
     setSeleccionados(
       todosSeleccionados ? new Set() : new Set(seleccionables.map((c) => c.id)),
     );
@@ -170,7 +173,13 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
 
   async function enviarSeleccionados() {
     const ids = seleccionables.filter((c) => seleccionados.has(c.id)).map((c) => c.id);
-    if (ids.length === 0) return;
+    if (ids.length === 0) {
+      // El botón queda habilitado sin selección a propósito: uno deshabilitado
+      // no explica nada y la columna de casillas es fácil de pasar por alto.
+      setAviso("Selecciona al menos un certificado marcando su casilla en la tabla.");
+      return;
+    }
+    setAviso(null);
 
     // El input está acotado a 1–50, pero el usuario puede escribir cualquier
     // cosa a mano: se sanea antes de trocear para no pasarse del tope del
@@ -249,7 +258,7 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
           <button
             type="button"
             onClick={enviarSeleccionados}
-            disabled={enviandoLote || seleccionados.size === 0}
+            disabled={enviandoLote}
             className="rounded bg-primary px-4 py-2 font-sans text-sm font-semibold text-background hover:bg-primary-dark disabled:opacity-40"
           >
             {enviandoLote ? "Enviando..." : `Enviar seleccionados (${seleccionados.size})`}
@@ -258,6 +267,7 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
           {progreso && <span className="font-sans text-sm text-muted">{progreso}</span>}
         </div>
 
+        {aviso && <p className="mt-3 font-sans text-sm text-primary">{aviso}</p>}
         {errorLote && <p className="mt-3 font-sans text-sm text-red-400">{errorLote}</p>}
         {resumen && <ResumenLote resumen={resumen} />}
       </div>
