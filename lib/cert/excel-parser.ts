@@ -40,8 +40,7 @@ export type CamposCertificado =
   | "rut"
   | "email"
   | "cursoOpcional"
-  | "fechaAprobacion"
-  | "horas";
+  | "fechaAprobacion";
 
 export type Mapeo = Record<CamposCertificado, string>;
 
@@ -51,7 +50,6 @@ export type FilaNormalizada = {
   email: string;
   cursoOpcional?: string;
   fechaAprobacion: Date | null;
-  horas: number | null;
   errores: string[];
 };
 
@@ -102,10 +100,10 @@ export function normalizarFilas(filas: FilaExcel[], mapeo: Mapeo): FilaNormaliza
       ? String(fila[mapeo.cursoOpcional] ?? "").trim() || undefined
       : undefined;
 
-    // Fecha de aprobación y horas son opcionales: si la columna no está
-    // mapeada o viene vacía, no se agrega error de validación. Si la
-    // columna SÍ está mapeada y trae un valor no vacío, ese valor debe ser
-    // válido (un "abc" en una columna de fecha mapeada sigue siendo error).
+    // La fecha de aprobación es opcional: si la columna no está mapeada o
+    // viene vacía, no se agrega error de validación. Si la columna SÍ está
+    // mapeada y trae un valor no vacío, ese valor debe ser válido (un "abc"
+    // en una columna de fecha mapeada sigue siendo error).
     const fechaAprobacionRaw = mapeo.fechaAprobacion ? fila[mapeo.fechaAprobacion] : undefined;
     const fechaAprobacionTieneValor =
       fechaAprobacionRaw !== undefined &&
@@ -114,21 +112,12 @@ export function normalizarFilas(filas: FilaExcel[], mapeo: Mapeo): FilaNormaliza
     const fechaAprobacion = fechaAprobacionTieneValor ? parsearFecha(fechaAprobacionRaw) : null;
     if (fechaAprobacionTieneValor && !fechaAprobacion) errores.push("Fecha de aprobación inválida");
 
-    const horasRaw = mapeo.horas ? fila[mapeo.horas] : undefined;
-    const horasTieneValor =
-      horasRaw !== undefined && horasRaw !== null && String(horasRaw).trim() !== "";
-    const horasParsed = typeof horasRaw === "number" ? horasRaw : Number(String(horasRaw ?? "").trim());
-    if (horasTieneValor && (!Number.isFinite(horasParsed) || horasParsed <= 0)) {
-      errores.push("Horas inválidas");
-    }
-
     return {
       nombre,
       rut: rutCrudo,
       email,
       cursoOpcional,
       fechaAprobacion,
-      horas: horasTieneValor && Number.isFinite(horasParsed) ? horasParsed : null,
       errores,
     };
   });

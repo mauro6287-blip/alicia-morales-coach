@@ -29,7 +29,6 @@ export default function PreviewTabla({
               <th className="py-2 pr-3">Email</th>
               {mostrarCurso && <th className="py-2 pr-3">Curso</th>}
               <th className="py-2 pr-3">Fecha del taller</th>
-              <th className="py-2 pr-3">Horas</th>
               <th className="py-2 pr-3">Errores</th>
             </tr>
           </thead>
@@ -52,7 +51,6 @@ export default function PreviewTabla({
                     ? new Date(fila.fechaAprobacion).toISOString().slice(0, 10)
                     : "—"}
                 </td>
-                <td className="py-2 pr-3 text-foreground">{fila.horas ?? "—"}</td>
                 <td className="py-2 pr-3 text-red-400">{fila.errores.join(", ")}</td>
               </tr>
             ))}

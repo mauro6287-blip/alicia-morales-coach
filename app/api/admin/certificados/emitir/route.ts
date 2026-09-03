@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
             alumnoRut,
             cursoNombre: curso.nombre,
             fechaAprobacion: fila.fechaAprobacion,
-            horasCurso: fila.horas,
+            horasCurso: null,
           });
 
           try {
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
                 cursoNombre: curso.nombre,
                 fechaEmision: ahora,
                 fechaAprobacion: fila.fechaAprobacion,
-                horasCurso: fila.horas,
+                horasCurso: null,
                 parrafoCierre: curso.parrafoCierre,
                 hashIntegridad,
                 estado: "VALIDO",

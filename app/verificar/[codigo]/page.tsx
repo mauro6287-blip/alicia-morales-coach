@@ -110,13 +110,6 @@ export default async function VerificarPage({
           </>
         )}
 
-        {certificado.horasCurso != null && (
-          <>
-            <dt className="text-muted">Horas</dt>
-            <dd className="text-foreground">{certificado.horasCurso}</dd>
-          </>
-        )}
-
         <dt className="text-muted">Código</dt>
         <dd className="font-mono text-foreground">{certificado.codigo}</dd>
 

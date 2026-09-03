@@ -19,7 +19,6 @@ const CAMPOS: {
     requerido: false,
     ayuda: "Se imprime en el certificado. Si no la mapeas, se usa la fecha de emisión.",
   },
-  { key: "horas", label: "Horas", requerido: false },
 ];
 
 export default function MapeoColumnas({
