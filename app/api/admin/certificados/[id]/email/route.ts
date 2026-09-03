@@ -1,8 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { getAdminFromRequest } from "@/lib/auth/admin";
-import { generarCertificadoPdf } from "@/lib/cert/pdf-generator";
-import { enviarCertificadoPorEmail } from "@/lib/email";
+import { enviarCertificado } from "@/lib/cert/enviar-certificado";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,46 +14,20 @@ export async function POST(
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 
-  const certificado = await prisma.certificado.findUnique({ where: { id: params.id } });
-  if (!certificado) {
-    return NextResponse.json({ error: "Certificado no encontrado" }, { status: 404 });
-  }
-  if (certificado.estado === "ANULADO") {
+  // El botón por fila siempre reenvía: enviar de nuevo un certificado concreto
+  // es una acción deliberada del admin.
+  const resultado = await enviarCertificado(params.id, { reenviar: true });
+
+  if (resultado.estado === "OMITIDO") {
+    if (resultado.motivo === "NO_EXISTE") {
+      return NextResponse.json({ error: "Certificado no encontrado" }, { status: 404 });
+    }
     return NextResponse.json({ error: "Certificado anulado" }, { status: 410 });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://aliciamoralescoach.com";
-  const verificarUrl = `${siteUrl}/verificar/${certificado.codigo}`;
-
-  const pdfBuffer = await generarCertificadoPdf({
-    nombre: certificado.alumnoNombre,
-    rut: certificado.alumnoRut,
-    cursoNombre: certificado.cursoNombre,
-    horasCurso: certificado.horasCurso,
-    fechaEmision: certificado.fechaEmision,
-    fechaAprobacion: certificado.fechaAprobacion,
-    parrafoCierre: certificado.parrafoCierre,
-    codigo: certificado.codigo,
-    verificarUrl,
-  });
-
-  const envio = await enviarCertificadoPorEmail({
-    alumnoEmail: certificado.alumnoEmail,
-    alumnoNombre: certificado.alumnoNombre,
-    cursoNombre: certificado.cursoNombre,
-    codigo: certificado.codigo,
-    verificarUrl,
-    pdfBuffer,
-  });
-
-  if (!envio.ok) {
-    return NextResponse.json({ error: envio.error || "No se pudo enviar el email" }, { status: 502 });
+  if (resultado.estado === "FALLIDO") {
+    return NextResponse.json({ error: resultado.error }, { status: 502 });
   }
 
-  const actualizado = await prisma.certificado.update({
-    where: { id: certificado.id },
-    data: { emailEnviadoEn: new Date() },
-  });
-
-  return NextResponse.json({ ok: true, emailEnviadoEn: actualizado.emailEnviadoEn });
+  return NextResponse.json({ ok: true, emailEnviadoEn: resultado.emailEnviadoEn });
 }
