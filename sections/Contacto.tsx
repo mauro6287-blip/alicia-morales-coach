@@ -166,10 +166,10 @@ export default function Contacto() {
                                     <div>
                                         <p className="font-medium text-foreground">Email</p>
                                         <a
-                                            href="mailto:coaching@aliciamorales.cl"
+                                            href="#formulario"
                                             className="text-muted hover:text-primary"
                                         >
-                                            coaching@aliciamorales.cl
+                                            Formulario de contacto
                                         </a>
                                     </div>
                                 </div>

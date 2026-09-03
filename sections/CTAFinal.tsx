@@ -39,7 +39,7 @@ export default function CTAFinal() {
                 <ScrollReveal delay={200}>
                     <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                         <a
-                            href="mailto:hola@aliciamorales.com?subject=Quiero%20agendar%20mi%20sesión%20gratuita"
+                            href="/#formulario"
                             className="group rounded-full bg-gray-900 px-10 py-5 text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-gray-800 hover:shadow-3xl"
                         >
                             Conversemos Sobre Tu Organización
@@ -70,13 +70,14 @@ export default function CTAFinal() {
 
                     {/* Micro-copy */}
                     <p className="mt-8 text-sm opacity-70">
-                        ¿Prefieres email? Escríbenos a{" "}
+                        ¿Prefieres escribirnos? Usa nuestro{" "}
                         <a
-                            href="mailto:coaching@aliciamorales.cl"
+                            href="/#formulario"
                             className="underline hover:no-underline"
                         >
-                            coaching@aliciamorales.cl
+                            formulario de contacto
                         </a>
+                        .
                     </p>
                 </ScrollReveal>
             </div>

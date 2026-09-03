@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { buzonAdmin, remitente } from "@/lib/email";
 
 // Se instancia al primer uso y no al importar el módulo: `next build` evalúa
 // cada módulo al recolectar datos de página, y el constructor de Resend lanza
@@ -31,8 +32,9 @@ export async function POST(request: Request) {
         }
 
         await getResend().emails.send({
-            from: "Formulario Web <onboarding@resend.dev>",
-            to: "coaching@aliciamorales.cl",
+            from: remitente(),
+            to: buzonAdmin(),
+            // Responder al aviso escribe directamente a quien llenó el formulario.
             replyTo: email,
             subject: `Nuevo contacto: ${nombre}`,
             html: `

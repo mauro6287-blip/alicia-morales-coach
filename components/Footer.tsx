@@ -9,7 +9,10 @@ const footerNavLinks = [
 ];
 
 const contactInfo = {
-    email: "coaching@aliciamorales.cl",
+    // Las consultas se canalizan por el formulario del sitio: no se publica
+    // ninguna dirección de correo de cara al cliente.
+    contactoHref: "#formulario",
+    contactoLabel: "Formulario de contacto",
     phone: "+56 9 7709 6530",
     whatsappUrl: "https://wa.me/56977096530",
     linkedinUrl:
@@ -129,7 +132,7 @@ export default function Footer() {
                             {/* Email */}
                             <li>
                                 <a
-                                    href={`mailto:${contactInfo.email}`}
+                                    href={contactInfo.contactoHref}
                                     className="inline-flex items-center gap-3 text-muted transition-colors duration-200 hover:text-primary"
                                 >
                                     <svg
@@ -145,7 +148,7 @@ export default function Footer() {
                                             d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
                                         />
                                     </svg>
-                                    <span>{contactInfo.email}</span>
+                                    <span>{contactInfo.contactoLabel}</span>
                                 </a>
                             </li>
 

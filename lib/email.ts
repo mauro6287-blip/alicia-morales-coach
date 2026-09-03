@@ -27,6 +27,49 @@ type OrderEmailData = {
   }>;
 };
 
+// ---------------------------------------------------------------------------
+// Direcciones canónicas del sistema. Ninguna dirección de correo debe escribirse
+// a mano fuera de este módulo: importar estas constantes/helpers.
+// ---------------------------------------------------------------------------
+
+// Remitente configurable por entorno (EMAIL_FROM). Se lee en cada llamada y no
+// a nivel de módulo: durante `next build` no hay variables de entorno.
+// Los correos al alumno/comprador salen sin replyTo: son no-reply y las
+// consultas se canalizan por el formulario de contacto del sitio.
+const REMITENTE_POR_DEFECTO =
+  "Escuela de Competencias Aplicadas <no-reply@aliciamoralescoach.com>";
+
+export function remitente(): string {
+  return process.env.EMAIL_FROM || REMITENTE_POR_DEFECTO;
+}
+
+// Buzón interno que recibe las notificaciones (ventas, formulario de contacto).
+// Nunca se muestra al cliente; solo es el destinatario de los avisos internos.
+const BUZON_ADMIN_POR_DEFECTO = "coaching@aliciamorales.cl";
+
+export function buzonAdmin(): string {
+  return process.env.ADMIN_EMAIL || BUZON_ADMIN_POR_DEFECTO;
+}
+
+// Formulario de contacto del sitio: es una sección del home (id="formulario"),
+// no una página propia. Único canal de consulta que se ofrece al cliente.
+export function urlFormularioContacto(): string {
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://aliciamoralescoach.com";
+  return `${siteUrl}/#formulario`;
+}
+
+// Pie no-reply para los correos HTML dirigidos al alumno/comprador.
+function bloqueNoReply(): string {
+  return `
+      <div style="margin:32px 0 0;padding:16px;background:#f5f5f5;border-top:3px solid ${BRAND.gold};border-radius:0 0 4px 4px;">
+        <p style="margin:0;line-height:1.6;font-size:13px;color:${BRAND.muted};">
+          Este correo no recibe respuestas. Si necesitas ayuda, escríbenos desde nuestro
+          <a href="${urlFormularioContacto()}" style="color:${BRAND.gold};font-weight:600;">formulario de contacto</a>.
+        </p>
+      </div>`;
+}
+
 const BRAND = {
   gold: "#F7B52A",
   goldLight: "#FFDE59",
@@ -89,7 +132,7 @@ export async function sendBuyerConfirmationEmail(order: OrderEmailData) {
         <p style="margin:0;line-height:1.6;"><strong>¿Qué sigue?</strong><br>Alicia se pondrá en contacto contigo dentro de las próximas <strong>24 horas</strong> para coordinar el agendamiento de tu(s) sesión(es).</p>
       </div>
 
-      <p style="margin:24px 0 0;line-height:1.6;font-size:14px;color:${BRAND.muted};">Si tienes alguna consulta, respondé este email o escribí a <a href="mailto:coaching@aliciamorales.cl" style="color:${BRAND.gold};">coaching@aliciamorales.cl</a>.</p>
+      ${bloqueNoReply()}
     </div>
 
     <div style="background:#f9f9f9;padding:20px;text-align:center;color:${BRAND.muted};font-size:12px;">
@@ -100,7 +143,7 @@ export async function sendBuyerConfirmationEmail(order: OrderEmailData) {
 </body></html>`;
 
   return getResend().emails.send({
-    from: "Alicia Morales Coach <onboarding@resend.dev>",
+    from: remitente(),
     to: order.buyerEmail,
     subject: "Hemos recibido tu solicitud de servicio — Alicia Morales Coach",
     html,
@@ -108,7 +151,7 @@ export async function sendBuyerConfirmationEmail(order: OrderEmailData) {
 }
 
 export async function sendAdminNotificationEmail(order: OrderEmailData) {
-  const adminEmail = process.env.ADMIN_EMAIL || "coaching@aliciamorales.cl";
+  const adminEmail = buzonAdmin();
   const html = `<!DOCTYPE html>
 <html><body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;color:${BRAND.text};">
   <div style="max-width:640px;margin:0 auto;background:#ffffff;">
@@ -147,8 +190,9 @@ export async function sendAdminNotificationEmail(order: OrderEmailData) {
 </body></html>`;
 
   return getResend().emails.send({
-    from: "Sistema Web <onboarding@resend.dev>",
+    from: remitente(),
     to: adminEmail,
+    // Responder al aviso de venta escribe directamente al comprador.
     replyTo: order.buyerEmail,
     subject: `Nueva solicitud de servicio — ${order.buyerName}`,
     html,
@@ -157,20 +201,15 @@ export async function sendAdminNotificationEmail(order: OrderEmailData) {
 
 // ---------------------------------------------------------------------------
 // Correo de acceso a Moodle (enrolamiento B2B — Hito 1, Commit 7).
-// NO bloqueante: devuelve { ok } y nunca lanza. El remitente es configurable
-// (EMAIL_FROM) con fallback al sandbox de Resend mientras no haya dominio
-// verificado. Copy fijado por el plan (no modificar el texto).
+// NO bloqueante: devuelve { ok } y nunca lanza. El remitente sale de EMAIL_FROM
+// (ver `remitente()`). El copy es el fijado por el plan salvo el cierre, que
+// pasó a ser el pie no-reply con el enlace al formulario de contacto.
 // ---------------------------------------------------------------------------
 export async function enviarCorreoAccesoMoodle(params: {
   email: string;
   nombreAlumno: string;
   nombreCurso: string;
 }): Promise<{ ok: boolean; error?: string }> {
-  const from =
-    process.env.EMAIL_FROM ||
-    "Escuela de Competencias Aplicadas <onboarding@resend.dev>";
-  const replyTo = process.env.ADMIN_EMAIL || "coaching@aliciamorales.cl";
-
   const texto = `Hola ${params.nombreAlumno},
 
 Tienes acceso a la capacitación "${params.nombreCurso}" en la plataforma de la
@@ -180,15 +219,17 @@ Ingresa aquí: https://cursos.aliciamoralescoach.com
 Usuario: ${params.email}
 La primera vez se te pedirá crear tu contraseña.
 
-Si tienes dudas, responde a este correo.
+------------------------------------------------------------
+Este correo no recibe respuestas. Si necesitas ayuda, escríbenos desde nuestro
+formulario de contacto: ${urlFormularioContacto()}
+------------------------------------------------------------
 
 Equipo Alicia Morales Coach`;
 
   try {
     const { error } = await getResend().emails.send({
-      from,
+      from: remitente(),
       to: params.email,
-      replyTo,
       subject: `Tu acceso a la capacitación: ${params.nombreCurso}`,
       text: texto,
     });
@@ -206,7 +247,8 @@ Equipo Alicia Morales Coach`;
 }
 
 // ---------------------------------------------------------------------------
-// Correo de certificado de aprobación (Certificación digital, Commit 8).
+// Correo de certificado de participación (Certificación digital, Commit 8).
+// La nomenclatura sigue al PDF, que dice "Certificado de participación".
 // Adjunta el PDF generado al vuelo. NO bloqueante: devuelve { ok }.
 // ---------------------------------------------------------------------------
 export async function enviarCertificadoPorEmail(params: {
@@ -217,9 +259,6 @@ export async function enviarCertificadoPorEmail(params: {
   verificarUrl: string;
   pdfBuffer: Buffer;
 }): Promise<{ ok: boolean; error?: string }> {
-  const from =
-    process.env.EMAIL_FROM ||
-    "Escuela de Competencias Aplicadas <onboarding@resend.dev>";
   const primerNombre = params.alumnoNombre.trim().split(/\s+/)[0] || params.alumnoNombre;
 
   const html = `<!DOCTYPE html>
@@ -231,20 +270,21 @@ export async function enviarCertificadoPorEmail(params: {
     </div>
     <div style="padding:32px 24px;">
       <p style="margin:0 0 16px;line-height:1.6;">Hola <strong>${primerNombre}</strong>,</p>
-      <p style="margin:0 0 24px;line-height:1.6;">Adjuntamos tu certificado de aprobación del curso <strong>${params.cursoNombre}</strong>. Puedes verificar su autenticidad en cualquier momento en el enlace de abajo.</p>
+      <p style="margin:0 0 24px;line-height:1.6;">Adjuntamos tu certificado de participación del curso <strong>${params.cursoNombre}</strong>. Puedes verificar su autenticidad en cualquier momento en el enlace de abajo.</p>
       <p style="text-align:center;margin:0 0 24px;">
         <a href="${params.verificarUrl}" style="display:inline-block;background:${BRAND.gold};color:${BRAND.dark};text-decoration:none;font-weight:600;padding:12px 24px;border-radius:4px;">Verificar certificado</a>
       </p>
       <p style="margin:24px 0 0;line-height:1.6;font-size:14px;color:${BRAND.muted};">Escuela de Competencias Aplicadas — Alicia Morales Coach SPA</p>
+      ${bloqueNoReply()}
     </div>
   </div>
 </body></html>`;
 
   try {
     const { error } = await getResend().emails.send({
-      from,
+      from: remitente(),
       to: params.alumnoEmail,
-      subject: `Tu certificado de aprobación — ${params.cursoNombre}`,
+      subject: `Tu certificado de participación — ${params.cursoNombre}`,
       html,
       attachments: [
         {

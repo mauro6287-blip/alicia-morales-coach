@@ -39,10 +39,11 @@ export default function FailurePage() {
           </div>
 
           <p className="mt-6 text-xs text-[#A1A1AA]">
-            ¿Problemas? Escríbenos a{" "}
-            <a href="mailto:coaching@aliciamorales.cl" className="text-[#FFDE59]">
-              coaching@aliciamorales.cl
-            </a>
+            ¿Problemas? Escríbenos desde nuestro{" "}
+            <Link href="/#formulario" className="text-[#FFDE59]">
+              formulario de contacto
+            </Link>
+            .
           </p>
         </div>
       </div>
