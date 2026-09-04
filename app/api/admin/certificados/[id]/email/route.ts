@@ -26,6 +26,16 @@ export async function POST(
   }
 
   if (resultado.estado === "FALLIDO") {
+    if (resultado.clase === "CUOTA") {
+      return NextResponse.json(
+        {
+          error:
+            "Se alcanzó la cuota de envíos de Resend. El correo no se envió. " +
+            "Reintenta cuando la cuota se renueve.",
+        },
+        { status: 502 },
+      );
+    }
     return NextResponse.json({ error: resultado.error }, { status: 502 });
   }
 

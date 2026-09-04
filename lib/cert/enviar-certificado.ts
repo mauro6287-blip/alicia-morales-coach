@@ -1,13 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { generarCertificadoPdf } from "@/lib/cert/pdf-generator";
-import { enviarCertificadoPorEmail } from "@/lib/email";
+import { enviarCertificadoPorEmail, type ClaseErrorEnvio } from "@/lib/email";
 
 export type MotivoOmision = "NO_EXISTE" | "ANULADO" | "YA_ENVIADO";
 
 export type ResultadoEnvioCertificado =
   | { estado: "ENVIADO"; nombre: string; emailEnviadoEn: Date }
   | { estado: "OMITIDO"; nombre: string | null; motivo: MotivoOmision }
-  | { estado: "FALLIDO"; nombre: string; error: string };
+  | { estado: "FALLIDO"; nombre: string; error: string; clase: ClaseErrorEnvio };
 
 /**
  * Genera el PDF de un certificado y lo envía por correo al alumno, marcando
@@ -75,6 +75,7 @@ export async function enviarCertificado(
         estado: "FALLIDO",
         nombre: certificado.alumnoNombre,
         error: envio.error || "No se pudo enviar el email",
+        clase: envio.clase ?? "OTRO",
       };
     }
 
@@ -96,6 +97,8 @@ export async function enviarCertificado(
       estado: "FALLIDO",
       nombre: certificado.alumnoNombre,
       error: e instanceof Error ? e.message : String(e),
+      // Fallo al generar el PDF: nada que ver con la cuota de Resend.
+      clase: "OTRO",
     };
   }
 }

@@ -191,6 +191,8 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
     setErrorLote(null);
 
     const acumulado: Resumen = { enviados: 0, omitidos: 0, fallidos: [] };
+    // Si la cuota se agota a mitad, aquí quedan los ids que no se enviaron.
+    let pendientes: string[] = [];
 
     try {
       // Un grupo por petición, en serie: el siguiente no arranca hasta que el
@@ -215,6 +217,22 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
         acumulado.enviados += data.enviados ?? 0;
         acumulado.omitidos += data.omitidos ?? 0;
         acumulado.fallidos.push(...(data.fallidos ?? []));
+
+        if (data.interrumpido === true) {
+          // Se agotó la cuota de Resend. Quedan pendientes los que el servidor
+          // no llegó a intentar dentro de este grupo, más los grupos enteros
+          // que ni siquiera se enviaron.
+          pendientes = [
+            ...((data.idsPendientes ?? []) as string[]),
+            ...ids.slice(inicio + tamano),
+          ];
+          setErrorLote(
+            `Se alcanzó el límite de envíos de Resend y se detuvo el proceso. ` +
+              `Quedan ${pendientes.length} certificados pendientes; siguen ` +
+              `seleccionados para que puedas reintentar más tarde.`,
+          );
+          break;
+        }
       }
     } catch {
       setErrorLote("No se pudo conectar con el servidor");
@@ -222,7 +240,10 @@ export default function TablaCertificados({ certificados }: { certificados: Cert
       setEnviandoLote(false);
       setProgreso(null);
       setResumen(acumulado);
-      setSeleccionados(new Set());
+      // Tras un corte por cuota la selección se conserva con lo que falta, para
+      // reintentar sin volver a marcar fila por fila. En el camino normal se
+      // vacía como siempre.
+      setSeleccionados(pendientes.length > 0 ? new Set(pendientes) : new Set());
       router.refresh();
     }
   }

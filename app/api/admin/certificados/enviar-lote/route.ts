@@ -46,13 +46,19 @@ export async function POST(request: NextRequest) {
   let enviados = 0;
   let omitidos = 0;
   const fallidos: Fallido[] = [];
+  // Corte por cuota agotada: se deja constancia de lo que no se llegó a
+  // intentar para que el cliente pueda reintentarlo sin recomponer la lista.
+  let interrumpido = false;
+  let idsPendientes: string[] = [];
 
   // Estrictamente secuencial: cada correo espera al anterior. La pausa solo se
   // paga cuando el anterior llegó a intentar un envío; los omitidos no tocan
   // Resend, así que un lote entero de omitidos se resuelve al instante.
   let anteriorIntentoEnvio = false;
 
-  for (const id of ids as string[]) {
+  const lista = ids as string[];
+
+  for (const [indice, id] of lista.entries()) {
     if (anteriorIntentoEnvio) {
       await esperar(PAUSA_ENTRE_ENVIOS_MS);
     }
@@ -66,8 +72,24 @@ export async function POST(request: NextRequest) {
       omitidos += 1;
     } else {
       fallidos.push({ id, nombre: resultado.nombre, error: resultado.error });
+
+      // Cuota agotada: seguir sería gastar peticiones que fallarán igual. Se
+      // corta aquí. Este id ya quedó como fallido porque sí se intentó; los
+      // pendientes son solo los posteriores.
+      if (resultado.clase === "CUOTA") {
+        interrumpido = true;
+        idsPendientes = lista.slice(indice + 1);
+        break;
+      }
     }
   }
 
-  return NextResponse.json({ enviados, omitidos, fallidos });
+  // 200 incluso al cortar: no es un error de la petición, es su resultado.
+  return NextResponse.json({
+    enviados,
+    omitidos,
+    fallidos,
+    interrumpido,
+    idsPendientes,
+  });
 }

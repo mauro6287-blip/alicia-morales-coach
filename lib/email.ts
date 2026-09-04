@@ -61,6 +61,45 @@ export function bccCertificados(): string | null {
   return valor || buzonAdmin();
 }
 
+// Clasificación del error que devuelve Resend, para decidir si tiene sentido
+// insistir. La cuota agotada invalida todo el lote; el límite de tasa es
+// transitorio y se puede reintentar.
+export type ClaseErrorEnvio = "CUOTA" | "TASA" | "OTRO";
+
+// Defensiva a propósito: el SDK puede entregar un string, un objeto con name y
+// message, o algo inesperado. Ante la duda, "OTRO" (el lote continúa).
+export function clasificarErrorEnvio(error: unknown): ClaseErrorEnvio {
+  let texto = "";
+  if (typeof error === "string") {
+    texto = error;
+  } else if (error && typeof error === "object") {
+    const e = error as { name?: unknown; message?: unknown };
+    const name = typeof e.name === "string" ? e.name : "";
+    const message = typeof e.message === "string" ? e.message : "";
+    texto = `${name} ${message}`;
+    if (!name && !message) {
+      try {
+        texto = JSON.stringify(error);
+      } catch {
+        texto = "";
+      }
+    }
+  }
+  texto = texto.toLowerCase();
+
+  if (
+    texto.includes("daily_quota_exceeded") ||
+    texto.includes("monthly_quota_exceeded") ||
+    texto.includes("quota")
+  ) {
+    return "CUOTA";
+  }
+  if (texto.includes("rate_limit_exceeded") || texto.includes("too many requests")) {
+    return "TASA";
+  }
+  return "OTRO";
+}
+
 // Formulario de contacto del sitio: es una sección del home (id="formulario"),
 // no una página propia. Único canal de consulta que se ofrece al cliente.
 export function urlFormularioContacto(): string {
@@ -257,6 +296,9 @@ Equipo Alicia Morales Coach`;
 }
 
 // ---------------------------------------------------------------------------
+// Espera antes del único reintento por límite de tasa de Resend.
+const ESPERA_REINTENTO_TASA_MS = 2000;
+
 // Correo de certificado de participación (Certificación digital, Commit 8).
 // La nomenclatura sigue al PDF, que dice "Certificado de participación".
 // Adjunta el PDF generado al vuelo. NO bloqueante: devuelve { ok }.
@@ -268,7 +310,7 @@ export async function enviarCertificadoPorEmail(params: {
   codigo: string;
   verificarUrl: string;
   pdfBuffer: Buffer;
-}): Promise<{ ok: boolean; error?: string }> {
+}): Promise<{ ok: boolean; error?: string; clase?: ClaseErrorEnvio }> {
   const primerNombre = params.alumnoNombre.trim().split(/\s+/)[0] || params.alumnoNombre;
 
   const html = `<!DOCTYPE html>
@@ -297,7 +339,7 @@ export async function enviarCertificadoPorEmail(params: {
     bcc !== null &&
     bcc.trim().toLowerCase() !== params.alumnoEmail.trim().toLowerCase();
 
-  try {
+  const intento = async () => {
     const { error } = await getResend().emails.send({
       from: remitente(),
       to: params.alumnoEmail,
@@ -311,15 +353,32 @@ export async function enviarCertificadoPorEmail(params: {
         },
       ],
     });
-    if (error) {
-      const msg =
-        typeof error === "string"
-          ? error
-          : error.message || JSON.stringify(error);
-      return { ok: false, error: msg };
+    if (!error) return { ok: true } as const;
+    const msg =
+      typeof error === "string" ? error : error.message || JSON.stringify(error);
+    return { ok: false as const, error: msg, clase: clasificarErrorEnvio(error) };
+  };
+
+  try {
+    const primero = await intento();
+    if (primero.ok) return { ok: true };
+
+    // El límite de tasa es transitorio: un único reintento tras esperar. La
+    // cuota agotada no se reintenta (no se renueva en dos segundos) ni tampoco
+    // el resto de errores, que no mejoran por insistir.
+    if (primero.clase === "TASA") {
+      await new Promise((resolve) => setTimeout(resolve, ESPERA_REINTENTO_TASA_MS));
+      const segundo = await intento();
+      if (segundo.ok) return { ok: true };
+      return { ok: false, error: segundo.error, clase: segundo.clase };
     }
-    return { ok: true };
+
+    return { ok: false, error: primero.error, clase: primero.clase };
   } catch (e) {
-    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : String(e),
+      clase: "OTRO",
+    };
   }
 }
