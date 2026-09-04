@@ -275,8 +275,8 @@ export async function enviarCertificadoPorEmail(params: {
 <html><body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;color:${BRAND.text};">
   <div style="max-width:600px;margin:0 auto;background:#ffffff;">
     <div style="background:${BRAND.dark};padding:32px 24px;text-align:center;">
-      <h1 style="margin:0;color:${BRAND.goldLight};font-size:22px;font-weight:600;">Alicia Morales Coach</h1>
-      <p style="margin:6px 0 0;color:#ffffff;opacity:0.7;font-size:13px;">Escuela de Competencias Aplicadas</p>
+      <h1 style="margin:0;color:${BRAND.goldLight};font-size:22px;font-weight:600;">Escuela de Competencias Aplicadas</h1>
+      <p style="margin:6px 0 0;color:#ffffff;opacity:0.7;font-size:13px;">Alicia Morales Coach</p>
     </div>
     <div style="padding:32px 24px;">
       <p style="margin:0 0 16px;line-height:1.6;">Hola <strong>${primerNombre}</strong>,</p>
