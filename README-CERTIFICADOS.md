@@ -19,6 +19,16 @@ migración de base de datos (5 tablas nuevas, aditiva) se aplica automáticament
 en cada deploy: el comando de arranque (`nixpacks.toml`) corre
 `npx prisma migrate deploy` antes de `npm start`.
 
+### Opcionales
+
+| Variable | Efecto |
+| --- | --- |
+| `CERT_BCC_EMAIL` | Dirección que recibe una copia oculta (BCC) de cada certificado enviado al alumno. Si no se define, la copia va a `ADMIN_EMAIL` (por defecto `coaching@aliciamorales.cl`). El valor `off` desactiva la copia oculta. |
+
+La copia es oculta: el alumno nunca ve esa dirección, porque no aparece en
+`To` ni en `Cc`. Si la dirección del BCC coincide con la del alumno, la copia
+se omite para no duplicarle el correo.
+
 ## Crear el usuario admin
 
 ```bash

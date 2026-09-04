@@ -51,6 +51,16 @@ export function buzonAdmin(): string {
   return process.env.ADMIN_EMAIL || BUZON_ADMIN_POR_DEFECTO;
 }
 
+// Copia oculta de los certificados de participación al buzón corporativo.
+// Se resuelve en cada llamada (durante `next build` no hay variables de entorno).
+// `CERT_BCC_EMAIL=off` desactiva la copia sin tocar código; si la variable no
+// está definida, cae en el mismo buzón interno de las notificaciones.
+export function bccCertificados(): string | null {
+  const valor = process.env.CERT_BCC_EMAIL?.trim();
+  if (valor && valor.toLowerCase() === "off") return null;
+  return valor || buzonAdmin();
+}
+
 // Formulario de contacto del sitio: es una sección del home (id="formulario"),
 // no una página propia. Único canal de consulta que se ofrece al cliente.
 export function urlFormularioContacto(): string {
@@ -280,10 +290,18 @@ export async function enviarCertificadoPorEmail(params: {
   </div>
 </body></html>`;
 
+  // Copia oculta al buzón corporativo. Se omite si coincide con el propio
+  // alumno: no tiene sentido mandarle dos veces el mismo mensaje.
+  const bcc = bccCertificados();
+  const bccAplica =
+    bcc !== null &&
+    bcc.trim().toLowerCase() !== params.alumnoEmail.trim().toLowerCase();
+
   try {
     const { error } = await getResend().emails.send({
       from: remitente(),
       to: params.alumnoEmail,
+      ...(bccAplica ? { bcc } : {}),
       subject: `Tu certificado de participación — ${params.cursoNombre}`,
       html,
       attachments: [
