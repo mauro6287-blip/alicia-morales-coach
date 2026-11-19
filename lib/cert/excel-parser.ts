@@ -1,5 +1,6 @@
 import * as XLSX from "xlsx";
 import { validarRut } from "./rut";
+import type { CamposCertificado } from "./columnas";
 
 export type FilaExcel = Record<string, string | number | Date>;
 
@@ -35,12 +36,7 @@ export async function parsearExcel(buffer: Buffer): Promise<ExcelParseado> {
   return { nombresColumnas, filas, totalFilas: filas.length };
 }
 
-export type CamposCertificado =
-  | "nombre"
-  | "rut"
-  | "email"
-  | "cursoOpcional"
-  | "fechaAprobacion";
+export type { CamposCertificado };
 
 export type Mapeo = Record<CamposCertificado, string>;
 
