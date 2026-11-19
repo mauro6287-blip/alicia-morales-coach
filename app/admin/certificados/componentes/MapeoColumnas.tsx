@@ -1,25 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import type { CamposCertificado, Mapeo } from "@/lib/cert/excel-parser";
+import type { Mapeo } from "@/lib/cert/excel-parser";
+import { COLUMNAS_CERTIFICADOS, mapeoSugerido } from "@/lib/cert/columnas";
 
-const CAMPOS: {
-  key: CamposCertificado;
+const CAMPOS: readonly {
+  key: keyof Mapeo;
   label: string;
   requerido: boolean;
   ayuda?: string;
-}[] = [
-  { key: "nombre", label: "Nombre", requerido: true },
-  { key: "rut", label: "RUT", requerido: true },
-  { key: "email", label: "Email", requerido: true },
-  { key: "cursoOpcional", label: "Curso (opcional)", requerido: false },
-  {
-    key: "fechaAprobacion",
-    label: "Fecha del taller",
-    requerido: false,
-    ayuda: "Se imprime en el certificado. Si no la mapeas, se usa la fecha de emisión.",
-  },
-];
+}[] = COLUMNAS_CERTIFICADOS;
 
 export default function MapeoColumnas({
   nombresColumnas,
@@ -28,7 +18,9 @@ export default function MapeoColumnas({
   nombresColumnas: string[];
   onConfirm: (mapeo: Mapeo) => void;
 }) {
-  const [seleccion, setSeleccion] = useState<Partial<Mapeo>>({});
+  const [seleccion, setSeleccion] = useState<Partial<Mapeo>>(() =>
+    mapeoSugerido(nombresColumnas),
+  );
 
   const requeridosCompletos = CAMPOS.filter((c) => c.requerido).every(
     (c) => !!seleccion[c.key],
